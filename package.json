@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/PublicRouter/xumm_login_socket.io#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
     "socket.io": "^4.5.4",
     "xumm-sdk": "^1.7.0"
   }
