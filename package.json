@@ -1,0 +1,25 @@
+{
+  "name": "xumm_login_socket.io",
+  "version": "1.0.0",
+  "description": "integrate xumm api as private key signing mechanism for application login authentication with socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PublicRouter/xumm_login_socket.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PublicRouter/xumm_login_socket.io/issues"
+  },
+  "homepage": "https://github.com/PublicRouter/xumm_login_socket.io#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "socket.io": "^4.5.4",
+    "xumm-sdk": "^1.7.0"
+  }
+}
