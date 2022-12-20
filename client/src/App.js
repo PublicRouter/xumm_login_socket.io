@@ -1,17 +1,29 @@
 import './App.css';
-import { io } from 'socket.io-client';
+import io from 'socket.io-client';
+import { createContext, useState } from 'react';
+import Login from './components/Login/Login';
+const socket = io.connect('http://localhost:3001')
+
+export const LoginContext = createContext();
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState({
+    loggedIn: false,
+    rAddress: null,
+    xummToken: null
+  });
 
-  const socket = io('http://localhost:3001', { transports: ['websocket'] });
   socket.on("connect", () => {
-    console.log(socket.id)
+    console.log(socket.id, "connected to back end server.")
 
   })
   return (
-    <div className="App">
-      <h1>WELCOME TO XUMM SOCKETS</h1>
-    </div>
+    <LoginContext.Provider value={[loggedIn, setLoggedIn]} >
+      <div className="App">
+        <h1>WELCOME TO XUMM SOCKETS</h1>
+        <Login socket={socket}/>
+      </div>
+    </LoginContext.Provider>
   );
 }
 
