@@ -20,7 +20,7 @@ function App() {
   return (
     <LoginContext.Provider value={[loggedIn, setLoggedIn]} >
       <div className="App">
-        <h1>WELCOME TO XUMM SOCKETS</h1>
+        <h1 id="appMainHead">WELCOME TO XUMM SOCKETS</h1>
         <Login socket={socket}/>
       </div>
     </LoginContext.Provider>

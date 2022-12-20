@@ -1,0 +1,50 @@
+.loginComponent {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginComponent button {
+    color: rgb(14, 1, 254);
+    background-color: rgb(202, 223, 244);
+    padding: 10px;
+    border: rgb(0, 21, 255) solid 2px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+}
+
+.loginComponent button:hover {
+    background: blue;
+    color: white;
+}
+
+.payloadDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.payloadDiv img {
+    margin-top: 3vh;
+    height: 200px;
+    width: 200px;
+}
+
+.payloadDiv a {
+    font-size: .75rem;
+    width: 80vw;
+    padding: .7rem
+}
+
+#successP {
+    color: green;
+    font-weight: bold;
+}
+
+#failureP {
+    color: red;
+    font-weight: bold;
+}

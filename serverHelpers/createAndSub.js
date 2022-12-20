@@ -11,7 +11,7 @@ const createAndSub = async () => {
 
     const subscription = await subscribeTo(signInObj.uuid)
 
-    const subscriptionResponse = await subscription;
+    const subscriptionResponse = subscription;
     console.log("SUB RESPONSE FROM MAIN", subscriptionResponse)
 
 

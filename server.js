@@ -32,19 +32,21 @@ io.on('connection', function (socket) {
         serverState.connectedUsers.pop(socket.id)
         console.log("New user list: ", serverState.connectedUsers)
     });
+
+    socket.on('newSignIn', async (callback) => {
+        const signInObj = await createSignin();
+        console.log(`
+        SignIn Payload Links:
+        Xumm URL: ${signInObj.qrLink},
+        Qr PNG: ${signInObj.qrImage}
+        `)
+        callback({payload: signInObj})
+    })
     
 });
 
-io.on('newSignIn', async () => {
-    const signInObj = await createSignin();
-    console.log(`
-    SignIn Payload Links:
-    Xumm URL: ${signInObj.qrLink},
-    Qr PNG: ${signInObj.qrImage}
-    `)
-})
 
-io.on()
+
 
 server.listen(3001, function () {
     console.log('Listening on port 3001...');
