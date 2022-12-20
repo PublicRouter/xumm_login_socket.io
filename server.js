@@ -3,23 +3,10 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const {Server} = require('socket.io');
-// createServer(app);
-// const io = require('socket.io')(server);
 const cors = require('cors');
 
-// allow requests from specified origins
-// const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
-// app.use(cors({
-//   origin: function(origin, callback) {
-//     if (!origin) return callback(null, true);
-//     if (allowedOrigins.indexOf(origin) === -1) {
-//       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-//       return callback(new Error(msg), false);
-//     }
-//     return callback(null, true);
-//   },
-//   credentials: true
-// }));
+const createSignin = require('./serverHelpers/createXummSignin');
+const subscribeTo = require('./serverHelpers/subscribeToSignin');
 
 app.use(cors())
 
@@ -47,6 +34,15 @@ io.on('connection', function (socket) {
     });
     
 });
+
+io.on('newSignIn', async () => {
+    const signInObj = await createSignin();
+    console.log(`
+    SignIn Payload Links:
+    Xumm URL: ${signInObj.qrLink},
+    Qr PNG: ${signInObj.qrImage}
+    `)
+})
 
 io.on()
 
