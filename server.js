@@ -22,7 +22,9 @@ let serverState = {
     connectedUsers: []
 }
 
-io.on('connection', function (socket) {
+io.on('connection', async function (socket) {
+    let payloadUuid;
+
     console.log(socket.id, "has joined the server.");
     serverState.connectedUsers.push(socket.id);
     console.log("New user list: ", serverState.connectedUsers)
@@ -35,17 +37,22 @@ io.on('connection', function (socket) {
 
     socket.on('newSignIn', async (callback) => {
         const signInObj = await createSignin();
+        payloadUuid = signInObj.uuid;
         console.log(`
         SignIn Payload Links:
         Xumm URL: ${signInObj.qrLink},
         Qr PNG: ${signInObj.qrImage}
-        `)
-        callback({payload: signInObj})
+        `);
+        callback({payload: signInObj});
+    });
+
+    socket.on('subscribeThenLookupResolutionTx', async (callback) => {
+        console.log("Initiating sign-in payload listener...");
+        const subscribeAndLookupRes = await subscribeTo(payloadUuid);
+        callback({payload: subscribeAndLookupRes});
     })
     
 });
-
-
 
 
 server.listen(3001, function () {

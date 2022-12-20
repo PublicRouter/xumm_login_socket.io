@@ -1,7 +1,10 @@
 import './App.css';
 import io from 'socket.io-client';
 import { createContext, useState } from 'react';
+
 import Login from './components/Login/Login';
+import Footer from './components/Footer/Footer'
+
 const socket = io.connect('http://localhost:3001')
 
 export const LoginContext = createContext();
@@ -20,9 +23,10 @@ function App() {
   return (
     <LoginContext.Provider value={[loggedIn, setLoggedIn]} >
       <div className="App">
-        <h1 id="appMainHead">WELCOME TO XUMM SOCKETS</h1>
+        <h1 id="appMainHead">XUMM SOCKETS</h1>
         <Login socket={socket}/>
       </div>
+      <Footer />
     </LoginContext.Provider>
   );
 }

@@ -1,9 +1,14 @@
 .loginComponent {
-    min-height: 70vh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.loginComponent h1 {
+    color:rgb(204, 159, 25);
+    margin-bottom: 0px;
 }
 
 .loginComponent button {
@@ -47,4 +52,6 @@
 #failureP {
     color: red;
     font-weight: bold;
+    font-size:.8rem;
+
 }

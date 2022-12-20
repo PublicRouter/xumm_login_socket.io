@@ -1,7 +1,7 @@
-const { XummSdk } = require('xumm-sdk')
-require('dotenv').config()
+const { XummSdk } = require('xumm-sdk');
+require('dotenv').config();
 
-const Sdk = new XummSdk(process.env.XUMM_API_KEY, process.env.XUMM_API_SECRET)
+const Sdk = new XummSdk(process.env.XUMM_API_KEY, process.env.XUMM_API_SECRET);
 
 const createSignin = async () => {
 
@@ -16,8 +16,8 @@ const createSignin = async () => {
 
     };
 
-    return response  
+    return response ; 
 
-}
+};
 
-module.exports = createSignin
+module.exports = createSignin;
