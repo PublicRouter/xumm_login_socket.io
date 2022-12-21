@@ -1,9 +1,13 @@
 import './App.css';
 import io from 'socket.io-client';
+import { Routes, Route } from 'react-router-dom';
 import { createContext, useState } from 'react';
 
 import Login from './components/Login/Login';
 import Footer from './components/Footer/Footer'
+
+import Profile from './components/Profile/Profile';
+import Navigation from './components/Navigation/Navigation';
 
 const socket = io.connect('http://localhost:3001')
 
@@ -23,8 +27,20 @@ function App() {
   return (
     <LoginContext.Provider value={[loggedIn, setLoggedIn]} >
       <div className="App">
+        <Navigation />
         <h1 id="appMainHead">XUMM SOCKETS</h1>
-        <Login socket={socket}/>
+        {
+              loggedIn.loggedIn ? 
+              <Routes>
+                <Route path="/" element={<Login socket={socket} />} />
+                <Route path="/profile" element={<Profile />} />
+              </Routes>
+              :
+              <Routes>
+                <Route path="/" element={<Login socket={socket} />} />
+              </Routes>
+            }
+        {/* <Login socket={socket}/> */}
       </div>
       <Footer />
     </LoginContext.Provider>
