@@ -6,8 +6,8 @@ export default function Footer() {
     <div id='footerDiv'>
         <em id='publisherName'>PublicRouter.Productions</em>
         <div className='footerSocials'>
-            <em>T</em>
-            <em>P</em>
+            <em> O-</em>
+            <em>O</em>
         </div>
         
     </div>

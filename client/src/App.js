@@ -38,6 +38,8 @@ function App() {
               :
               <Routes>
                 <Route path="/" element={<Login socket={socket} />} />
+                <Route path="/profile" element={<Profile />} />
+
               </Routes>
             }
         {/* <Login socket={socket}/> */}

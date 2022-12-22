@@ -1,0 +1,130 @@
+.profileMain {
+    background: url("https://img.freepik.com/premium-photo/geometric-background-with-polygonal-structure-podium-show-products-colored-neon-lights-sci-fi_72213-429.jpg?w=2000");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    background-color: rgb(28, 79, 141);
+}
+
+.profileHead {
+    min-height: 20%;
+    margin-top: 19vh;
+}
+
+.profileHead h1 {
+    color: white;
+    font-size: 1.5rem;
+}
+
+#profileInfo {
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(26, 26, 147);
+    font-size: .5em;
+    width:100%;
+    position: absolute;
+    top: 10vh;
+    padding-block: 1.2em;
+    border-radius: 0px 0px 10px 10px;
+    /* position: relative;
+    left: 1vw;
+    bottom: 14.8vh; */
+    color: white;
+    font-weight: bold;
+}
+
+#loggedInRAddress {
+    margin-left: 8vw;
+
+}
+
+/* #loggedInLoggedIn {
+
+} */
+
+/* #loggedInLoggedIn em {
+    color: red;
+}
+
+#loggedInRAddress em{
+    color: purple;
+}
+
+#profileStats #loggedInXummToken {
+    margin-bottom: 20px;
+}
+
+#loggedInXummToken em {
+    color: blue;
+    margin-bottom: 20px;
+} */
+
+#profileInfo em {
+    color: yellow;
+}
+
+.profileBody {
+    min-height: 80%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#profileCard {
+    text-align: start;
+    font-style: bolder;
+    font-size: .85rem;
+    min-height: 15vh;
+    border-radius: 25px;
+    padding: 1rem;
+    margin: 1rem;
+    /* background-color: rgb(244, 241, 202); */
+    background-color: rgb(26, 26, 147, .75);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+#characterImage {
+    height: 150px;
+    width: 140px;
+    padding: .5rem;
+    margin: auto;
+    border-radius: 25px;
+
+}
+
+#profileStats {
+    margin: auto;
+}
+
+#profileStats p{
+    margin-block-start: 3px;
+    margin-block-end: 3px;
+    margin-inline-end: 32px;
+    font-weight: bold;
+}
+
+
+#profileStats .skillPoint em {
+    color: yellow;
+}
+
+
+
+#profileBodyMain {
+    background-color: rgb(244, 241, 202);
+    border-radius: 20px;
+    height: 40vh;
+    width: 75vw;
+    padding: 1rem;
+    margin: 1rem;
+}

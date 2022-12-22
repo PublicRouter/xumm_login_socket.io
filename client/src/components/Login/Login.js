@@ -1,5 +1,6 @@
 import React from 'react'
 import "../Login/login.css"
+import {redirect} from 'react-router-dom'
 import { useContext, useState } from 'react';
 import { LoginContext } from '../../App';
 
@@ -19,7 +20,8 @@ export default function Login({ socket }) {
         console.log("End Tx Data: ", finalTxData)
         if(finalTxData.payload.meta.signed === true){
           console.log("TX Signed! Confirmed user logged in.");
-          setLoggedIn({...loggedIn, loggedIn: true, rAddress: finalTxData.payload.response.signer, xummToken: finalTxData.payload.response.user})
+          setLoggedIn({...loggedIn, loggedIn: true, rAddress: finalTxData.payload.response.signer, xummToken: finalTxData.payload.response.user});
+          redirect("/profile")
         } else {
           console.log("Sign-In TX Rejected!, Try Again.")
         }
@@ -45,7 +47,7 @@ export default function Login({ socket }) {
           :
           <p id='failureP'><em>Authenticate XRPL account to enter...</em></p>
       }
-      <button onClick={authenticateXumm}>Auth Wallet</button>
+      <button onClick={authenticateXumm}>Generate QR</button>
 
     </div>
   )

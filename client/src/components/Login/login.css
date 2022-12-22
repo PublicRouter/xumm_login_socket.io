@@ -1,36 +1,40 @@
 .loginComponent {
-    min-height: 90vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: rgb(28, 79, 141);
 }
 
 .loginComponent h1 {
-    color:rgb(204, 159, 25);
+    color:white;
     margin-bottom: 0px;
 }
 
 .loginComponent button {
-    color: rgb(14, 1, 254);
-    background-color: rgb(202, 223, 244);
-    padding: 10px;
-    border: rgb(0, 21, 255) solid 2px;
+    border: rgb(250, 246, 0) solid 2px;
+    background: rgb(44, 100, 169);
+    color: white;
+    padding: 6px;
     border-radius: 10px;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .loginComponent button:hover {
-    background: blue;
+    border: rgb(250, 246, 0, .7) solid 2px;
+    background: rgb(19, 59, 109);
     color: white;
 }
 
 .payloadDiv {
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 
 .payloadDiv img {
     margin-top: 3vh;
@@ -41,7 +45,8 @@
 .payloadDiv a {
     font-size: .75rem;
     width: 80vw;
-    padding: .7rem
+    padding: .7rem;
+    color: white;
 }
 
 #successP {
@@ -50,7 +55,7 @@
 }
 
 #failureP {
-    color: red;
+    color: rgb(250, 246, 0);
     font-weight: bold;
     font-size:.8rem;
 
