@@ -9,6 +9,7 @@
     position:fixed;
     bottom: 0px;
     padding: 1.3rem 0rem 1.3rem 0rem;
+    z-index: 2;
 
 }
 
@@ -18,8 +19,11 @@
     font-style: italic;
 }
 
-.footerSocials {
-    display: flex;
-    color: blue
+#footerSocials {
+    height: 30vh;
+    width: 100%;
+    font-size: 1.4rem;
+    background-color: red;
+    color: blue;
 }
 

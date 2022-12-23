@@ -43,8 +43,9 @@ function App() {
               </Routes>
             }
         {/* <Login socket={socket}/> */}
+        <Footer socket={socket}/>
+
       </div>
-      <Footer />
     </LoginContext.Provider>
   );
 }

@@ -30,9 +30,9 @@ export default function Profile() {
           </div>
           
         </div>
-        {/* <div id='profileBodyMain'>
+        <div id='profileBodyMain'>
 
-        </div> */}
+        </div>
       </div>
     </div>
   )

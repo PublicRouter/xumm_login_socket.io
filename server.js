@@ -19,7 +19,8 @@ const io = new Server(server, {
 });
 
 let serverState = {
-    connectedUsers: []
+    connectedUsers: [],
+    loggedInUsers: []
 }
 
 io.on('connection', async function (socket) {
@@ -31,7 +32,10 @@ io.on('connection', async function (socket) {
 
     socket.on("disconnect", (reason) => {
         console.log(socket.id, "has left the server. Reason: ", reason )
-        serverState.connectedUsers.pop(socket.id)
+        serverState.connectedUsers.pop(socket.id);
+        serverState.loggedInUsers.pop(socket.id);
+        io.emit('loggedInUsers', serverState.loggedInUsers)
+
         console.log("New user list: ", serverState.connectedUsers)
     });
 
@@ -49,6 +53,13 @@ io.on('connection', async function (socket) {
     socket.on('subscribeThenLookupResolutionTx', async (callback) => {
         console.log("Initiating sign-in payload listener...");
         const subscribeAndLookupRes = await subscribeTo(payloadUuid);
+        if(subscribeAndLookupRes.meta.signed === true){
+            console.log("server: payload signed!");
+            serverState.loggedInUsers.push(socket.id)
+            console.log("Logged in users: ", serverState.loggedInUsers)
+            io.emit('loggedInUsers', serverState.loggedInUsers)
+        }
+
         callback({payload: subscribeAndLookupRes});
     })
     

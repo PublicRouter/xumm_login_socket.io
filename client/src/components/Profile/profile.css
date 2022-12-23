@@ -1,5 +1,5 @@
 .profileMain {
-    background: url("https://img.freepik.com/premium-photo/geometric-background-with-polygonal-structure-podium-show-products-colored-neon-lights-sci-fi_72213-429.jpg?w=2000");
+    background: url("https://wallpaperaccess.com/full/187161.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -85,7 +85,7 @@
     padding: 1rem;
     margin: 1rem;
     /* background-color: rgb(244, 241, 202); */
-    background-color: rgb(26, 26, 147, .75);
+    background-color: rgb(26, 26, 147, .85);
     color: white;
     display: flex;
     flex-direction: column;
@@ -123,8 +123,7 @@
 #profileBodyMain {
     background-color: rgb(244, 241, 202);
     border-radius: 20px;
-    height: 40vh;
-    width: 75vw;
+ 
     padding: 1rem;
     margin: 1rem;
 }
