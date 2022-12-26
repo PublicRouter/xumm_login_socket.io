@@ -1,7 +1,8 @@
 #footerDiv {
     /* height: 10vh; */
     width: 100%;
-    background-color: rgb(244, 241, 202, .7);
+    /* background-color: rgb(244, 241, 202, .8); */
+    background-color: rgb(227,189,37);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,10 +21,34 @@
 }
 
 #footerSocials {
+    display: flex;
     height: 30vh;
-    width: 100%;
+    width: 90%;
+    border-radius: 25px;
+    margin: 1rem;
     font-size: 1.4rem;
-    background-color: red;
-    color: blue;
+    background-color: rgba(252, 242, 50, 0.781);
+    color: yellow;
+}
+
+#footerSocials ul {
+    font-size: .6em;
+    text-align: start;
+    width: 100%;
+    overflow: auto;
+    min-width: 240px;
+    padding-block: 1rem;
+    margin: .6rem;
+    border-radius: 20px;
+    background-color: rgb(65, 89, 169);
+}
+
+#footerSocials ul li {
+    padding: .5rem;
+}
+
+#footerSocials ul li div {
+    display: flex;
+    flex-direction: column;
 }
 

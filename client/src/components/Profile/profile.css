@@ -1,5 +1,7 @@
 .profileMain {
-    background: url("https://wallpaperaccess.com/full/187161.jpg");
+    /* background: url("https://wallpaperaccess.com/full/187161.jpg"); */
+    background: url("https://t4.ftcdn.net/jpg/04/76/88/43/360_F_476884330_ZuEdqGXQF5stdevOSE73l0Z270dSVTxN.jpg");
+
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -94,16 +96,19 @@
 }
 
 #characterImage {
-    height: 150px;
-    width: 140px;
+    height: 180px;
+    width: 180px;
     padding: .5rem;
     margin: auto;
     border-radius: 25px;
+    border: 1px solid white;
 
 }
 
 #profileStats {
-    margin: auto;
+    /* margin: auto; */
+    margin-top: 15px;
+    margin-left: 15px;
 }
 
 #profileStats p{
@@ -116,12 +121,13 @@
 
 #profileStats .skillPoint em {
     color: yellow;
+    text-decoration:underline;
 }
 
 
 
 #profileBodyMain {
-    background-color: rgb(244, 241, 202);
+    background-color: rgb(242, 204, 52);
     border-radius: 20px;
  
     padding: 1rem;

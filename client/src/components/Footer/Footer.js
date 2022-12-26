@@ -18,14 +18,122 @@ export default function Footer({socket}) {
   return (
     <button id='footerDiv'  onClick={handleClick}>
         <em id='publisherName'>Online Users</em>
-        <em>{isShown? "(click to minimize)" : "(click to enlarge)"}</em>
+        <em style={{marginBottom: isShown ? '1  vh' : "0px" , color:"white"}}>{isShown? "(click to minimize)" : "(click to enlarge)"}</em>
         <div id='footerSocials'  style={{display: isShown ? 'flex' : 'none'}}>
           <ul>
-            {
+            {/* {
               usersList.map((user) => 
-                <li>{user}</li>
+                // <li>
+                //   <div>
+                //     <em>socket: {user.socket}</em>
+                //     <em>Wallet: {user.wallet}</em>
+                //   </div>
+                // </li>
+                <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+                </li>
+                
               
-            )}
+            )} */}
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
+            <li>
+                  <div>
+                    <em>socket: socket-121212121212</em>
+                    <em>Wallet: r1212121212121212121212</em>
+                  </div>
+            </li>
           </ul>
             
         </div>
