@@ -61,7 +61,6 @@ async function createFinal(imagePathString, userName, classValue, classDescripti
     main(finalNftMeta);
 };
 
-// createFinal("/Users/jamesg/Desktop/publicRouterClones/xumm_login_socket.io/serverHelpers/seedImages/womanHybrid1.png", "Originator", 1, "Master");
 //createFinal(@ImagePathUrlString, @userNameString, @classValueInt, @classDescriptionString)
 
 module.exports = createFinal;

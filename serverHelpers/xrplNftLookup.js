@@ -1,7 +1,6 @@
 const xrpl = require('xrpl');
 
 const lookupAccountNfts = async (wallet, mintWallet) => {
-    // const wallet = "rKvE3ZUV4e975D5MfzTN4nYLeLgTu1HHF6";
     const client = new xrpl.Client("wss://xrplcluster.com/");
     await client.connect();
 
@@ -23,5 +22,5 @@ const lookupAccountNfts = async (wallet, mintWallet) => {
     // console.log("issuedNft: ", issuedNft)
     return issuedNft
 };
-// lookupAccountNfts('rKvE3ZUV4e975D5MfzTN4nYLeLgTu1HHF6', 'rKvE3ZUV4e975D5MfzTN4nYLeLgTu1HHF6')
+// lookupAccountNfts(process.env.WALLET1, process.env.WALLET1)
 module.exports = lookupAccountNfts
