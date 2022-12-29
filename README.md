@@ -3,7 +3,7 @@ integrate xumm api as private key signing mechanism for application login authen
 
 Current Functionality:
 
-- Generate XUMM QR code to scan via XUMM app and sign 'sign-in' payload; allowing application access to that wallet.
+- Generate XUMM QR code to scan via XUMM app and sign 'sign-in' payload; allowing application to confirm you own private keys to a xrpl account/wallet.
 
 - If signed-in with owned wallet from QR payload signature, access to 'Profile Page' tab in navigation.
 
