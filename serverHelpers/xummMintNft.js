@@ -42,16 +42,16 @@ const subscribeToTokenMint = async (uuid) => {
     const resolveData = await subscription.resolved;
 
     if (resolveData) {
-        console.log("GETTING FINAL PAYLOAD")
+        console.log("GETTING FINAL PAYLOAD");
         const payload = await Sdk.payload.get(uuid);
-        console.log(payload)
-        return payload
+        console.log(payload);
+        return payload;
     };
 };
 
 const lookupPayload = async (uuid) => {
     const payload = await Sdk.payload.get(uuid);
-    console.log(payload)
+    console.log(payload);
 
 };
 lookupPayload();

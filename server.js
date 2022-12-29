@@ -2,12 +2,15 @@
 const express = require('express');
 const app = express();
 const http = require('http');
-const {Server} = require('socket.io');
+const { Server } = require('socket.io');
 const cors = require('cors');
+
+require('dotenv').config();
+
 
 const createSignin = require('./serverHelpers/createXummSignin');
 const subscribeTo = require('./serverHelpers/subscribeToSignin');
-
+const xrplNftLookup = require("./serverHelpers/xrplNftLookup");
 app.use(cors())
 
 const server = http.createServer(app);
@@ -31,9 +34,9 @@ io.on('connection', async function (socket) {
     console.log("New user list: ", serverState.connectedUsers)
 
     socket.on("disconnect", (reason) => {
-        console.log(socket.id, "has left the server. Reason: ", reason )
+        console.log(socket.id, "has left the server. Reason: ", reason)
         serverState.connectedUsers.pop(socket.id);
-        serverState.loggedInUsers.pop({socket: socket.id});
+        serverState.loggedInUsers.pop({ socket: socket.id });
         io.emit('loggedInUsers', serverState.loggedInUsers)
 
         console.log("New user list: ", serverState.connectedUsers)
@@ -47,23 +50,31 @@ io.on('connection', async function (socket) {
         Xumm URL: ${signInObj.qrLink},
         Qr PNG: ${signInObj.qrImage}
         `);
-        callback({payload: signInObj});
+        callback({ payload: signInObj });
     });
 
     socket.on('subscribeThenLookupResolutionTx', async (callback) => {
         console.log("Initiating sign-in payload listener...");
         const subscribeAndLookupRes = await subscribeTo(payloadUuid);
-        if(subscribeAndLookupRes.meta.signed === true){
+        const nftLookupResult = await xrplNftLookup(subscribeAndLookupRes.response.signer, process.env.WALLET2);
+        
+
+        if (subscribeAndLookupRes.meta.signed === true) {
             console.log("server: payload signed!");
-            serverState.loggedInUsers.push({socket: socket.id, wallet: subscribeAndLookupRes.response.signer, token: subscribeAndLookupRes.response.user})
+            serverState.loggedInUsers.push({ socket: socket.id, wallet: subscribeAndLookupRes.response.signer, token: subscribeAndLookupRes.response.user })
 
             console.log("Logged in users: ", serverState.loggedInUsers)
             io.emit('loggedInUsers', serverState.loggedInUsers)
+
+
         }
 
-        callback({payload: subscribeAndLookupRes});
+        callback({
+            payload: subscribeAndLookupRes,
+            nfTokenUrl: nftLookupResult.length > 0 ? nftLookupResult[0].ipfsUrl : null
+        });
     })
-    
+
 });
 
 

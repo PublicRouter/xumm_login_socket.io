@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import '../Profile/profile.css'
 
 import { LoginContext } from '../../App';
@@ -6,6 +6,19 @@ import { LoginContext } from '../../App';
 export default function Profile() {
     const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
+    function parseUrl(url) {
+      return url.split('//')[1];
+    };
+
+    const imageIpfsUrl = parseUrl(loggedIn.nftMetaData.image);
+    // const imageData = await fetch(`https://ipfs.io/ipfs/${imageIpfsUrl}`);
+    // console.log(imageData)
+    
+    // useEffect(async () => {
+    //   const imageIpfsUrl = await parseUrl(loggedIn.nftMetaData.image);
+    //   const imageData = await fetch(`https://ipfs.io/ipfs/${imageIpfsUrl}`);
+    // }, []);
+    
   return (
     <div className='profileMain'>
       <div className='profileHead'>
@@ -18,17 +31,12 @@ export default function Profile() {
       </div>
       <div className='profileBody'>
         <div id='profileCard'>
-          <img src="https://preview.free3d.com/img/2015/12/2212629374522361670/qo3s5umx.jpg" id='characterImage' />
-          {/* <p>Authenticated: {loggedIn.loggedIn}</p>
-          <p>Wallet Access: {loggedIn.rAddress}</p>
-          <p>User Token: {loggedIn.xummToken}</p> */}
+          <img src={`https://ipfs.io/ipfs/${imageIpfsUrl}`} alt={imageIpfsUrl} id='characterImage' />
           <div id='profileStats'>
-            <p className='skillPoint'>Attack:  <em>21</em></p>
-            <p className='skillPoint'>Strength:  <em>63</em></p>
-            <p className='skillPoint'>Defence:  <em>1</em></p>
-            <p className='skillPoint'>Stamina:  <em>44</em></p>
+            <h4>Username: <em>{loggedIn.nftMetaData.name}</em></h4>
+            <p>class: {loggedIn.nftMetaData.attributes[0].value}</p>
+            <p>Title: {loggedIn.nftMetaData.attributes[0].description}</p>
           </div>
-          
         </div>
         <div id='profileBodyMain'>
 

@@ -15,12 +15,20 @@ export default function Login({ socket }) {
       const receivedObj = await callback;
       setPayloadCreate(receivedObj);
       socket.emit('subscribeThenLookupResolutionTx', async (callback) => {
+        let metaData;
         console.log('inside second emit')
         const finalTxData = await callback;
         console.log("End Tx Data: ", finalTxData)
+        try {
+          const fetchedMetaData = await fetch(finalTxData.nfTokenUrl);
+          metaData = await fetchedMetaData.json();
+        }catch(err) {
+          console.log("Try,Catch Error: ", err)
+        }
         if(finalTxData.payload.meta.signed === true){
           console.log("TX Signed! Confirmed user logged in.");
-          setLoggedIn({...loggedIn, loggedIn: true, rAddress: finalTxData.payload.response.signer, xummToken: finalTxData.payload.response.user});
+          
+          setLoggedIn({...loggedIn, loggedIn: true, rAddress: finalTxData.payload.response.signer, xummToken: finalTxData.payload.response.user, nftMetaData: metaData});
           redirect("/profile")
         } else {
           console.log("Sign-In TX Rejected!, Try Again.")

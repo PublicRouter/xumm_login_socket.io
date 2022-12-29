@@ -14,7 +14,6 @@ const fs = require('fs')
 const path = require('path')
 
 
-
 async function main(data) {
   const metadata = await client.store(data);
   return metadata.url
