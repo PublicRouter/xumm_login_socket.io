@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:ital,wght@1,600&display=swap');
+
 .profileMain {
     /* background: url("https://wallpaperaccess.com/full/187161.jpg"); */
-    background: url("https://t4.ftcdn.net/jpg/04/76/88/43/360_F_476884330_ZuEdqGXQF5stdevOSE73l0Z270dSVTxN.jpg");
-
+    /* background: url("https://t4.ftcdn.net/jpg/04/76/88/43/360_F_476884330_ZuEdqGXQF5stdevOSE73l0Z270dSVTxN.jpg"); */
+    background: url("https://media.idownloadblog.com/wp-content/uploads/2018/11/honey-hexagon-digital-abstract-pattern-background-ipad-pro.jpg");
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -15,23 +18,29 @@
 
 .profileHead {
     min-height: 20%;
-    margin-top: 19vh;
+    margin-top: 11.7vh;
 }
 
 .profileHead h1 {
-    color: white;
-    font-size: 1.5rem;
+    color: rgb(210, 103, 21);
+    font-size: 2rem;
+    -webkit-text-stroke: 1px white;
+    margin-top: 7vh;
+    font-family: 'Rajdhani', sans-serif;
+
 }
 
 #profileInfo {
     display: flex;
-    justify-content: space-around;
-    background-color: rgb(26, 26, 147);
+    flex-direction: column;
+    justify-content: start;
+    position: fixed;
+    background-color: rgba(89, 89, 255, 0.807);
     font-size: .5em;
-    width:100%;
-    position: absolute;
-    top: 10vh;
-    padding-block: 1.2em;
+    width: fit-content;
+    /* position: absolute; */
+    /* top: 11.5vh; */
+    padding-block: .5em;
     border-radius: 0px 0px 10px 10px;
     /* position: relative;
     left: 1vw;
@@ -40,41 +49,49 @@
     font-weight: bold;
 }
 
-#loggedInRAddress {
-    margin-left: 8vw;
-
+#loggedInLoggedIn {
+    width: fit-content;
+    display: flex;
+    padding-inline-start: 1.5rem;
+    padding-inline-end: 1.5rem;
+    margin-block-end: 0px;
 }
 
-/* #loggedInLoggedIn {
-
-} */
-
-/* #loggedInLoggedIn em {
-    color: red;
+#loggedInLoggedIn em{
+    margin-left: .5rem;
 }
 
-#loggedInRAddress em{
-    color: purple;
+.loggedInRAddress {
+    min-width:150px;
+    display: flex;
+    padding-inline-start: 1.5rem;
+    padding-inline-end: 1.5rem;
+    
 }
 
-#profileStats #loggedInXummToken {
-    margin-bottom: 20px;
+.loggedInRAddress em{
+    margin-left: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+    text-decoration: underline;
 }
 
-#loggedInXummToken em {
-    color: blue;
-    margin-bottom: 20px;
-} */
+.loggedInRAddress em:hover {
+    overflow: visible;
+    /* max-width: fit-content; */
+
+}
 
 #profileInfo em {
     color: yellow;
 }
 
 .profileBody {
-    min-height: 80%; 
+    min-height: 100vh; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
@@ -83,16 +100,21 @@
     font-style: bolder;
     font-size: .85rem;
     min-height: 15vh;
+    width: fit-content;
+    border: solid 3px rgb(21, 154, 184);
     border-radius: 25px;
     padding: 1rem;
     margin: 1rem;
     /* background-color: rgb(244, 241, 202); */
-    background-color: rgb(26, 26, 147, .85);
-    color: white;
+    /* background-color: rgb(243, 201, 123); */
+    background-color: rgb(243, 160, 8, .6);
+    color: rgb(55, 163, 187);
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
+    flex-wrap: wrap;
+    font-family: 'Rajdhani', sans-serif;
 }
 
 #characterImage {
@@ -101,14 +123,18 @@
     padding: .5rem;
     margin: auto;
     border-radius: 25px;
-    border: 1px solid white;
+    border: 2px solid rgb(21, 154, 184);
 
 }
 
 #profileStats {
-    /* margin: auto; */
-    margin-top: 15px;
-    margin-left: 15px;
+    margin-top: 0px;
+    margin-left: 30px;
+    width: 200px;
+}
+
+#profileStats h4 {
+    margin-bottom: 0px;
 }
 
 #profileStats p{
@@ -119,17 +145,64 @@
 }
 
 
-#profileStats .skillPoint em {
-    color: yellow;
-    text-decoration:underline;
+#profileStats em {
+    /* color: rgb(210, 103, 21); */
+    color:white;
 }
-
-
 
 #profileBodyMain {
     background-color: rgb(242, 204, 52);
     border-radius: 20px;
- 
     padding: 1rem;
     margin: 1rem;
+    margin-bottom: 12vh;
+}
+
+.deleteDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100px;
+    font-family: 'Sofia Sans Extra Condensed', sans-serif;
+}
+
+.deleteDiv h2 {
+    margin-top: 0px;
+    /* color: rgb(242, 204, 52); */
+    color: white;
+    font-size: 1    rem;
+}
+
+.deleteDiv img {
+    height: 150px;
+    width: 150px;
+    padding: 1rem;
+}
+
+#noNftText {
+    color:rgb(242, 204, 52);
+    font-size: 1em;
+}
+
+.profileForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+@media screen and (max-width: 440px) {
+
+    .profileHead {
+        min-height: 20%;
+        margin-top: 9.5vh;
+    }
+
+    .profileHead h1 {
+        font-size: 1.5rem;
+        margin-top: 9vh;
+    }
 }

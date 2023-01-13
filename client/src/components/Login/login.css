@@ -1,29 +1,66 @@
-.loginComponent {
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+
+.loginMain {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(28, 79, 141);
+    /* background-color: rgb(28, 79, 141); */
+    /* background-color: rgb(25, 115, 194); */
+    /* background-image: url("https://cdn-content-ingress.altvr.com/uploads/space/image/1211236397793411434/background_banner_ReadyPlayerOne.jpg"); */
+    /* background: url("https://cdn.vox-cdn.com/thumbor/43YwSrT8eOJTiVXTy8f7rDKYd1U=/0x0:3000x1688/1400x1050/filters:focal(1500x844:1501x845)/cdn.vox-cdn.com/uploads/chorus_asset/file/21889355/Emere.jpg"); */
+    background: url("https://media.idownloadblog.com/wp-content/uploads/2018/11/honey-hexagon-digital-abstract-pattern-background-ipad-pro.jpg");
+
+    background-size: cover;
+    background-position: top left;
+}
+
+.loginComponent {
+    backdrop-filter: blur(3px);
+    min-height: 40vh;
+    min-width:45vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(29, 28, 28, 0.25);
+    padding: 1rem;
+    border-radius: 25px;
+    -webkit-box-shadow: 0px 1px 1px rgb(26, 204, 244);
+    -moz-box-shadow: 0px 5px 5px rgb(26, 204, 244);
+    box-shadow: 3px 3px 3px rgb(26, 204, 244);
 }
 
 .loginComponent h1 {
-    color:white;
+    color: rgb(244, 162, 10);
+    -webkit-text-stroke: 1px white;
     margin-bottom: 0px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.5rem;
 }
 
 .loginComponent button {
-    border: rgb(250, 246, 0) solid 2px;
-    background: rgb(44, 100, 169);
-    color: white;
+    border: white solid 2px;
+    background-color: rgba(6, 6, 6, 0.25);
+    text-decoration: underline;
+    /* -webkit-text-stroke: 1px white; */
+    /* backdrop-filter: blur(20px); */
+    color: rgb(244, 162, 10);
     padding: 6px;
     border-radius: 10px;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-family: 'Rajdhani', sans-serif;
+    margin-bottom: 8vh;
+    font-weight: 600;
+    -webkit-box-shadow: 0px 1px 1px rgb(26, 204, 244);
+    -moz-box-shadow: 0px 5px 5px rgb(26, 204, 244);
+    box-shadow: 1px 0px 7px 3px rgb(26, 204, 244);
 }
 
 .loginComponent button:hover {
-    border: rgb(250, 246, 0, .7) solid 2px;
-    background: rgb(19, 59, 109);
+    border: solid 2px grey;
+    background: rgb(244, 162, 10);
     color: white;
 }
 
@@ -35,7 +72,6 @@
     align-items: center;
 }
 
-
 .payloadDiv img {
     margin-top: 3vh;
     height: 200px;
@@ -44,19 +80,43 @@
 
 .payloadDiv a {
     font-size: .75rem;
-    width: 80vw;
+    max-width: 60vw ;
     padding: .7rem;
     color: white;
 }
 
+#signInMsg {
+    color: rgb(244, 162, 10);
+    text-align: start;
+    /* background-color: rgb(194, 142, 37); */
+    background-color: white;
+    border: solid rgba(244, 219, 174) 2px;
+    /* background-color: rgb(244, 162, 10); */
+    padding-inline: 7px;
+    padding-block: 3px;
+    border-radius: 10px;
+    /* -webkit-text-stroke: .4px rgba(244, 219, 174); */
+    font-size: .7rem;
+    max-width: 85vw;
+    font-family: 'Rajdhani', sans-serif;
+    margin-block-start: 0px;
+    margin-block-end: 20px;
+    font-weight: bold;
+}
+
 #successP {
-    color: green;
+    color: rgb(120, 246, 120);
     font-weight: bold;
 }
 
 #failureP {
     color: rgb(250, 246, 0);
     font-weight: bold;
-    font-size:.8rem;
+    font-size: .8rem;
+}
 
+@media screen and (max-width: 440px) {
+    #signInMsg {
+        max-width: 85vw;
+    }
 }

@@ -5,7 +5,6 @@ import { createContext, useState } from 'react';
 
 import Login from './components/Login/Login';
 import Footer from './components/Footer/Footer'
-
 import Profile from './components/Profile/Profile';
 import Navigation from './components/Navigation/Navigation';
 
@@ -17,34 +16,30 @@ function App() {
   const [loggedIn, setLoggedIn] = useState({
     loggedIn: false,
     rAddress: null,
-    xummToken: null
+    createNftFlag: false
   });
 
   socket.on("connect", () => {
     console.log(socket.id, "connected to back end server.")
-
   })
+
   return (
     <LoginContext.Provider value={[loggedIn, setLoggedIn]} >
       <div className="App">
         <Navigation />
-        <h1 id="appMainHead">XUMM SOCKETS</h1>
+        <h1 id="appMainHead">Originators</h1>
         {
               loggedIn.loggedIn ? 
               <Routes>
                 <Route path="/" element={<Login socket={socket} />} />
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile" element={<Profile socket={socket} />} />
               </Routes>
               :
               <Routes>
                 <Route path="/" element={<Login socket={socket} />} />
-                <Route path="/profile" element={<Profile />} />
-
               </Routes>
             }
-        {/* <Login socket={socket}/> */}
         <Footer socket={socket}/>
-
       </div>
     </LoginContext.Provider>
   );

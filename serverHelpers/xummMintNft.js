@@ -5,10 +5,10 @@ require('dotenv').config();
 
 const Sdk = new XummSdk(process.env.XUMM_API_KEY, process.env.XUMM_API_SECRET);
 
-const mintNfToken = async (mintingWallet, ipfsHash, memoType, memoData) => {
+const mintNfToken = async (mintingWallet, ipfsHash, memoUsername) => {
     const hexHash = xrpl.convertStringToHex(ipfsHash);
-    const hexMemoData = xrpl.convertStringToHex(memoData);
-    const hexMemoType = xrpl.convertStringToHex(memoType);
+    const hexMemoData = xrpl.convertStringToHex(memoUsername);
+    const hexMemoType = xrpl.convertStringToHex("Originators_Account_Username");
     const tokenMintCreate = await Sdk.payload.create({
         "TransactionType": "NFTokenMint",
         "Account": mintingWallet,
@@ -28,37 +28,17 @@ const mintNfToken = async (mintingWallet, ipfsHash, memoType, memoData) => {
         ]
     });
 
-    console.log("tokenMintCreate payload: ",tokenMintCreate)
-
-};
-
-const subscribeToTokenMint = async (uuid) => {
-    const subscription = await Sdk.payload.subscribe(uuid, (event) => {
-        if (Object.keys(event.data).indexOf('signed') > -1) {
-            return event.data;
-        };
-    });
-
-    const resolveData = await subscription.resolved;
-
-    if (resolveData) {
-        console.log("GETTING FINAL PAYLOAD");
-        const payload = await Sdk.payload.get(uuid);
-        console.log(payload);
-        return payload;
+    const response = {
+        payload: true,
+        uuid: tokenMintCreate.uuid,
+        qrLink: tokenMintCreate.next.always,
+        qrImage: tokenMintCreate.refs.qr_png
     };
+
+    return response ; 
 };
 
-const lookupPayload = async (uuid) => {
-    const payload = await Sdk.payload.get(uuid);
-    console.log(payload);
-
-};
-lookupPayload();
-
-
-// mintNfToken(process.env.WALLLET2, process.env.IPFS1, "AccountName", "MyAccountName");
-
+module.exports = mintNfToken
 
 
 

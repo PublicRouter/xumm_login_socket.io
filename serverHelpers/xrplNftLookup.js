@@ -17,10 +17,9 @@ const lookupAccountNfts = async (wallet, mintWallet) => {
             issuedNft.push({nft: nft, ipfsUrl: xrpl.convertHexToString(nft.URI)})
         }
     });
-
+    
     client.disconnect()
 
-    // console.log("issuedNft: ", issuedNft)
     return issuedNft
 };
 // lookupAccountNfts(process.env.WALLET2, process.env.WALLET2)

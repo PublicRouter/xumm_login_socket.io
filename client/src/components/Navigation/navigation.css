@@ -14,7 +14,7 @@
     width: 60px;
     height: 6vh;
     opacity: 0;
-    margin: 14px 0px 0px 10px
+    margin: 10px 0px 0px 10px
 }
 
 .mobile-menu .hamburger {
@@ -24,7 +24,7 @@
     z-index: 2;
     width: 44px;
     height: 6vh;
-    padding: .9rem;
+    padding: .1rem .5rem .5rem .9rem;
     background: transparent;
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@
     flex: none;
     width: 100%;
     height: 2px;
-    background: rgb(5, 65, 245);
+    background-color:rgb(8, 135, 164);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,14 +98,15 @@
 
 .mobile-menu .menu {
     position: fixed;
-    top: 14vh;
+    top: 12.5vh;
     left: 0;
     width: fit-content;
     display: flex;
 }
 
 .mobile-menu .menu>div {
-    background:rgb(244, 241, 202);
+    /* background:rgb(44, 44, 185); */
+    /* background-color: rgba(227, 189, 37, 0.8); */
     border-radius: 0% 20px 20px 0%;
     width: 100%;
     height: fit-content;
@@ -126,20 +127,30 @@
 .mobile-menu .menu>div>div>ul {
     flex-direction: column;
     padding-inline: 0px;
-    margin: 0px 15px 0px 15px
+    margin: 0px 12.5px 0px 0px
 }
 
 .mobile-menu .menu>div>div>ul>li {
+    background-color: rgb(244, 162, 10);
+    border-radius: 0% 20px 20px 0%;
+    border: 2px solid rgba(227, 189, 37, 0.8);
+    min-width: 75px;
+    width: fit-content;
     list-style: none;
-    color: rgb(28, 79, 141);
-    font-size: 1.2rem;
-    padding: 1rem;
+    color: white;
+    font-size: .8rem;
+    font-weight: bold;
+    padding-block: 1rem;
+    padding-inline: 2.5rem;
+    margin-block: .2rem;
     z-index: 2;
 }
 
 .mobile-menu .menu>div>div>ul>li:hover {
-    margin-left: 1vw;
-    color: blue;
+    /* margin-left: 1vw; */
+    /* font-size: 90%; */
+    padding-inline-start:3rem;
+    color: rgb(8, 135, 164);
 }
 
 .mobile-menu .menu>div>div>ul>li>a {
@@ -153,6 +164,24 @@
 @media screen and (max-width: 440px) {
 
     .mobile-menu .menu {
-        top: 12vh;
+        top: 11vh;
     }
+
+    .mobile-menu .menu>div>div>ul>li {
+        font-size: .7rem;
+        margin-block: .2rem;
+        padding-inline: 2rem;
+       
+    }
+
+    .mobile-menu .menu>div>div>ul>li:hover {
+        padding-inline: 2.5rem;
+       
+    }
+
+    .mobile-menu .menu>div>div>ul {
+        margin: 0px 15px 0px 0px
+    }
+
+
 }
