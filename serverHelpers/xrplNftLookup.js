@@ -12,8 +12,14 @@ const lookupAccountNfts = async (wallet, mintWallet) => {
     });
     const issuedNft = [];
 
+    // lookupNfts.result.account_nfts.map((nft) => {
+    //     if(nft.URI !== undefined && nft.Issuer === mintWallet) {
+    //         issuedNft.push({nft: nft, ipfsUrl: xrpl.convertHexToString(nft.URI)})
+    //     }
+    // });
+
     lookupNfts.result.account_nfts.map((nft) => {
-        if(nft.URI !== undefined && nft.Issuer === mintWallet) {
+        if(nft.URI !== undefined) {
             issuedNft.push({nft: nft, ipfsUrl: xrpl.convertHexToString(nft.URI)})
         }
     });

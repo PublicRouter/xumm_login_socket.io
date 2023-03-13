@@ -19,7 +19,7 @@
 .loginComponent {
     backdrop-filter: blur(3px);
     min-height: 40vh;
-    min-width:45vw;
+    min-width:78vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -118,5 +118,11 @@
 @media screen and (max-width: 440px) {
     #signInMsg {
         max-width: 85vw;
+    }
+}
+
+@media screen and (min-width: 440px) {
+    .loginComponent {
+        min-width: 46vw;
     }
 }

@@ -70,7 +70,7 @@ io.on('connection', async function (socket) {
         if (signed) {
             userWallet = signInResolvedPayload.response.signer;
             userToken = signInResolvedPayload.response.user;
-            const arrayOfIssuedNft = await xrplNftLookup(userWallet, process.env.WALLET2);
+            const arrayOfIssuedNft = await xrplNftLookup(userWallet, userWallet);
             serverState.loggedInUsers.push({ socket: socket.id, wallet: userWallet, token: userToken })
             io.emit('loggedInUsers', serverState.loggedInUsers)
 
@@ -107,6 +107,7 @@ io.on('connection', async function (socket) {
         callback(mintPayload);
     });
 
+
     socket.on("subToNftMint", async (arg, callback) => {
         console.log("Awaiting 'NFTokenMint' payload resolution...");
         const signInResolvedPayload = await subscribeTo(arg);
@@ -118,7 +119,7 @@ io.on('connection', async function (socket) {
         if (signed) {
             userWallet = signInResolvedPayload.response.signer;
             userToken = signInResolvedPayload.response.user;
-            const arrayOfIssuedNft = await xrplNftLookup(userWallet, process.env.WALLET2);
+            const arrayOfIssuedNft = await xrplNftLookup(userWallet, userWallet);
 
             const composedPayload = {
                 signed: true,
@@ -146,7 +147,7 @@ io.on('connection', async function (socket) {
         console.log("burn subscribe uuid state: ", payloadUuid);
         const subscribeResponse = await subscribeTo(payloadUuid);
         //list of nfts owned issued from app wallet: if [0]: nfToken was burned; if [1] nfToken still owned by wallet
-        const nftList = await xrplNftLookup(subscribeResponse.response.signer, process.env.WALLET2);
+        const nftList = await xrplNftLookup(subscribeResponse.response.signer, subscribeResponse.response.signer);
         console.log("NFT LIST YOO: ", nftList);
         nftList.length > 0 && nftList.length < 2 ? userIdentityNft = nftList[0].nft : userIdentityNft = null;
 
