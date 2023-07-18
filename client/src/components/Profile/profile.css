@@ -18,16 +18,15 @@
 
 .profileHead {
     min-height: 20%;
-    margin-top: 11.7vh;
+    margin-top: 8vh;
 }
 
 .profileHead h1 {
     color: rgb(210, 103, 21);
-    font-size: 2rem;
+    font-size: 3rem;
     -webkit-text-stroke: 1px white;
-    margin-top: 7vh;
+    margin-top: 4vh;
     font-family: 'Rajdhani', sans-serif;
-
 }
 
 #profileInfo {
@@ -194,15 +193,172 @@
     color: white;
 }
 
-@media screen and (max-width: 440px) {
+.profileWalletInfoDiv {
+    height: 60vh;
+    width: 80vw;
+    background-color: rgb(4, 4, 4);
+    text-align: start;
+    /* display: flex;
+    flex-wrap: wrap; */
+}
 
-    .profileHead {
+.profileWalletInfoDiv p {
+    height: fit-content;
+    color: white;
+    font-size: 8px;
+    margin: 0px;
+}
+
+.profileWalletInfoDiv p em {
+    color: orangered;
+}
+
+.profileDash {
+    width: 80vw;
+    /* height: 460px; */
+    margin-inline: auto;
+    margin-block: 0px;
+    margin-bottom: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashMain {
+    width: 86%;
+    display: flex;
+    justify-content: center;
+    
+}
+
+/* .dashMain {
+    margin: 20px;
+    width: 300px;
+    height: 200px;
+    background-color: rgba(255, 136, 0, 0.771);
+    box-shadow: 2px -2px 2px rgb(219, 218, 218);
+    border-radius: 20px 20px 20px 20px;
+} */
+
+.dashSection {
+    margin: 20px;
+    width: 300px;
+    height: 200px;
+    background-color: rgba(255, 136, 0, 0.771);
+    box-shadow: 2px -2px 2px rgb(219, 218, 218);
+    border-radius: 20px 20px 20px 20px;
+    font-size: 11px;
+
+}
+
+.dashSectionInfoContainer {
+    text-align: start;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.dashSection p {
+    margin-top: 0px;
+    margin-bottom: 2px;
+    color:white;
+}
+
+.dashSection h2 {
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+
+}
+
+#identitySectionDiv {
+    width: 100%;
+    color: rgb(229, 127, 2);
+    font-size: 16px;
+    height: 320px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.815);
+    box-shadow: 2px 6px 2px rgba(255, 136, 0, 0.771);
+    border-radius: 20px 20px 20px 20px;
+}
+
+#identitySectionDiv p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: rgb(82, 47, 4);
+    font-weight: 700;
+}
+
+#identitySectionDiv img {
+    height: 200px;
+    width: 170px;
+    margin-bottom: 7px;
+}
+
+.createIdentitySection {
+    background-color: rgba(235, 162, 26, 0.875);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 1vh;
+}
+
+.createIdentitySection p {
+    max-width: 300px;
+    color: white;
+    font-size: .9em;
+    border-radius: 20px;
+
+}
+
+#parentAddress {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 120px;
+    white-space: nowrap;
+
+}
+
+#parentAddress:hover {
+    text-overflow: wrap;
+    overflow: visible;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+@media screen and (min-width: 440px) {
+    .profileDash {
+        /* justify-content: start; */
+    }
+
+    .dashSection {
+        margin: 5px;
+        width: 165px;
+        height: 200px;
+        background-color: rgba(255, 136, 0, 0.771);
+        box-shadow: 2px 0px 2px rgb(219, 218, 218);
+        border-radius: 20px 20px 20px 20px;
+    }
+
+    .dashSection h2 {
+        font-size: 20px;
+    }
+    /* .profileHead {
         min-height: 20%;
         margin-top: 9.5vh;
     }
 
     .profileHead h1 {
-        font-size: 1.5rem;
         margin-top: 9vh;
+    } */
+}
+
+@media screen and (min-width: 472px) {
+
+}
+
+@media screen and (min-width: 712px) {
+    #identitySectionDiv {
+        width: 70%;
     }
 }

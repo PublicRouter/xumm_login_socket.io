@@ -5,9 +5,9 @@ require('dotenv').config();
 
 const Sdk = new XummSdk(process.env.XUMM_API_KEY, process.env.XUMM_API_SECRET);
 
-const burnNft = async (userToken, targetAccount, tokenId) => {
+const burnNft = async (targetAccount, tokenId) => {
     const txjson = {
-        "user_token": userToken,
+        // "user_token": userToken,
         "txjson": {
             "TransactionType": "NFTokenBurn",
             "Account": targetAccount,

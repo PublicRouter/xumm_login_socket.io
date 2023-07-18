@@ -1,39 +1,61 @@
 require('dotenv').config();
 
+const createSignin = require('./createXummSignin');
+const subscribeToSignIn = require('./subscribeToSignin')
 const lookupAccountNfts = require("./xrplNftLookup");
+
 const storeMetaToIpfs = require("./nftStorageMint");
+const mintNfToken = require('./xummMintNft');
+const burnNft = require('./burnNft');
 
 //@Params- Object{ signIn payload response object }
 class Account {
-    constructor(signedAuthenticationPayload) {
-      this.loggedIn = signedAuthenticationPayload.meta.signed;
-      this.wallet = signedAuthenticationPayload.response.signer;
-      this.xummToken = signedAuthenticationPayload.response.user;
-      this.payloadUuid = "";
-      this.userIdentityNft = null;
+  constructor(signedAuthenticationPayload) {
+    this.loggedIn = signedAuthenticationPayload.meta.signed;
+    this.wallet = signedAuthenticationPayload.response.signer;
+    this.xummToken = signedAuthenticationPayload.response.user;
+    this.payloadUuid = "";
+    this.userIdentityNft = null;
+  }
+
+  showCurrentUserInfo = () => {
+    return {
+      loggedIn: this.loggedIn,
+      rAddress: this.wallet,
+      identityNft: this.userIdentityNft
     }
+  };
 
-    async listOfNftsFromAppWallet(){
-        const arrayOfNfts = await lookupAccountNfts(this.wallet);
-        return arrayOfNfts;
-    };
+  setIdentityNft = (jsonMetaDataObject) => {
+    console.log("identity nft set.")  
+    this.userIdentityNft = jsonMetaDataObject
+  };
 
-    // async createNewAccountInfoIpfsMetadata(userName, profession, years){
-    //     const newIpfsHash = await storeMetaToIpfs(userName, profession, years);
-    //     return newIpfsHash;
-    // };
+  returnArrayOfAccountNfts = async () => {
+    const arrayOfNfts = await lookupAccountNfts(this.wallet);
+    return arrayOfNfts;
+  };
 
-    createNewAppNfTokenMintPayload(){
-        
-    };
+  // filterAllNftsMetadataFor
 
-    createBurnCurrentAppNfTokenPayload(){
+  // async createNewAccountInfoIpfsMetadata(userName, profession, years){
+  //     const newIpfsHash = await storeMetaToIpfs(userName, profession, years);
+  //     return newIpfsHash;
+  // };
 
-    };
-
-
+  createNewAppNfTokenMintPayload() {
 
   };
+
+  createBurnCurrentAppNfTokenPayload() {
+
+  };
+
+
+
+};
+
+module.exports = Account;
 
 
 

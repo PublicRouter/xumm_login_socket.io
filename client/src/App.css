@@ -11,7 +11,8 @@
   -webkit-text-stroke: 2px rgb(245, 183, 68);
 
   font-size: 3rem;
-  padding: .6rem 0rem 2rem 0rem;
+  padding: 3rem 0rem 2rem 0rem;
+
   width: 100%;
   margin: auto;
   border-radius: 0px 0px 30px 0px;
@@ -21,11 +22,10 @@
 
 }
 
-@media screen and (max-width: 440px) {
+@media screen and (min-width: 440px) {
   #appMainHead {
     font-size: 2.3rem;
-    padding: 3rem 0rem 2rem 0rem;
-
+    padding: .6rem 0rem 2rem 0rem;
   }
 
 }

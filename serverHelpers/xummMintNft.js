@@ -38,7 +38,7 @@ const mintNfToken = async (mintingWallet, ipfsHash, memoUsername) => {
     return response ; 
 };
 
-module.exports = mintNfToken
+// module.exports = mintNfToken
 
 
 

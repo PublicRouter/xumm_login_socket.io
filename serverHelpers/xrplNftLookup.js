@@ -1,7 +1,7 @@
 const xrpl = require('xrpl');
 require('dotenv').config();
 
-const lookupAccountNfts = async (wallet, mintWallet) => {
+const lookupAccountNfts = async (wallet) => {
     const client = new xrpl.Client("wss://xrplcluster.com/");
     await client.connect();
 
@@ -20,7 +20,10 @@ const lookupAccountNfts = async (wallet, mintWallet) => {
 
     lookupNfts.result.account_nfts.map((nft) => {
         if(nft.URI !== undefined) {
-            issuedNft.push({nft: nft, ipfsUrl: xrpl.convertHexToString(nft.URI)})
+            issuedNft.push({
+                nft: nft, 
+                ipfsUrl: xrpl.convertHexToString(nft.URI)
+            })
         }
     });
     

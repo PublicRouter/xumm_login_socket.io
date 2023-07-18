@@ -20,6 +20,9 @@ export default function Navigation() {
                                 <li>
                                     <Link to="/" className='link'>Home</Link>
                                 </li>
+                                <li>
+                                    <Link to="/enter" className='link'>Enter</Link>
+                                </li>
                             </ul>
                         }
 
