@@ -1,0 +1,37 @@
+.testForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    text-align: start;
+    /* margin-top: 20vh; */
+    width: 55vw;
+    max-width: 300px;
+    background-color: rgba(38, 76, 122, 0.925);
+    color: white;
+    padding: 26px;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-54%, -50%);
+    z-index: 10;
+}
+
+.testForm div span {
+    color: rgb(238, 97, 75);
+}
+
+.testForm div label {
+    padding-right: 4px;
+}
+
+.testForm > * {
+    margin-bottom: 8px;
+}
+
+.testForm h2 {
+    padding-block: 14px;
+    margin-top: 0px;
+    text-decoration: underline;
+}

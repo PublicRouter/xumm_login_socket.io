@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react';
 import "../AccountInfoTab/accountInfoTab.css";
 
-// import { LoginContext } from '../../App';
+import { AccountContext } from '../../App';
 
 import profileIcon from "../../images/profileIcon.svg"
-export default function AccountInfoTab({loggedIn}) {
-    // const [loggedInContext, setLoggedInContext] = useContext(LoginContext);
+import { useNavigate } from 'react-router-dom';
+
+export default function AccountInfoTab({socket}) {
+    const navigate = useNavigate();
+
+    const [accountObject, setAccountObject] = useContext(AccountContext);
     const [toggler, setToggler] = useState(false);
 
     function toggleAccountInfo(e) {
@@ -14,16 +18,26 @@ export default function AccountInfoTab({loggedIn}) {
         if (toggler) {
             setToggler(false);
         } else {
-            setToggler(true)
-        }
+            setToggler(true);
+        };
     };
 
     function parseUrl(url) {
         return url.split('//')[1];
     };
 
+    function logoutAccount() {
+        socket.emit('signOut',  async (callback) => {
+            const signOutResponse = await callback;
+            console.log(signOutResponse)
+        });
+        setAccountObject({ loggedIn: false });
+        window.sessionStorage.clear();
+        navigate("/");
+    };
+
     // const identityImg = async () => {
-    //     const rawUrl = await parseUrl(loggedIn.userIdentityNft.image)
+    //     const rawUrl = await parseUrl(accountObject.userIdentityNft.image)
     //     const image = await fetch(`https://ipfs.io/ipfs/${rawUrl}`)
     //     return image
     // }
@@ -34,11 +48,12 @@ export default function AccountInfoTab({loggedIn}) {
         <img id="accountInfoImg" src={profileIcon} onClick={toggleAccountInfo} />
         { toggler ?
             <div id="accountInfoData">
-                <p>Welcome, {loggedIn.userIdentityNft.name}</p>
-                <img src={ `https://ipfs.io/ipfs/${parseUrl(loggedIn.userIdentityNft.image)}`} />
-                <p>Logged in: <br></br>{loggedIn.loggedIn ? "True" : "False"}</p>
-                <p id="wallet">Wallet: <br /><em>{loggedIn.wallet}</em></p>
-                <p>Identity NFT: {loggedIn.userIdentityNft === null ? "False" : "True"}</p>
+                <p>Welcome, <em>{accountObject.userIdentityNft? accountObject.userIdentityNft.name : 'No user identity name to access.'}</em></p>
+                <img src={accountObject.userIdentityNft? `https://ipfs.io/ipfs/${parseUrl(accountObject.userIdentityNft.image)}` : null} />
+                <p>Logged in: <br></br><em>{accountObject.loggedIn ? "True" : "False"}</em></p>
+                <p id="wallet">Wallet: <br /><em>{accountObject.wallet}</em></p>
+                <p>Identity NFT: <em>{accountObject.userIdentityNft === null ? "False" : "True"}</em></p>
+                <button onClick={logoutAccount}>Log Out</button>
             </div>
             :
             null

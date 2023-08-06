@@ -2,19 +2,27 @@ import React from 'react'
 import "../Home/home.css";
 import { Link } from 'react-router-dom'
 
-import homeImage from "../../images/homeImage.png";
+// import TestForm from '../TestForm/TestForm';
+
+import moneyTransferSvg from "../../images/moneyTransfer.svg";
+import collabSvg from "../../images/collabSvg.svg"
 
 export default function Home() {
   return (
     <div className='homeDiv'>
-        <img id="homeImage" src={homeImage}/>
+      <img id="moneyTransferSvg" src={collabSvg} />
 
-        <h2 id="homeTitle">Originators</h2>
+      <div id="landingPageMainDiv">
+        <h2 id="homeTitle">Bring your account<br />object to life.</h2>
+        <p>Display, view, and interact with other online XRPL accounts.</p>
         <button id="homeEnterButton">
-            <Link to="/enter" className='link'>
-                Enter
-            </Link>
+          <Link to="/enter" className='link'>
+            Enter
+          </Link>
         </button>
+      </div>
     </div>
   )
+
+  
 }

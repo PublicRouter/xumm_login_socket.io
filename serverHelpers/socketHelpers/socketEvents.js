@@ -1,52 +1,7 @@
-// server dependencies
-const express = require('express');
-const app = express();
-const http = require('http');
-const { writeFile, unlink } = require('fs');
-const { Server } = require('socket.io');
-const cors = require('cors');
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-require('dotenv').config();
-
-const Account = require("./serverHelpers/accountClass");
-const createSignin = require('./serverHelpers/createXummSignin');
-const subscribeToPayloadUuid = require('./serverHelpers/subscribeToPayloadUuid');
-const lookupAccountNfts = require("./serverHelpers/lookupAccountNfts");
-const burnNft = require("./serverHelpers/burnNft");
-const storeMetaToIpfs = require("./serverHelpers/storeMetaToIpfs");
-const mintNfToken = require("./serverHelpers/mintNfToken");
-const checkNftsListForNftsWithNftTypeOriginators = require('./serverHelpers/checkNftsListForNftsWithNftTypeOriginators');
-
-
-
-app.use(cors())
-
-const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-        origin: "http://localhost:3000",
-        methods: ["GET", "POST"]
-    },
-    maxHttpBufferSize: 1e8,
-});
-
-const serverState = {
-    connectedUsers: [],
-    loggedInUsers: []
-};
-
-
-
-//server socket instance created when user connects from client
 io.on('connection', (socket) => {
     //initialize new account class each time there is a server connection
     let currentAccount = new Account();
-    
-    const getXrpBalance = async () => {
-        const xrpBalance = await currentAccount.checkAccountXrpBalance();
-        console.log("SERVER XRPPPPPPPPPXRPXAPXPPPPPRPRP----------=: ", xrpBalance)
-        return xrpBalance;
-    };
+
     // let payloadUuid;
 
     console.log(socket.id, "has joined the server.");
@@ -71,20 +26,21 @@ io.on('connection', (socket) => {
             };
 
             if (!hasWallet) {
-                getXrpBalance().then(xrpBalance => {
-                    serverState.loggedInUsers.push({
-                        socket: socket.id,
-                        wallet: currentAccount.wallet,
-                        identityNft: currentAccount.userIdentityNft,
-                        xrpBalance: xrpBalance,
-                    });
-    
-                    // send list of servers logged in users to the front end
-                    io.emit("currentLoggedInUsersList", serverState.loggedInUsers);
+                serverState.loggedInUsers.push({
+                    socket: socket.id,
+                    wallet: currentAccount.wallet,
                 });
             };
         };
-        callback("Recieved session account data, and updated server currentAccount state.")
+        console.log("CURRENT CURRENT ACCOUNT: ", currentAccount)
+        callback("Received updateServerAccountState confirm!")
+    });
+
+    //send list of servers logged in users to front end
+    socket.on("checkLoggedInUserList", async (callback) => {
+        console.log("Logged in list: ", serverState.loggedInUsers);
+
+        callback(serverState.loggedInUsers)
     });
 
     //when connected instance disconnects remove from both server lists
@@ -103,12 +59,12 @@ io.on('connection', (socket) => {
         );
         if (loggedInIndex !== -1) {
             serverState.loggedInUsers.splice(loggedInIndex, 1);
-            io.emit("currentLoggedInUsersList", serverState.loggedInUsers);
         };
 
         console.log("New connectedUser list: ", serverState.connectedUsers);
         console.log("New loggedInUser list: ", serverState.loggedInUsers);
     });
+
 
     //create sign in payload xumm tx/pl and return QR
     socket.on('signIn', async (callback) => {
@@ -133,14 +89,12 @@ io.on('connection', (socket) => {
         );
         if (loggedInIndex !== -1) {
             serverState.loggedInUsers.splice(loggedInIndex, 1);
-            io.emit("currentLoggedInUsersList", serverState.loggedInUsers);
             callback("logged in user has been signed out.")
         };
-
+        
     });
 
     //#2
-    //SHOULD BE CHANGED TO SUBSCRIBE TO ANY PAYLAOD NOT JUST Sign-In
     socket.on('subscribeToSignIn', async (callback) => {
         console.log("Awaiting 'sign-in' payload resolution...");
         const subbedPayloadResponseData = await subscribeToPayloadUuid(currentAccount.latestPayload.payloadUuid);
@@ -157,7 +111,12 @@ io.on('connection', (socket) => {
         // currentAccount = thisAccount;
         // console.log("currentAccount info: ", currentAccount.showCurrentUserInfo());
 
-
+        if (currentAccount.loggedIn) {
+            serverState.loggedInUsers.push({
+                socket: socket.id,
+                wallet: currentAccount.wallet,
+            });
+        };
 
         const allAccountNftsArray = await currentAccount.returnArrayOfAccountNfts();
         console.log("nft array on server", allAccountNftsArray);
@@ -172,22 +131,7 @@ io.on('connection', (socket) => {
             console.log(currentAccount.userIdentityNft)
         } else {
             console.log("Your account has more than 1 identify NFT!! Oops")
-        };
-
-        //WILL ERROR WHEN ACCOUNT HAS NO IDENTITYNFT, FOOTER CANT LOAD .identityNft
-        if (currentAccount.loggedIn) {
-            getXrpBalance().then(xrpBalance => {
-                serverState.loggedInUsers.push({
-                    socket: socket.id,
-                    wallet: currentAccount.wallet,
-                    identityNft: currentAccount.userIdentityNft,
-                    xrpBalance: xrpBalance,
-                });
-
-                // send list of servers logged in users to the front end
-                io.emit("currentLoggedInUsersList", serverState.loggedInUsers);
-            });
-        };
+        }
         callback(currentAccount)
     });
 
@@ -294,8 +238,4 @@ io.on('connection', (socket) => {
 
     //     }
     // })
-});
-
-server.listen(3001, function () {
-    console.log('Listening on port 3001...');
 });

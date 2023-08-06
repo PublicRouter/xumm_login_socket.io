@@ -1,222 +1,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:ital,wght@1,600&display=swap');
 
+
+/* ENTIRE PROFILE PAGE CONTAINER */
 .profileMain {
-    /* background: url("https://wallpaperaccess.com/full/187161.jpg"); */
-    /* background: url("https://t4.ftcdn.net/jpg/04/76/88/43/360_F_476884330_ZuEdqGXQF5stdevOSE73l0Z270dSVTxN.jpg"); */
-    background: url("https://media.idownloadblog.com/wp-content/uploads/2018/11/honey-hexagon-digital-abstract-pattern-background-ipad-pro.jpg");
-    background-position: center;
-    background-size: cover;
-    /* background-repeat: no-repeat; */
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
-    background-color: rgb(28, 79, 141);
 }
 
-.profileHead {
-    min-height: 20%;
-    margin-top: 8vh;
-}
-
-.profileHead h1 {
-    color: rgb(210, 103, 21);
-    font-size: 3rem;
-    -webkit-text-stroke: 1px white;
-    margin-top: 4vh;
-    font-family: 'Rajdhani', sans-serif;
-}
-
-#profileInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    position: fixed;
-    background-color: rgba(89, 89, 255, 0.807);
-    font-size: .5em;
-    width: fit-content;
-    /* position: absolute; */
-    /* top: 11.5vh; */
-    padding-block: .5em;
-    border-radius: 0px 0px 10px 10px;
-    /* position: relative;
-    left: 1vw;
-    bottom: 14.8vh; */
-    color: white;
-    font-weight: bold;
-}
-
-#loggedInLoggedIn {
-    width: fit-content;
-    display: flex;
-    padding-inline-start: 1.5rem;
-    padding-inline-end: 1.5rem;
-    margin-block-end: 0px;
-}
-
-#loggedInLoggedIn em{
-    margin-left: .5rem;
-}
-
-.loggedInRAddress {
-    min-width:150px;
-    display: flex;
-    padding-inline-start: 1.5rem;
-    padding-inline-end: 1.5rem;
-    
-}
-
-.loggedInRAddress em{
-    margin-left: .5rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100px;
-    text-decoration: underline;
-}
-
-.loggedInRAddress em:hover {
-    overflow: visible;
-    /* max-width: fit-content; */
-
-}
-
-#profileInfo em {
-    color: yellow;
-}
-
-.profileBody {
-    min-height: 100vh; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#profileCard {
-    text-align: start;
-    font-style: bolder;
-    font-size: .85rem;
-    min-height: 15vh;
-    width: fit-content;
-    border: solid 3px rgb(21, 154, 184);
-    border-radius: 25px;
-    padding: 1rem;
-    margin: 1rem;
-    /* background-color: rgb(244, 241, 202); */
-    /* background-color: rgb(243, 201, 123); */
-    background-color: rgb(243, 160, 8, .6);
-    color: rgb(55, 163, 187);
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    flex-wrap: wrap;
-    font-family: 'Rajdhani', sans-serif;
-}
-
-#characterImage {
-    height: 180px;
-    width: 180px;
-    padding: .5rem;
-    margin: auto;
-    border-radius: 25px;
-    border: 2px solid rgb(21, 154, 184);
-
-}
-
-#profileStats {
-    margin-top: 0px;
-    margin-left: 30px;
-    width: 200px;
-}
-
-#profileStats h4 {
-    margin-bottom: 0px;
-}
-
-#profileStats p{
-    margin-block-start: 3px;
-    margin-block-end: 3px;
-    margin-inline-end: 32px;
-    font-weight: bold;
-}
-
-
-#profileStats em {
-    /* color: rgb(210, 103, 21); */
-    color:white;
-}
-
-#profileBodyMain {
-    background-color: rgb(242, 204, 52);
-    border-radius: 20px;
-    padding: 1rem;
-    margin: 1rem;
-    margin-bottom: 12vh;
-}
-
-.deleteDiv {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 100px;
-    font-family: 'Sofia Sans Extra Condensed', sans-serif;
-}
-
-.deleteDiv h2 {
-    margin-top: 0px;
-    /* color: rgb(242, 204, 52); */
-    color: white;
-    font-size: 1    rem;
-}
-
-.deleteDiv img {
-    height: 150px;
-    width: 150px;
-    padding: 1rem;
-}
-
-#noNftText {
-    color:rgb(242, 204, 52);
-    font-size: 1em;
-}
-
-.profileForm {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-}
-
-.profileWalletInfoDiv {
-    height: 60vh;
-    width: 80vw;
-    background-color: rgb(4, 4, 4);
-    text-align: start;
-    /* display: flex;
-    flex-wrap: wrap; */
-}
-
-.profileWalletInfoDiv p {
-    height: fit-content;
-    color: white;
-    font-size: 8px;
-    margin: 0px;
-}
-
-.profileWalletInfoDiv p em {
-    color: orangered;
-}
-
+/* ENTIRE PROFILE DASHBOARD CONTAINER */
 .profileDash {
-    width: 80vw;
-    /* height: 460px; */
+    height: fit-content;
     margin-inline: auto;
+    margin-block: 0px;
+    margin-bottom: 100px;
+    margin-top: 10vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+} 
+
+/* PROFILE NFT INFO SECTION */
+.dashMain {
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    color: #242A49;
+    font-size: 16px;
+    margin: 30px;
+    margin-bottom: 20px;
+    /* background-color: rgba(255, 255, 255, 0.815); */
+    border: 2px solid #242A49;
+    box-shadow: 2px 6px 2px #242A49;
+    border-radius: 20px 20px 20px 20px;
+    padding: 20px;
+} 
+
+#identitySectionDiv {
+    flex-direction: column;
+    justify-content: space-around;
+    color: #242A49;
+    font-size: 16px;
+    border: 2px solid black;
+    border-radius: 20px 20px 20px 20px;
+    padding: 20px;
+}
+
+#identitySectionDiv img {
+    width: 60%;
+    max-width: 160px;
+}
+
+.identitySectionDivInfo {
+    width: fit-content;
+    text-align: start;
+    padding-block: 10px;
+    margin: auto;
+}
+
+.identitySectionDivInfo h3 em{
+    color: #4D5373 ;
+}
+
+.identitySectionDivInfo p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: #242A49;
+    font-weight: 600;
+    font-size: .8em;
+}
+
+.identitySectionDivInfo p em {
+    color: #6d759e ;
+}
+
+.asideIdentitySectionDiv {
+    width: 100%;
+    text-align: start;
+    padding: 10px;
+}
+
+.asideIdentitySectionDiv button {
+    width: 120px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+/* TESTING TESTING */
+
+/* .profileDash {  
     margin-block: 0px;
     margin-bottom: 100px;
     display: flex;
@@ -226,116 +99,315 @@
 }
 
 .dashMain {
-    width: 86%;
+    height: fit-content;
     display: flex;
-    justify-content: center;
-    
-}
-
-/* .dashMain {
-    margin: 20px;
-    width: 300px;
-    height: 200px;
-    background-color: rgba(255, 136, 0, 0.771);
-    box-shadow: 2px -2px 2px rgb(219, 218, 218);
-    border-radius: 20px 20px 20px 20px;
-} */
-
-.dashSection {
-    margin: 20px;
-    width: 300px;
-    height: 200px;
-    background-color: rgba(255, 136, 0, 0.771);
-    box-shadow: 2px -2px 2px rgb(219, 218, 218);
-    border-radius: 20px 20px 20px 20px;
-    font-size: 11px;
-
-}
-
-.dashSectionInfoContainer {
-    text-align: start;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-}
-
-.dashSection p {
-    margin-top: 0px;
-    margin-bottom: 2px;
-    color:white;
-}
-
-.dashSection h2 {
-    color: white;
-    font-family: 'Rajdhani', sans-serif;
-
+    justify-content: center; 
+    align-items: center;
+    border-radius: 100%; 
+    width: 100%;
 }
 
 #identitySectionDiv {
     width: 100%;
-    color: rgb(229, 127, 2);
+    flex-direction: column;
+    justify-content: space-around;
+    color: #242A49;
     font-size: 16px;
-    height: 320px;
     margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, 0.815);
-    box-shadow: 2px 6px 2px rgba(255, 136, 0, 0.771);
-    border-radius: 20px 20px 20px 20px;
-}
-
-#identitySectionDiv p {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    color: rgb(82, 47, 4);
-    font-weight: 700;
+    background-color: rgba(8, 27, 40, 0.815);
+    box-shadow: 2px 6px 2px #242A49;
+    border-radius: 0px 0px 50px 50px;
+    padding: 20px;
+    padding-top: 16vh;
 }
 
 #identitySectionDiv img {
-    height: 200px;
-    width: 170px;
-    margin-bottom: 7px;
+    width: 60%;
 }
 
+.identitySectionDivInfo {
+    width: fit-content;
+    text-align: start;
+    padding-block: 10px;
+    margin: auto;
+}
+
+.identitySectionDivInfo h3 em{
+    color: #4D5373 ;
+
+}
+
+.identitySectionDivInfo p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: #242A49;
+    font-weight: 600;
+    font-size: .75em;
+}
+
+.identitySectionDivInfo p em {
+    color: #6d759e ;
+
+} */
+
+/* TESTING TESTING */
 .createIdentitySection {
-    background-color: rgba(235, 162, 26, 0.875);
+    background-color: #1e283be4 ;
     padding: 20px;
     border-radius: 20px;
-    margin: 1vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    height: 150px;
+    width: 150px;
+    box-shadow: 0px 10px 18px 0px #242a49cb;
+}
+
+.createIdentitySection h3 {
+    margin: .3em;
+    color: #e8cd1d;
+    font-size: .9em
 }
 
 .createIdentitySection p {
     max-width: 300px;
     color: white;
-    font-size: .9em;
+    font-size: .75em;
     border-radius: 20px;
-
+    padding-inline: 8px;
+    margin-block: 5px;
 }
 
-#parentAddress {
+.createIdentitySection button {
+    font-size: .65em;
+    padding: 6px 8px;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+/* DASHBOARD AREA ABOUT WALLET */
+.walletDashSection {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;  
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.walletDashSection h2 {
+    width: 100%;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.walletDashBoxesContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;  
+}
+
+.dashSection {
+    box-shadow: 2px 1px 2px #1e283be4 ;
+    border-radius: 20px;
+    margin: 10px;
+    font-size: .58em;
+    text-align: start;
+    width: 100%;
+    background-image: linear-gradient(to bottom right, transparent, #4d6592e4  );
+    padding: 15px;
+}
+
+.dashSection h2 {
+    color: #242A49;
+    font-family: 'Rajdhani', sans-serif;
+    margin:0px;
+    margin-bottom: 5px;
+}
+
+/* DASH SECTION INFO CONTAINER */
+
+.dashSectionInfoContainer {
+    text-align: start;
+    display: flex;
+    justify-content: start;
+    margin: auto;
+    font-size: 1.3em;
+}
+
+.dashSectionInfoContainer img {
+    height: 80px;
+    width: 80px;
+}
+
+.dashSectionInfoContainer div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50%;
+    margin-top: 1vh;
+}
+
+.dashSectionInfoContainer div p {
+    margin-top: 0px;
+    margin-bottom: 2px;
+    color: #1e283be4;
+    border-radius: 10px;
+}
+
+.dashSectionInfoContainer p em {
+    color: yellow;
+}
+
+.parentAddress {
     text-overflow: ellipsis;
     overflow: hidden;
-    width: 120px;
+    max-width: 120px;
     white-space: nowrap;
-
+    font-size: .8em;
 }
 
-#parentAddress:hover {
+.parentAddress:hover {
     text-overflow: wrap;
     overflow: visible;
     white-space: pre-wrap;
     overflow-wrap: break-word;
 }
 
-@media screen and (min-width: 440px) {
+
+/* NEW NFT MINTING QR SECTION */
+
+.mintNftQrDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    text-align: start;
+    width: 55vw;
+    max-width: 300px;
+    background-color: rgba(38, 76, 122, 0.925);
+    color: white;
+    padding: 26px;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 53%;
+    transform: translate(-54%, -50%);
+    z-index: 10;
+    min-width: 300px;
+}
+
+.mintNftQrDiv img {
+    height: 130px;
+    width: 130px;
+}
+
+.mintNftQrDiv p {
+    font-weight: 700;
+    font-size: 16px
+}
+
+/* RESPONSIVE SIZING */
+
+@media screen and (min-width: 540px) {
+
     .profileDash {
-        /* justify-content: start; */
+        margin-top: 8vh;
     }
+
+    .dashMain {
+        margin: 40px;
+        margin-bottom: 30px;
+        max-width: 650px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0px;
+    }
+
+    #identitySectionDiv {
+        width: 80%;
+        margin: 0px;
+        border: none;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        max-width: 420px;
+    }
+
+    .identitySectionDivInfo {
+        margin:0px;
+    }
+
+    .identitySectionDivInfo h3{
+        margin-top: 3px;
+        margin-bottom: 6px;
+        font-size: 1em;
+    }
+
+    .identitySectionDivInfo p {
+        font-size: .9em;
+    }
+
+    #identitySectionDiv img {
+        width: 100%;
+        max-width: 140px;
+    }
+
+    .asideIdentitySectionDiv {
+        width: 80%;
+        height: fit-content;
+        margin-top: 3vh;
+        font-size: .8em;
+        max-width: 420px;
+    }
+
+    .asideIdentitySectionDiv h3 {
+        margin-top: 0px;
+    }
+
+    .walletDashBoxesContainer {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0px;
+        max-width: 975px;
+    }
+
+    .dashSection {
+        width: 200px;
+    }  
+}
+
+@media screen and (min-width: 790px) {
+    .dashMain {
+        max-width: 700px
+    }
+}
+
+/* @media screen and (min-width: 440px) {
+    .profileDash {
+        align-items: start;
+    }
+
+    .walletDashSection {
+        flex-direction: row ;
+    }
+} */
+
+/* @media screen and (min-width: 440px) {
 
     .dashSection {
         margin: 5px;
         width: 165px;
-        height: 200px;
-        background-color: rgba(255, 136, 0, 0.771);
         box-shadow: 2px 0px 2px rgb(219, 218, 218);
         border-radius: 20px 20px 20px 20px;
     }
@@ -343,22 +415,14 @@
     .dashSection h2 {
         font-size: 20px;
     }
-    /* .profileHead {
-        min-height: 20%;
-        margin-top: 9.5vh;
-    }
+} */
 
-    .profileHead h1 {
-        margin-top: 9vh;
-    } */
-}
+/* @media screen and (min-width: 472px) {
 
-@media screen and (min-width: 472px) {
+} */
 
-}
-
-@media screen and (min-width: 712px) {
+/* @media screen and (min-width: 712px) {
     #identitySectionDiv {
         width: 70%;
     }
-}
+} */

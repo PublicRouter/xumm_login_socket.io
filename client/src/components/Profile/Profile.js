@@ -1,45 +1,55 @@
 import React, { useContext, useState, useEffect } from 'react'
 import '../Profile/profile.css'
 
-import { LoginContext } from '../../App';
+// import NewIdentityNftForm from '../NewIdentityNftForm/NewIdentityNftForm';
+import { AccountContext } from '../../App';
+
 // import CharacterUi from '../CharacterUi/CharacterUi';
+import CreateNftForm from '../CreateNftForm/CreateNftForm';
+import TestForm from '../TestForm/TestForm';
+import stockPricesSvg from '../../images/stock_prices.svg';
+import piggyBankSvg from '../../images/piggyBank.svg';
+import revenueSvg from '../../images/revenue.svg';
+
 
 export default function Profile({ socket }) {
-  const [loggedInContext, setLoggedInContext] = useContext(LoginContext);
+  const [accountObject, setAccountObject] = useContext(AccountContext);
   // const [burnPayload, setBurnPayload] = useState({ initiated: false });
-  // const [mintNftPayload, setMintNftPayload] = useState({ payload: false });
-  // const [display, setDisplay] = useState(true);
-
+  const [mintNftPayload, setMintNftPayload] = useState({ payload: false });
+  // const [hasIdentityNft, setIdentityNft] = useState(false);
+  const [formOpened, setFormOpened] = useState(false);
   const [walletData, updateWalletData] = useState({})
   const [paymentFlowData, updatePaymentFlowData] = useState([])
 
   useEffect(() => {
 
     const fetchAccountInfo = async () => {
-      const accountInfo = await fetch(`https://api.xrpscan.com/api/v1/account/${loggedInContext.wallet}`);
+      const accountInfo = await fetch(`https://api.xrpscan.com/api/v1/account/${accountObject.wallet}`);
       const jsonInfo = await accountInfo.json();
       console.log("Fetched wallet json data: ", jsonInfo);
-      // let walletKeys = Object.entries(jsonInfo)
 
-      const returnedPaymentFlowData = await fetch(`https://api.xrpscan.com/api/v1/account/${loggedInContext.wallet}/payment_flows`);
+      const returnedPaymentFlowData = await fetch(`https://api.xrpscan.com/api/v1/account/${accountObject.wallet}/payment_flows`);
       const returnedPaymentFlowDataJson = await returnedPaymentFlowData.json();
-      console.log("payment flow data: ", returnedPaymentFlowDataJson)
 
       updateWalletData(jsonInfo);
+      //changes paymentFlowData to a object from a array
       updatePaymentFlowData(returnedPaymentFlowDataJson[0]);
-      // walletData = jsonInfo
-      // keyValuePairs = Object.entries(jsonInfo);
-
     };
 
-    if (loggedInContext.loggedIn) {
-      fetchAccountInfo()
+    if (accountObject.loggedIn) {
+      fetchAccountInfo();
     } else {
       console.log("User not logged in.");
     };
 
-
+    // if (accountObject.userIdentityNft) {
+    //   setIdentityNft(true);
+    // }    
   }, []);
+
+  function toggleCreateNftForm() {
+    setFormOpened(!formOpened)
+  };
   // let keyValuePairs;
   // let walletData = null;
 
@@ -48,12 +58,9 @@ export default function Profile({ socket }) {
   //   return date.split('//')[1];
   // };
 
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-
-  console.log("WE ON THE PROF: ", loggedInContext);
-
+  // function capitalizeFirstLetter(string) {
+  //   return string.charAt(0).toUpperCase() + string.slice(1);
+  // };
 
 
 
@@ -69,9 +76,9 @@ export default function Profile({ socket }) {
   //     socket.emit("subscribeToNftDelete", async (callback2) => {
   //       const subResolveData = await callback2
   //       console.log("Identity NFT array after deleteNft function ran: ", subResolveData);
-  //       // setLoggedInContext({...loggedInContext, nftMetaData: callback2.});
+  //       // setaccountObject({...accountObject, nftMetaData: callback2.});
   //       if (subResolveData.userIdentityNft == null) {
-  //         setLoggedIn({ ...loggedInContext, nftMetaData: subResolveData.userIdentityNft })
+  //         setLoggedIn({ ...accountObject, nftMetaData: subResolveData.userIdentityNft })
   //       }
   //     })
   //   })
@@ -112,7 +119,7 @@ export default function Profile({ socket }) {
   //         const fetchedMetaData = await fetch(nftUrl);
   //         const newMetaData = await fetchedMetaData.json();
   //         console.log("NFTokenMint TX Signed!")
-  //         setLoggedInContext({ ...loggedInContext, nftMetaData: newMetaData })
+  //         setaccountObject({ ...accountObject, nftMetaData: newMetaData })
   //       }
   //     })
   //   });
@@ -122,126 +129,183 @@ export default function Profile({ socket }) {
     return url.split('//')[1];
   };
 
-  // const characterProfileSrc = './images/honeyLogo.png';
-  // const helmetSrc = './images/honeyLogo.png';
-  // const chestSrc = './images/honeyLogo.png';
-  // const legsSrc = './images/honeyLogo.png';
-  // const feetSrc = './images/honeyLogo.png';
-  // const weaponSrc = './images/honeyLogo.png';
-
-
   return (
     <div className='profileMain'>
-
-      <div className='profileHead'>
-        <h1>Profile Page</h1>
-      </div>
-
-      {/* <CharacterUi
-        imageSrc={characterProfileSrc}
-        helmetSrc={helmetSrc}
-        chestSrc={chestSrc}
-        legsSrc={legsSrc}
-        feetSrc={feetSrc}
-        weaponSrc={weaponSrc}
-      /> */}
       <div className='profileDash'>
+
         <div className='dashMain'>
-          {loggedInContext.userIdentityNft ?
+          {accountObject.userIdentityNft ?
             <div id="identitySectionDiv">
-              <h3>{loggedInContext.userIdentityNft?.name}</h3>
-              <img src={loggedInContext.userIdentityNft ? `https://ipfs.io/ipfs/${parseUrl(loggedInContext.userIdentityNft?.image)}` : null} />
-              <p>{loggedInContext.userIdentityNft?.attributes[0]?.value || 'No identity NFT'}</p>
-              <p>EXP: {loggedInContext.userIdentityNft?.attributes[1]?.value || 'No identity NFT'}yrs</p>
-            </div>
-            : 
-            <div className='createIdentitySection'>
-              <p>You do not have an identity NFT yet. Please click teh button below to create one!</p>
-              <button>Create Identity NFT</button>
-            </div>
-
-          }
-
-        </div>
-        <div className='dashSection'>
-          <h2>Wallet</h2>
-          <div className='dashSectionInfoContainer'>
-            <p>XRP: {walletData?.xrpBalance}</p>
-            <p>Owners: {walletData?.OwnerCount}</p>
-            <p id="parentAddress">Parent: {walletData?.parent}</p>
-            {/* <p>Inception: {`${walletData.inception.split("-")[1]}/${walletData.inception.split("-")[0]}`}</p> */}
-            {/* <p>Todays Total Payments: {paymentFlowData.payments}</p>
-            <p>Todays Payment Vol: {paymentFlowData.volume}</p> */}
-          </div>
-
-
-        </div>
-        <div className='dashSection'>
-          <h2>NFTs</h2>
-          <div className='dashSectionInfoContainer'>
-            <p>Minted NFTs: {walletData?.MintedNFTokens}</p>
-            <p>Burned NFTs: {walletData?.BurnedNFTokens}</p>
-          </div>
-        </div>
-        <div className='dashSection'>
-          <h2>Misc</h2>
-          <div className='dashSectionInfoContainer'>
-            <p>Volume: {paymentFlowData[0]?.volume}</p>
-            <p>Payments: {paymentFlowData[0]?.payments}</p>
-          </div>
-        </div>
-
-      </div>
-
-      {/* {
-        loggedInContext.identityNft !== null && loggedInContext.loggedIn ?
-          <div className='profileBody'>
-            <div id='profileCard'>
-              <img src={`https://ipfs.io/ipfs/${parseUrl(loggedIn.nftMetaData.image)}`} alt={imageIpfsUrl} id='characterImage' />
-              <div id='profileStats'>
-                <h4>Username: <em>{loggedInContext.nftMetaData.name}</em></h4>
-                <p className='loggedInRAddress'>Wallet: <em>{loggedIn.rAddress}</em></p>
-                <p>{capitalizeFirstLetter(loggedInContext.nftMetaData.attributes[0].trait_type)}: <em>{loggedIn.nftMetaData.attributes[0].value}</em></p>
-                <p>{capitalizeFirstLetter(loggedInContext.nftMetaData.attributes[1].trait_type)}: <em>{loggedIn.nftMetaData.attributes[1].value}</em></p>
+              <img src={accountObject.userIdentityNft ? `https://ipfs.io/ipfs/${parseUrl(accountObject.userIdentityNft?.image)}` : null} />
+              <div className='identitySectionDivInfo'>
+                <h3>Welcome, <em>{accountObject.userIdentityNft?.name}</em>.</h3>
+                {
+                  accountObject.userIdentityNft?.attributes?.map((attribute) => (
+                    <p>{attribute.trait_type}: <em>{attribute.value}</em></p>
+                  ))
+                }
               </div>
             </div>
-            <div className='deleteDiv'>
-              <h2>Delete Current NFT?</h2>
-              <button onClick={deleteNft}>Delete</button>
-              {burnPayload.initiated ?
-                <img src={burnPayload.payload.refs.qr_png} />
-                : null
+            :
+            <div className='createIdentitySection'>
+              <h3>Attention!</h3>
+              <p>You do not have an identity NFT yet. Please click teh button below to create one!</p>
+              <button onClick={toggleCreateNftForm} >Create Identity NFT</button>
+              {
+                formOpened ?
+                  // <CreateNftForm setFormOpened={setFormOpened} socket={socket} />
+                  <TestForm setFormOpened={setFormOpened} socket={socket} setMintNftPayload={setMintNftPayload} />
+                  : null
+              }
+              {
+                mintNftPayload.payload ?
+                  <div className='mintNftQrDiv'>
+                    <p>Scan QR code with Xumm App to sign NfTokenMint Payload</p>
+                    <a href={mintNftPayload.qrLink} >
+                      <img src={mintNftPayload.qrImage} />
+                    </a>
+                  </div>
+                  : null
               }
             </div>
-            <div id='profileBodyMain'>
-
-
-            </div>
+          }
+          <div className='asideIdentitySectionDiv'>
+            <h3>Lorem ipsum dora lori elo.</h3>
+            <p>lorem ipsum delorum uri toobd sori d duroe. lorem ipsum delorum uri toobd sori d duroe. lorem ipsum delorum uri toobd sori d duroe. lorem ipsum delorum uri toobd sori d duroe.</p>
+            <button>Button</button>
           </div>
-          :
-          <div className='profileMain'>
-            <h3 id="noNftText">Account currently does not own a Identity NFT.</h3>
+        </div>
 
-            <div className='profileFormDiv'>
-              <form onSubmit={handleSubmit} className="profileForm" style={display ? null : { display: "none" }}>
-                <input type="text" name="username" placeholder="Username" />
-                <input type="text" name="profession" placeholder="Profession" />
-                <input type="text" name="years" placeholder="Experience(yrs)" />
-                <input type="file" name="nftImage" placeholder="NFT Image file(jpeg, png)" />
-                <button type="submit">Create NFT</button>
-              </form>
-              {mintNftPayload.payload ?
-                <div className='mintNftQrDiv'>
-                  <img src={mintNftPayload.qrImage} />
-                  <a href={mintNftPayload.qrLink} />
+        <div className='walletDashSection'>
+          <div className='walletDashBoxesContainer'>
+            <div className='dashSection'>
+              <h2>Wallet</h2>
+              <div className='dashSectionInfoContainer'>
+                <img src={piggyBankSvg} />
+                <div>
+                  <p>XRP: <em>{walletData?.xrpBalance}</em></p>
+                  <p>Owners: <em>{walletData?.OwnerCount}</em></p>
+                  <p className="parentAddress">Parent: <em>{walletData?.parent}</em></p>
                 </div>
-                : null
-              }
 
+              </div>
             </div>
-          </div>
-      } */}
 
+            <div className='dashSection'>
+              <h2>NFTs</h2>
+              <div className='dashSectionInfoContainer'>
+                <img src={piggyBankSvg} />
+                <div>
+                  <p>Minted NFTs: <em>{walletData?.MintedNFTokens}</em></p>
+                  <p>Burned NFTs: <em>{walletData?.BurnedNFTokens}</em></p>
+                </div>
+              </div>
+            </div>
+
+            <div className='dashSection'>
+              <h2>Misc</h2>
+              <div className='dashSectionInfoContainer'>
+                <img src={piggyBankSvg} />
+                <div>
+                  <p>Volume: <em>{paymentFlowData?.volume}</em></p>
+                  <p>Payments: <em>{paymentFlowData?.payments}</em></p>
+                </div>
+              </div>
+            </div>
+
+            <div className='dashSection'>
+              <h2>Wallet</h2>
+              <div className='dashSectionInfoContainer'>
+                <img src={piggyBankSvg} />
+                <div>
+                  <p>XRP: <em>{walletData?.xrpBalance}</em></p>
+                  <p>Owners: <em>{walletData?.OwnerCount}</em></p>
+                  <p className="parentAddress">Parent: <em>{walletData?.parent}</em></p>
+                </div>
+              </div>
+            </div>
+
+            <div className='dashSection'>
+              <h2>NFTs</h2>
+              <div className='dashSectionInfoContainer'>
+                <img src={piggyBankSvg} />
+                <div>
+                  <p>Minted NFTs: <em>{walletData?.MintedNFTokens}</em></p>
+                  <p>Burned NFTs: <em>{walletData?.BurnedNFTokens}</em></p>
+                </div>
+              </div>
+            </div>
+
+            <div className='dashSection'>
+              <h2>Misc</h2>
+              <div className='dashSectionInfoContainer'>
+                <img src={piggyBankSvg} />
+                <div>
+                  <p>Volume: <em>{paymentFlowData?.volume}</em></p>
+                  <p>Payments: <em>{paymentFlowData?.payments}</em></p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
   )
-}
+};
+
+
+
+/* <p>Inception: {`${walletData.inception.split("-")[1]}/${walletData.inception.split("-")[0]}`}</p> */
+/* <p>Todays Total Payments: {paymentFlowData.payments}</p>
+   <p>Todays Payment Vol: {paymentFlowData.volume}</p> */
+
+
+/* {
+      accountObject.identityNft !== null && accountObject.loggedIn ?
+        <div className='profileBody'>
+          <div id='profileCard'>
+            <img src={`https://ipfs.io/ipfs/${parseUrl(loggedIn.nftMetaData.image)}`} alt={imageIpfsUrl} id='characterImage' />
+            <div id='profileStats'>
+              <h4>Username: <em>{accountObject.nftMetaData.name}</em></h4>
+              <p className='loggedInRAddress'>Wallet: <em>{loggedIn.rAddress}</em></p>
+              <p>{capitalizeFirstLetter(accountObject.nftMetaData.attributes[0].trait_type)}: <em>{loggedIn.nftMetaData.attributes[0].value}</em></p>
+              <p>{capitalizeFirstLetter(accountObject.nftMetaData.attributes[1].trait_type)}: <em>{loggedIn.nftMetaData.attributes[1].value}</em></p>
+            </div>
+          </div>
+          <div className='deleteDiv'>
+            <h2>Delete Current NFT?</h2>
+            <button onClick={deleteNft}>Delete</button>
+            {burnPayload.initiated ?
+              <img src={burnPayload.payload.refs.qr_png} />
+              : null
+            }
+          </div>
+          <div id='profileBodyMain'>
+
+
+          </div>
+        </div>
+        :
+        <div className='profileMain'>
+          <h3 id="noNftText">Account currently does not own a Identity NFT.</h3>
+
+          <div className='profileFormDiv'>
+            <form onSubmit={handleSubmit} className="profileForm" style={display ? null : { display: "none" }}>
+              <input type="text" name="username" placeholder="Username" />
+              <input type="text" name="profession" placeholder="Profession" />
+              <input type="text" name="years" placeholder="Experience(yrs)" />
+              <input type="file" name="nftImage" placeholder="NFT Image file(jpeg, png)" />
+              <button type="submit">Create NFT</button>
+            </form>
+            {mintNftPayload.payload ?
+              <div className='mintNftQrDiv'>
+                <img src={mintNftPayload.qrImage} />
+                <a href={mintNftPayload.qrLink} />
+              </div>
+              : null
+            }
+
+          </div>
+        </div>
+    } */
