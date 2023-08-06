@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState, useEffect } from 'react';
 import '../Footer/footer.css';
 import { AccountContext } from '../../App';
 
+
 export default function Footer({ socket }) {
   const [accountObject, setAccountObject] = useContext(AccountContext);
   const [isShown, setIsShown] = useState(false);
@@ -42,7 +43,7 @@ export default function Footer({ socket }) {
 
   function accountGrade(balance) {
     const balanceNum = Number(balance);
-  
+
     if (balanceNum > 1500) {
       return "border-orange";
     } else if (balanceNum > 1000) {
@@ -81,16 +82,20 @@ export default function Footer({ socket }) {
                   {/* <em>socket: {user.socket}</em>
                   <em>Wallet: {user.wallet}</em> */}
                   <div className={`footerProfileCard ${accountGrade(user.xrpBalance)}`}>
-                    <img src={`https://ipfs.io/ipfs/${parseUrl(user.identityNft.image)}`} />
-                    <div>
-                      <p>{user.identityNft.name}</p>
-                      <p>{findProfessionAttributeValue(user.identityNft.attributes)}</p>
+                    <img src={
+                      user.identityNft && user.identityNft.image
+                        ? `https://ipfs.io/ipfs/${parseUrl(user.identityNft.image)}`
+                        : "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
+                    } />                    <div>
+                      <p>{user.identityNft && user.identityNft.name ? user.identityNft.name : "No Identity NFT"}</p>
+                      <p>{user.identityNft && user.identityNft.attributes ? findProfessionAttributeValue(user.identityNft.attributes) : "No Identity NFT"}</p>
                       {/* <p>{xrpScanWalletLookupForXrpBalance(user.wallet)}</p> */}
                     </div>
                   </div>
                 </div>
               </li>
-            )}
+            )
+          }
         </ul>
 
       </div>
