@@ -1,0 +1,180 @@
+.homeDiv {
+    /* background: url("https://wallpaperaccess.com/full/187161.jpg"); */
+    /* background: url("https://t4.ftcdn.net/jpg/04/76/88/43/360_F_476884330_ZuEdqGXQF5stdevOSE73l0Z270dSVTxN.jpg"); */
+    /* background: url("https://media.idownloadblog.com/wp-content/uploads/2018/11/honey-hexagon-digital-abstract-pattern-background-ipad-pro.jpg"); */
+    background-position: center;
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
+    background-color: rgb(211, 214, 233);
+}
+
+#moneyTransferSvg {
+    height: 35vh;
+    position: relative;
+    margin-top: 13vh;
+    margin-bottom: 6vh;
+    
+}
+
+#landingPageMainDiv {
+    position: relative;
+    text-align: start;
+    width: 70vw;
+    border-radius: 20px;
+}
+
+#homeTitle {
+    /* position: absolute; */
+    color: #242A49;
+    /* text-decoration: underline; */
+    font-size: 1.75rem;
+    font-weight: 400;
+    /* -webkit-text-stroke: 2px white; */
+    /* text-align: start;
+    top: 44vh;
+    left: 10vw; */
+    /* font-family: 'Rajdhani', sans-serif; */
+    /* width: 65vw; */
+    margin: 0px;
+}
+
+#landingPageMainDiv p {
+    /* color: #4D5373; */
+    color: #4D5373 ;
+    font-weight: 300;
+    /* margin-top: 6px; */
+}
+
+#homeEnterButton {
+    /* background-color: #867cac; */
+    background-color: #5a5273;
+    border-radius: 20px 20px 20px 20px;
+    border: 1px solid white;
+    min-width: 75px;
+    width: fit-content;
+    color: rgb(255, 255, 255);
+    font-size: .8rem;
+    font-weight: bold;
+    margin-block: .4rem;
+    position: absolute;
+    /* position: absolute;
+    top: 54vh;
+    z-index: 30; */
+}
+
+#homeEnterButton:hover {
+    box-shadow: 0px 1px 1px 0px #8c7fba;
+    border: #584d73;
+    /* box-shadow: 2px 1px 1px 1px rgb(86, 76, 76); */
+
+}
+
+#homeEnterButton a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 50px;
+    z-index: 40;
+}
+
+#homeEnterButton a:-webkit-any-link {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+
+/* NEW STUFF */
+#homeTitle {}
+
+@media screen and (min-width: 460px) {
+    /* #moneyTransferSvg {
+        position: absolute;
+        height: 40vh;
+        right: 10vw;
+        top: 10vh;
+    } */
+
+    
+}
+
+@media screen and (min-width: 740px) {
+    #moneyTransferSvg {
+        position: absolute;
+        right: 15vw;
+        /* height: 50vh; */
+        /* margin-top: 10vh; */
+    }
+
+    #landingPageMainDiv {
+        position: absolute;
+        bottom: 30vh;
+        /* left: 6vw; */
+    }
+
+    #homeTitle {
+        font-size: 50px;
+    }
+}
+
+@media screen and (min-width: 940px) {
+    #moneyTransferSvg {
+       height: 50vh;
+       margin-top: 10vh;
+    }
+
+    #landingPageMainDiv {
+        position: absolute;
+        bottom: 24vh;
+        left: 6vw;
+    }
+}
+
+@media screen and (min-width: 1020px) {
+    #landingPageMainDiv {
+        left: 10vw;
+    }
+}
+
+@media screen and (min-width: 1285px) {
+
+    #moneyTransferSvg {
+        right: 12vw;
+        margin-top: 20vh;
+    }
+
+    #landingPageMainDiv {
+       bottom: 40vh;
+       width: 40vw;
+    }
+
+    #homeTitle {
+        font-size: 62px;
+    }
+}
+
+/* @media screen and (min-width: 440px) {
+
+}
+
+@media screen and (min-width: 560px) {
+
+}
+
+@media screen and (min-width: 660px) {
+
+}
+
+@media screen and (min-width: 940px) {
+
+}
+
+@media screen and (min-width: 1230px) {
+
+} */

@@ -3,8 +3,8 @@ require('dotenv').config();
 
 const Sdk = new XummSdk(process.env.XUMM_API_KEY, process.env.XUMM_API_SECRET);
 
-const subscribeTo = async (uuid) => {
-    console.log("Subscription function fired! (:")
+const subscribeToPayloadUuid = async (uuid) => {
+    console.log("Subscription helper is now listening to desired payload for 'signed' true event...")
     const subscription = await Sdk.payload.subscribe(uuid, (event) => {
         if (Object.keys(event.data).indexOf('signed') > -1) {
             return event.data;
@@ -27,4 +27,4 @@ const subscribeTo = async (uuid) => {
     
 };
 //after payload resolved, lookup completed tx and return data
-module.exports = subscribeTo;
+module.exports = subscribeToPayloadUuid;

@@ -25,7 +25,7 @@ async function fileFromPath(filePath) {
     return new File([content], path.basename(filePath), { type })
 };
 
-async function storeMetaToIpfs(userName, profession, years, imagePathString) {
+async function storeMetaToIpfs(userName, country, bio, profession, experience, imagePathString) {
     const imageFile = await fileFromPath(imagePathString);
 
     console.log("INSIDE CREATEFINAL");
@@ -34,7 +34,7 @@ async function storeMetaToIpfs(userName, profession, years, imagePathString) {
     const finalNftMeta =
     {
         "schema": "ipfs://QmNpi8rcXEkohca8iXu7zysKKSJYqCvBJn3xJwga8jXqWU",
-        "nftType": "Originators.v0",
+        "nftType": "art.v0",
         "name": userName,
         "description": "Originators unique identity NFTs. One will be created for each xrpl account that signs into our application. Used to store immutable account information.",
         "image": imageFile,
@@ -44,12 +44,20 @@ async function storeMetaToIpfs(userName, profession, years, imagePathString) {
         },
         "attributes": [
             {
+                "trait_type": "country",
+                "value": country
+            },
+            {
+                "trait_type": "bio",
+                "value": bio
+            },
+            {
                 "trait_type": "profession",
                 "value": profession
             },
             {
                 "trait_type": "experience",
-                "value": years
+                "value": experience
             }
         ]
     };
@@ -60,7 +68,8 @@ async function storeMetaToIpfs(userName, profession, years, imagePathString) {
 
     //uncomment below to enable actual minting to ipfs
     const metaUrl = await main(finalNftMeta);
-
+    console.log("URI hash to stored metadata on IPFS: ", metaUrl);
+    
     return metaUrl
 };
 

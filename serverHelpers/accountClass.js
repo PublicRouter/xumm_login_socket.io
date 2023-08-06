@@ -1,39 +1,77 @@
 require('dotenv').config();
 
-const lookupAccountNfts = require("./xrplNftLookup");
-const storeMetaToIpfs = require("./nftStorageMint");
+const createSignin = require('./createXummSignin');
+const subscribeToSignIn = require('./subscribeToPayloadUuid')
+const lookupAccountNfts = require("./lookupAccountNfts");
 
-//@Params- Object{ signIn payload response object }
+const storeMetaToIpfs = require("./storeMetaToIpfs");
+const mintNfToken = require('./mintNfToken');
+const burnNft = require('./burnNft');
+
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+
+
+//@Params- Object{ xumm payload.get response object }
 class Account {
-    constructor(signedAuthenticationPayload) {
-      this.loggedIn = signedAuthenticationPayload.meta.signed;
-      this.wallet = signedAuthenticationPayload.response.signer;
-      this.xummToken = signedAuthenticationPayload.response.user;
-      this.payloadUuid = "";
-      this.userIdentityNft = null;
+  constructor() {
+    this.loggedIn = null;
+    this.wallet = null;
+    this.xummToken = null;
+    this.latestPayload = null;
+    this.userIdentityNft = null;
+  }
+
+  update(data) {
+    Object.keys(data).forEach(key => {
+      if (this.hasOwnProperty(key)) {
+        this[key] = data[key];
+      }
+    });
+  };
+
+  showCurrentUserInfo = () => {
+    return {
+      loggedIn: this.loggedIn,
+      rAddress: this.wallet,
+      identityNft: this.userIdentityNft
     }
+  };
 
-    async listOfNftsFromAppWallet(){
-        const arrayOfNfts = await lookupAccountNfts(this.wallet);
-        return arrayOfNfts;
-    };
+  setIdentityNft = (jsonMetaDataObject) => {
+    console.log("identity nft set.")  
+    this.userIdentityNft = jsonMetaDataObject
+  };
 
-    // async createNewAccountInfoIpfsMetadata(userName, profession, years){
-    //     const newIpfsHash = await storeMetaToIpfs(userName, profession, years);
-    //     return newIpfsHash;
-    // };
+  returnArrayOfAccountNfts = async () => {
+    const arrayOfNfts = await lookupAccountNfts(this.wallet);
+    return arrayOfNfts;
+  };
 
-    createNewAppNfTokenMintPayload(){
-        
-    };
+  checkAccountXrpBalance = async () => {
+    const accountInfo = await fetch(`https://api.xrpscan.com/api/v1/account/${this.wallet}`);
+    const jsonInfo = await accountInfo.json();
+    console.log("YEEEYEYEYEYEYEYEYEYEYYEYEYE_________: ", jsonInfo)
+    return jsonInfo.xrpBalance
+  }
 
-    createBurnCurrentAppNfTokenPayload(){
+  // filterAllNftsMetadataFor
 
-    };
+  // async createNewAccountInfoIpfsMetadata(userName, profession, years){
+  //     const newIpfsHash = await storeMetaToIpfs(userName, profession, years);
+  //     return newIpfsHash;
+  // };
 
-
+  createNewAppNfTokenMintPayload() {
 
   };
+
+  createBurnCurrentAppNfTokenPayload() {
+
+  };
+
+};
+
+module.exports = Account;
 
 
 

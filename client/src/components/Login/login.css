@@ -4,36 +4,39 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     /* background-color: rgb(28, 79, 141); */
     /* background-color: rgb(25, 115, 194); */
     /* background-image: url("https://cdn-content-ingress.altvr.com/uploads/space/image/1211236397793411434/background_banner_ReadyPlayerOne.jpg"); */
     /* background: url("https://cdn.vox-cdn.com/thumbor/43YwSrT8eOJTiVXTy8f7rDKYd1U=/0x0:3000x1688/1400x1050/filters:focal(1500x844:1501x845)/cdn.vox-cdn.com/uploads/chorus_asset/file/21889355/Emere.jpg"); */
-    background: url("https://media.idownloadblog.com/wp-content/uploads/2018/11/honey-hexagon-digital-abstract-pattern-background-ipad-pro.jpg");
+    /* background: url("https://media.idownloadblog.com/wp-content/uploads/2018/11/honey-hexagon-digital-abstract-pattern-background-ipad-pro.jpg"); */
 
-    background-size: cover;
-    background-position: top left;
+
+    overflow: hidden;
 }
 
 .loginComponent {
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(0px);
     min-height: 40vh;
-    min-width:78vw;
+    width: 78vw;
     display: flex;
+    position: absolute;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(29, 28, 28, 0.25);
+    background-color: #242a49e0;
     padding: 1rem;
     border-radius: 25px;
-    -webkit-box-shadow: 0px 1px 1px rgb(26, 204, 244);
-    -moz-box-shadow: 0px 5px 5px rgb(26, 204, 244);
-    box-shadow: 3px 3px 3px rgb(26, 204, 244);
+    margin-top: 18vh;
+    /* -webkit-box-shadow: 0px 1px 1px rgb(211,214,233);
+    -moz-box-shadow: 0px 5px 5px rgb(211,214,233);
+    box-shadow: 3px 3px 3px rgb(211,214,233); */
+    box-shadow: 0px 10px 18px 0px #242a49cb;
 }
 
 .loginComponent h1 {
-    color: rgb(244, 162, 10);
+    color: rgb(211, 214, 233);
     -webkit-text-stroke: 1px white;
     margin-bottom: 0px;
     font-family: 'Rajdhani', sans-serif;
@@ -42,25 +45,25 @@
 
 .loginComponent button {
     border: white solid 2px;
-    background-color: rgba(6, 6, 6, 0.25);
+    background-color: rgb(211, 214, 233);
     text-decoration: underline;
     /* -webkit-text-stroke: 1px white; */
     /* backdrop-filter: blur(20px); */
-    color: rgb(244, 162, 10);
+    color: #242A49;
     padding: 6px;
     border-radius: 10px;
     font-size: 1.2rem;
     font-family: 'Rajdhani', sans-serif;
-    margin-bottom: 8vh;
+    margin-bottom: 4vh;
     font-weight: 600;
-    -webkit-box-shadow: 0px 1px 1px rgb(26, 204, 244);
-    -moz-box-shadow: 0px 5px 5px rgb(26, 204, 244);
-    box-shadow: 1px 0px 7px 3px rgb(26, 204, 244);
+    -webkit-box-shadow: 0px 1px 1px rgb(211, 214, 233);
+    -moz-box-shadow: 0px 5px 5px rgb(211, 214, 233);
+    box-shadow: 1px 0px 7px 3px rgb(211, 214, 233);
 }
 
 .loginComponent button:hover {
     border: solid 2px grey;
-    background: rgb(244, 162, 10);
+    background: #242A49;
     color: white;
 }
 
@@ -74,23 +77,23 @@
 
 .payloadDiv img {
     margin-top: 3vh;
-    height: 200px;
-    width: 200px;
+    height: 180px;
+    width: 180px;
 }
 
 .payloadDiv a {
     font-size: .75rem;
-    max-width: 60vw ;
+    max-width: 60vw;
     padding: .7rem;
     color: white;
 }
 
 #signInMsg {
-    color: rgb(244, 162, 10);
+    color: #242A49;
     text-align: start;
     /* background-color: rgb(194, 142, 37); */
     background-color: white;
-    border: solid rgba(244, 219, 174) 2px;
+    border: solid #242A49 2px;
     /* background-color: rgb(244, 162, 10); */
     padding-inline: 7px;
     padding-block: 3px;
@@ -115,14 +118,70 @@
     font-size: .8rem;
 }
 
-@media screen and (max-width: 440px) {
-    #signInMsg {
-        max-width: 85vw;
-    }
+#fingerprintLoginSvg {
+
+    height: 25vh;
+    width: 100%;
+    position: absolute;
+    bottom: 10.5vh;
+    overflow: hidden;
+
+
 }
 
 @media screen and (min-width: 440px) {
     .loginComponent {
-        min-width: 46vw;
+        max-width: 400px;
+    }
+
+    #fingerprintLoginSvg {
+
+        /* height: 60vh; */
+    }
+}
+
+@media screen and (min-width: 640px) {
+    .loginComponent {
+        max-width: 300px;
+        right: 5vw;
+        margin-top: 17vh;
+    }
+
+    .payloadDiv img {
+        width: 120px;
+        height: 120px;
+    }
+
+    #fingerprintLoginSvg {
+        height: 60vh;
+        left: -18vw;
+    }
+}
+
+@media screen and (min-width: 790px) {
+    .loginComponent {
+        right: 14vw;
+    }
+}
+
+@media screen and (min-width: 1060px) {
+    .loginComponent {
+        right: 20vw;
+        margin-top: 15vh;
+    }
+
+    #fingerprintLoginSvg {
+        height: 70vh;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .loginComponent {
+        right: 23vw;
+    }
+
+    #fingerprintLoginSvg {
+        height: 70vh;
+        left: -8vw;
     }
 }
