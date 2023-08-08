@@ -18,22 +18,56 @@ export default function Profile({ socket }) {
   const [mintNftPayload, setMintNftPayload] = useState({ payload: false });
   // const [hasIdentityNft, setIdentityNft] = useState(false);
   const [formOpened, setFormOpened] = useState(false);
-  const [walletData, updateWalletData] = useState({})
-  const [paymentFlowData, updatePaymentFlowData] = useState([])
+  const [xrpscanFetchedAccountInfo, updateXrpscanFetchedAccountInfo] = useState({
+    accountData: {},
+    paymentFlowData: [],
+    nftObjects: [],
+    nftObjectsMetaData: []
+  });
 
   useEffect(() => {
 
     const fetchAccountInfo = async () => {
+      function parseUrl(url) {
+        return url.split('//')[1];
+      };
+
       const accountInfo = await fetch(`https://api.xrpscan.com/api/v1/account/${accountObject.wallet}`);
       const jsonInfo = await accountInfo.json();
       console.log("Fetched wallet json data: ", jsonInfo);
 
       const returnedPaymentFlowData = await fetch(`https://api.xrpscan.com/api/v1/account/${accountObject.wallet}/payment_flows`);
       const returnedPaymentFlowDataJson = await returnedPaymentFlowData.json();
+      console.log("fetchecked Payment flows data: ", returnedPaymentFlowDataJson);
 
-      updateWalletData(jsonInfo);
+      const accountNftsData = await fetch(`https://api.xrpscan.com/api/v1/account/${accountObject.wallet}/nfts`);
+      const accountNftsDataJson = await accountNftsData.json();
+      console.log("fetched account nfts jsonData: ", accountNftsDataJson);
+
+      let nftsMetaDataObjects = [];
+
+      for (let i = 0; i < accountNftsDataJson.length; i++) {
+        if (accountNftsDataJson[i].URI) {
+          const nftMetaData = await fetch(`https://ipfs.io/ipfs/${parseUrl(accountNftsDataJson[i].URI)}`);
+          const nftMetaJson = await nftMetaData.json()
+          nftsMetaDataObjects.push(nftMetaJson)
+        }
+
+      };
+
+      // updateXrpscanFetchedAccountInfo({...xrpscanFetchedAccountInfo, nftObjectsMetaData: nftsMetaDataObjects})
+
+      // updatexrpscanFetchedAccountInfo(jsonInfo);
       //changes paymentFlowData to a object from a array
-      updatePaymentFlowData(returnedPaymentFlowDataJson[0]);
+      // updatePaymentFlowData(returnedPaymentFlowDataJson[0]);
+
+      console.log("YAYOOOOOOOOOOO::::::: ", nftsMetaDataObjects)
+      updateXrpscanFetchedAccountInfo({
+        accountData: jsonInfo,
+        paymentFlowData: returnedPaymentFlowDataJson,
+        nftObjects: accountNftsDataJson,
+        nftObjectsMetaData: nftsMetaDataObjects,
+      });
     };
 
     if (accountObject.loggedIn) {
@@ -51,7 +85,7 @@ export default function Profile({ socket }) {
     setFormOpened(!formOpened)
   };
   // let keyValuePairs;
-  // let walletData = null;
+  // let xrpscanFetchedAccountInfo = null;
 
 
   // function parseDate(date) {
@@ -177,15 +211,24 @@ export default function Profile({ socket }) {
         </div>
 
         <div className='walletDashSection'>
+          {/* <div className='walletDashNftsContainer'>
+            {
+              xrpscanFetchedAccountInfo.nftObjects.map(nft => (
+                <div>
+                  <p>nft.</p>
+                </div>
+              ))
+            }
+          </div> */}
           <div className='walletDashBoxesContainer'>
             <div className='dashSection'>
               <h2>Wallet</h2>
               <div className='dashSectionInfoContainer'>
                 <img src={piggyBankSvg} />
                 <div>
-                  <p>XRP: <em>{walletData?.xrpBalance}</em></p>
-                  <p>Owners: <em>{walletData?.OwnerCount}</em></p>
-                  <p className="parentAddress">Parent: <em>{walletData?.parent}</em></p>
+                  <p>XRP: <em>{xrpscanFetchedAccountInfo.accountData?.xrpBalance}</em></p>
+                  <p>Owners: <em>{xrpscanFetchedAccountInfo.accountData?.OwnerCount}</em></p>
+                  <p className="parentAddress">Parent: <em>{xrpscanFetchedAccountInfo?.parent}</em></p>
                 </div>
 
               </div>
@@ -196,8 +239,8 @@ export default function Profile({ socket }) {
               <div className='dashSectionInfoContainer'>
                 <img src={piggyBankSvg} />
                 <div>
-                  <p>Minted NFTs: <em>{walletData?.MintedNFTokens}</em></p>
-                  <p>Burned NFTs: <em>{walletData?.BurnedNFTokens}</em></p>
+                  <p>Minted NFTs: <em>{xrpscanFetchedAccountInfo.accountData?.MintedNFTokens}</em></p>
+                  <p>Burned NFTs: <em>{xrpscanFetchedAccountInfo.accountData?.BurnedNFTokens}</em></p>
                 </div>
               </div>
             </div>
@@ -207,8 +250,8 @@ export default function Profile({ socket }) {
               <div className='dashSectionInfoContainer'>
                 <img src={piggyBankSvg} />
                 <div>
-                  <p>Volume: <em>{paymentFlowData?.volume}</em></p>
-                  <p>Payments: <em>{paymentFlowData?.payments}</em></p>
+                  <p>Volume: <em>{xrpscanFetchedAccountInfo.paymentFlowData?.volume}</em></p>
+                  <p>Payments: <em>{xrpscanFetchedAccountInfo.paymentFlowData?.payments}</em></p>
                 </div>
               </div>
             </div>
@@ -218,9 +261,9 @@ export default function Profile({ socket }) {
               <div className='dashSectionInfoContainer'>
                 <img src={piggyBankSvg} />
                 <div>
-                  <p>XRP: <em>{walletData?.xrpBalance}</em></p>
-                  <p>Owners: <em>{walletData?.OwnerCount}</em></p>
-                  <p className="parentAddress">Parent: <em>{walletData?.parent}</em></p>
+                  <p>XRP: <em>{xrpscanFetchedAccountInfo.accountData?.xrpBalance}</em></p>
+                  <p>Owners: <em>{xrpscanFetchedAccountInfo.accountData?.OwnerCount}</em></p>
+                  <p className="parentAddress">Parent: <em>{xrpscanFetchedAccountInfo.accountData?.parent}</em></p>
                 </div>
               </div>
             </div>
@@ -230,8 +273,8 @@ export default function Profile({ socket }) {
               <div className='dashSectionInfoContainer'>
                 <img src={piggyBankSvg} />
                 <div>
-                  <p>Minted NFTs: <em>{walletData?.MintedNFTokens}</em></p>
-                  <p>Burned NFTs: <em>{walletData?.BurnedNFTokens}</em></p>
+                  <p>Minted NFTs: <em>{xrpscanFetchedAccountInfo.accountData?.MintedNFTokens}</em></p>
+                  <p>Burned NFTs: <em>{xrpscanFetchedAccountInfo.accountData?.BurnedNFTokens}</em></p>
                 </div>
               </div>
             </div>
@@ -241,8 +284,8 @@ export default function Profile({ socket }) {
               <div className='dashSectionInfoContainer'>
                 <img src={piggyBankSvg} />
                 <div>
-                  <p>Volume: <em>{paymentFlowData?.volume}</em></p>
-                  <p>Payments: <em>{paymentFlowData?.payments}</em></p>
+                  <p>Volume: <em>{xrpscanFetchedAccountInfo.paymentFlowData?.volume}</em></p>
+                  <p>Payments: <em>{xrpscanFetchedAccountInfo.paymentFlowData?.payments}</em></p>
                 </div>
               </div>
             </div>
@@ -256,7 +299,7 @@ export default function Profile({ socket }) {
 
 
 
-/* <p>Inception: {`${walletData.inception.split("-")[1]}/${walletData.inception.split("-")[0]}`}</p> */
+/* <p>Inception: {`${xrpscanFetchedAccountInfo.inception.split("-")[1]}/${xrpscanFetchedAccountInfo.inception.split("-")[0]}`}</p> */
 /* <p>Todays Total Payments: {paymentFlowData.payments}</p>
    <p>Todays Payment Vol: {paymentFlowData.volume}</p> */
 

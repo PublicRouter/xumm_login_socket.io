@@ -1,7 +1,13 @@
-# xumm_login_socket.io
-integrate xumm api as private key signing mechanism for application login authentication with socket.io
+# PocketWallet
 
-Current Functionality:
+### Dependencies: <br /> ___XRPl API, XUMM SDK, SOCKET.IO___ 
+<br />
+
+Verify XRP Ledger account ownership to view, interact, and communicate with other connected users. User interface to make interactions with your wallet seamless. View balances, previous transactions, NFT tokens, and much more.
+<br />
+<br />
+
+### CURRENTLY WORKING FUNCTIONALITY:
 
 - Generate XUMM QR code to scan via XUMM app and sign 'sign-in' payload; allowing application to confirm you own private keys to a xrpl blockchain account/wallet.
 
@@ -13,11 +19,26 @@ Current Functionality:
 
 - Ability to delete an existing NFT by clicking the 'delete nft' button and burning your existing NFT. After UI is updated and shown no current NFT exists for your account, you will be given access to the 'Create NFT Form' again to enter in new NFT information and mint fresh 'Account Identity' data.
 
-- Once logged in, can open the 'Online Users' tab at bottom of all pages to see all currently logged in and connected users.
+- Once logged in, can open the 'Online Users' tab at bottom of all pages to see all currently logged in and connected users. Logged in users have color coded border for amount of xrp owned in the logged in account (lowest to highest: white, green, blue, purple, orange).
 
-Current State of Website Snapshot:
+<br />
 
-![Xumm Sockets Home Page](./client/src/images/originatorsHome.png)
----
-![Xumm Sockets Profile Page](./client/src/images/originatorsProfile.png)
+## Website Preview Images: 
 
+<br />
+
+![PocketWallet Home Page](./client/src/images/pw_screenshots/pw_home.png)
+
+<br />
+
+![PocketWallet Login Page](./client/src/images/pw_screenshots/pw_login.png)
+
+<br />
+
+![PocketWallet Profile Page](./client/src/images/pw_screenshots/pw_profile.png)
+
+<br />
+
+![PocketWallet Opened Tabs](./client/src/images/pw_screenshots/pw_tabs.png)
+
+<br />

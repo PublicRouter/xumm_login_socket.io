@@ -25,7 +25,8 @@
 #landingPageMainDiv {
     position: relative;
     text-align: start;
-    width: 70vw;
+    /* width: 70vw; */
+    width: 90%;
     border-radius: 20px;
 }
 
@@ -33,7 +34,7 @@
     /* position: absolute; */
     color: #242A49;
     /* text-decoration: underline; */
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 400;
     /* -webkit-text-stroke: 2px white; */
     /* text-align: start;
