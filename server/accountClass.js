@@ -1,12 +1,12 @@
 require('dotenv').config();
 
-const createSignin = require('./createXummSignin');
-const subscribeToSignIn = require('./subscribeToPayloadUuid')
-const lookupAccountNfts = require("./lookupAccountNfts");
+const createSignin = require('./serverHelpers/xrplHelpers/createXummSignin');
+const subscribeToSignIn = require('./serverHelpers/xrplHelpers/subscribeToPayloadUuid')
+const lookupAccountNfts = require("./serverHelpers/xrplHelpers/lookupAccountNfts");
 
-const storeMetaToIpfs = require("./storeMetaToIpfs");
-const mintNfToken = require('./mintNfToken');
-const burnNft = require('./burnNft');
+const storeMetaToIpfs = require("./serverHelpers/xrplHelpers/storeMetaToIpfs");
+const mintNfToken = require('./serverHelpers/xrplHelpers/mintNfToken');
+const burnNft = require('./serverHelpers/xrplHelpers/burnNft');
 
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 

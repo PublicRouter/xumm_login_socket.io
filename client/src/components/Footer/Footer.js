@@ -18,9 +18,7 @@ export default function Footer({ socket }) {
     const handleLoggedInUsersList = (arg1) => {
       const receivedLoggedInUsersList = arg1;
       console.log("loggedInUsersList received in Footer component from server emit: ", receivedLoggedInUsersList);
-
       loggedInUsersList.current = receivedLoggedInUsersList;
-
       updateUsersList(loggedInUsersList.current);
     };
 
@@ -57,18 +55,6 @@ export default function Footer({ socket }) {
     }
   }
 
-  console.log(accountGrade(400))
-
-  // async function xrpScanWalletLookupForXrpBalance(wallet) {
-  //   const accountInfo = await fetch(`https://api.xrpscan.com/api/v1/account/${wallet}`);
-  //     const jsonInfo = await accountInfo.json();
-  //     return jsonInfo.xrpBalance
-  // }
-
-  // if(!accountObject.loggedIn) {
-  //   socket.emit('signOut', socket.id)
-  // }
-
   return (
     <button id='footerDiv' onClick={handleClick}>
       <em id='publisherName'>Online Users</em>
@@ -79,8 +65,6 @@ export default function Footer({ socket }) {
             loggedInUsersList.current.map((user) =>
               <li key={user.socket}>
                 <div>
-                  {/* <em>socket: {user.socket}</em>
-                  <em>Wallet: {user.wallet}</em> */}
                   <div className={`footerProfileCard ${accountGrade(user.xrpBalance)}`}>
                     <img src={
                       user.identityNft && user.identityNft.image
@@ -89,7 +73,6 @@ export default function Footer({ socket }) {
                     } />                    <div>
                       <p>{user.identityNft && user.identityNft.name ? user.identityNft.name : "No Identity NFT"}</p>
                       <p>{user.identityNft && user.identityNft.attributes ? findProfessionAttributeValue(user.identityNft.attributes) : "No Identity NFT"}</p>
-                      {/* <p>{xrpScanWalletLookupForXrpBalance(user.wallet)}</p> */}
                     </div>
                   </div>
                 </div>
@@ -97,9 +80,7 @@ export default function Footer({ socket }) {
             )
           }
         </ul>
-
       </div>
-
     </button>
   )
 }
