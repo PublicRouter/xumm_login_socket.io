@@ -11,11 +11,12 @@
     align-items: center;
     /* justify-content: center;
     align-items: center; */
-    background-color: rgb(211, 214, 233);
+    /* background-color: rgb(211, 214, 233); */
+    background-image: linear-gradient(to bottom right, rgb(49,78,98),rgb(76,125,141), rgb(14,40,59));
 }
 
 #moneyTransferSvg {
-    height: 35vh;
+    height: 30vh;
     position: relative;
     margin-top: 13vh;
     margin-bottom: 6vh;
@@ -32,7 +33,7 @@
 
 #homeTitle {
     /* position: absolute; */
-    color: #242A49;
+    color: rgb(251,208,84);
     /* text-decoration: underline; */
     font-size: 2rem;
     font-weight: 400;
@@ -47,19 +48,20 @@
 
 #landingPageMainDiv p {
     /* color: #4D5373; */
-    color: #4D5373 ;
+    color: #FBF4BB ;
     font-weight: 300;
     /* margin-top: 6px; */
 }
 
 #homeEnterButton {
     /* background-color: #867cac; */
-    background-color: #5a5273;
+    background-color: #CFA14E;
     border-radius: 20px 20px 20px 20px;
-    border: 1px solid white;
+    border: .5px solid #CFA14E;
+    box-shadow: 1px 2px 1px 0px #FBF4BB;
     min-width: 75px;
     width: fit-content;
-    color: rgb(255, 255, 255);
+    color: #FBF4BB;
     font-size: .8rem;
     font-weight: bold;
     margin-block: .4rem;
@@ -69,9 +71,9 @@
     z-index: 30; */
 }
 
+
 #homeEnterButton:hover {
-    box-shadow: 0px 1px 1px 0px #8c7fba;
-    border: #584d73;
+    box-shadow: 0px 0px 1px .5px #FBF4BB;
     /* box-shadow: 2px 1px 1px 1px rgb(86, 76, 76); */
 
 }
@@ -102,21 +104,31 @@
         top: 10vh;
     } */
 
+    #moneyTransferSvg {
+        height: 45vh;
+        position: absolute;
+        margin-top: 13vh;
+        margin-bottom: 6vh;
+        opacity: 1;
+        
+    }
+
+    #landingPageMainDiv {
+        position: absolute;
+        bottom: 22vh;
+    }
+
     
 }
 
 @media screen and (min-width: 740px) {
     #moneyTransferSvg {
         position: absolute;
-        right: 15vw;
+        right: 14vw;
+        height: 60vh;
+        opacity: .9;
         /* height: 50vh; */
-        /* margin-top: 10vh; */
-    }
-
-    #landingPageMainDiv {
-        position: absolute;
-        bottom: 30vh;
-        /* left: 6vw; */
+        margin-top: 9vh;
     }
 
     #homeTitle {
@@ -126,7 +138,7 @@
 
 @media screen and (min-width: 940px) {
     #moneyTransferSvg {
-       height: 50vh;
+       /* height: 50vh; */
        margin-top: 10vh;
     }
 

@@ -1,0 +1,21 @@
+#nftPageContainer {
+    min-height: 100vh;
+    display: flex;
+}
+
+#nftPageContainer div {
+    height: fit-content;
+    margin-inline: auto;
+    margin-block: 0px;
+    margin-bottom: 100px;
+    margin-top: 7vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#nftPageTitle {
+    /* position: absolute; */
+    margin-top: 15vh;
+}

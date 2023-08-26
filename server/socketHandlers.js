@@ -12,11 +12,13 @@ const {
 const Account = require('./accountClass');
 
 const initializeSocketEvents = (io, serverState) => {
-
+    console.log("INITIALIZING SOCKEREVENTS")
     io.on('connection', (socket) => {
         let currentAccount = new Account();
 
-        handleJoinServer(socket, serverState);
+        console.log(`${socket.id} has joined the server.`);
+        serverState.connectedUsers.push(socket.id);
+        console.log("Connected user list: ", serverState.connectedUsers);
 
         //sessionedAccountData, callback
         socket.on("updateServerAccountState", (sessionedAccountData, callback) => {
@@ -46,6 +48,10 @@ const initializeSocketEvents = (io, serverState) => {
         socket.on("subToNftMint", (arg, callback) => {
             handleSubToNftMint(arg, callback);
         });
+
+        socket.on("checkConnectedList", (callback) => {
+            callback(serverState.connectedUsers)
+        })
 
         // ... other socket events
     });

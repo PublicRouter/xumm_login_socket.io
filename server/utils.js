@@ -197,7 +197,7 @@ const handleUpdateServerAccountState = async (socket, io, sessionedAccountData, 
             };
         };
         callback("Recieved session account data, and updated server currentAccount state.")
-}
+};
 
 module.exports = {
     handleJoinServer,

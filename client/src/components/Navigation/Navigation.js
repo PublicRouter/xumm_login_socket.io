@@ -35,6 +35,9 @@ export default function Navigation() {
                                     <li>
                                         <Link to="/profile" className='link'>Profile</Link>
                                     </li>
+                                    <li>
+                                        <Link to="/nfts" className='link'>Nfts</Link>
+                                    </li>
                                 </ul>
                             }
                         </div>

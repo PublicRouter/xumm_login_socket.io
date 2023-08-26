@@ -1,8 +1,8 @@
 .testForm {
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     text-align: start;
     /* margin-top: 20vh; */
     width: 55vw;

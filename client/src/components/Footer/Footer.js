@@ -72,7 +72,7 @@ export default function Footer({ socket }) {
                         : "https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
                     } />                    <div>
                       <p>{user.identityNft && user.identityNft.name ? user.identityNft.name : "No Identity NFT"}</p>
-                      <p>{user.identityNft && user.identityNft.attributes ? findProfessionAttributeValue(user.identityNft.attributes) : "No Identity NFT"}</p>
+                      <em>{user.identityNft && user.identityNft.attributes ? findProfessionAttributeValue(user.identityNft.attributes) : "No Identity NFT"}</em>
                     </div>
                   </div>
                 </div>

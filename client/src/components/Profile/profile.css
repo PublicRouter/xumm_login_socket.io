@@ -6,6 +6,8 @@
 .profileMain {
     min-height: 100vh;
     display: flex;
+    background-image: linear-gradient(to bottom right, rgb(49,78,98),rgb(76,125,141), rgb(14,40,59));
+
 }
 
 /* ENTIRE PROFILE DASHBOARD CONTAINER */
@@ -21,12 +23,26 @@
     align-items: center;
 } 
 
+#welcomeTitle {
+    width: 100%;  
+    max-width: 430px;
+    color:#CFA14E;
+    font-size: 1.1em;
+    text-align: start;
+    margin-left: 50px;
+}
+
+#welcomeTitle em{
+    color: #FBF4BB ;
+    font-size: 1.2em;
+}
+
 /* PROFILE NFT INFO SECTION */
 .dashMain {
     width: 100%;
     flex-direction: column;
     justify-content: space-around;
-    color: #242A49;
+    color: #CFA14E;
     font-size: 16px;
     margin: 30px;
     margin-bottom: 20px;
@@ -35,12 +51,13 @@
     box-shadow: 2px 6px 2px #242A49;
     border-radius: 20px 20px 20px 20px;
     padding: 20px;
+    z-index: 1;
 } 
 
 #identitySectionDiv {
     flex-direction: column;
     justify-content: space-around;
-    color: #242A49;
+    color: white;
     font-size: 16px;
     border: 2px solid black;
     border-radius: 20px 20px 20px 20px;
@@ -59,20 +76,16 @@
     margin: auto;
 }
 
-.identitySectionDivInfo h3 em{
-    color: #4D5373 ;
-}
-
 .identitySectionDivInfo p {
     margin-top: 0px;
     margin-bottom: 0px;
-    color: #242A49;
+    color: white;
     font-weight: 600;
     font-size: .8em;
 }
 
 .identitySectionDivInfo p em {
-    color: #6d759e ;
+    color: #FBF4BB ;
 }
 
 .asideIdentitySectionDiv {
@@ -85,6 +98,12 @@
     width: 120px;
     height: 30px;
     border-radius: 10px;
+}
+
+#treesImg {
+    z-index: 0;
+    opacity: .85;
+    display: none;
 }
 
 /* TESTING TESTING */
@@ -194,6 +213,7 @@
     gap: 4px;  
     border-radius: 20px;
     padding: 20px;
+    z-index: 1;
 }
 
 .walletDashSection h2 {
@@ -217,12 +237,13 @@
     font-size: .58em;
     text-align: start;
     width: 100%;
-    background-image: linear-gradient(to bottom right, transparent, #4d6592e4  );
+    /* background-image: linear-gradient(to bottom right, transparent, #4d6592e4  ); */
+    background-color: #CFA14E;
     padding: 15px;
 }
 
 .dashSection h2 {
-    color: #242A49;
+    color: white;
     font-family: 'Rajdhani', sans-serif;
     margin:0px;
     margin-bottom: 5px;
@@ -235,7 +256,7 @@
     display: flex;
     justify-content: start;
     margin: auto;
-    font-size: 1.3em;
+    font-size: 1.5;
 }
 
 .dashSectionInfoContainer img {
@@ -254,12 +275,12 @@
 .dashSectionInfoContainer div p {
     margin-top: 0px;
     margin-bottom: 2px;
-    color: #1e283be4;
+    color: #1f293de4;
     border-radius: 10px;
 }
 
 .dashSectionInfoContainer p em {
-    color: yellow;
+    color: white;
 }
 
 .parentAddress {
@@ -288,7 +309,7 @@
     text-align: start;
     width: 55vw;
     max-width: 300px;
-    background-color: rgba(38, 76, 122, 0.925);
+    background-color: #264c7aec;
     color: white;
     padding: 26px;
     border-radius: 20px;
@@ -296,7 +317,7 @@
     top: 50%;
     left: 53%;
     transform: translate(-54%, -50%);
-    z-index: 10;
+    z-index: 1;
     min-width: 300px;
 }
 
@@ -310,6 +331,24 @@
     font-size: 16px
 }
 
+/* TX TREE VISUAL */
+#collapsibleTree {
+    width: 80%;
+    color: #CFA14E;
+
+}
+
+#collapsibleTree h4 {
+    margin: 0px;
+}
+
+#yourTooltipID {
+    word-wrap: break-word;
+    width: fit-content;
+    max-width: 180px;
+
+}
+
 /* RESPONSIVE SIZING */
 
 @media screen and (min-width: 540px) {
@@ -318,9 +357,19 @@
         margin-top: 8vh;
     }
 
+    #welcomeTitle {
+        margin-bottom: 0px;
+        margin-top: 6vh;
+    }
+    
+    #welcomeTitle em{
+        font-size: 1.4em;
+    }
+
     .dashMain {
-        margin: 40px;
-        margin-bottom: 30px;
+        margin: 20px;
+        margin-bottom: 0px;
+        margin-top: 0px;
         max-width: 650px;
         display:flex;
         justify-content: center;
@@ -328,32 +377,35 @@
         background-color: transparent;
         border: none;
         box-shadow: none;
-        padding: 0px;
+        padding: 50px;
+        padding-top: 30px;
+        padding-bottom: 0px;
     }
 
     #identitySectionDiv {
-        width: 80%;
+        width: 90%;
         margin: 0px;
         border: none;
         padding: 10px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        max-width: 420px;
+        max-width: 360px;
     }
 
     .identitySectionDivInfo {
         margin:0px;
+        margin-left: 2vw;
     }
 
     .identitySectionDivInfo h3{
         margin-top: 3px;
         margin-bottom: 6px;
-        font-size: 1em;
+        font-size: .9em;
     }
 
     .identitySectionDivInfo p {
-        font-size: .9em;
+        font-size: .75em;
     }
 
     #identitySectionDiv img {
@@ -364,9 +416,9 @@
     .asideIdentitySectionDiv {
         width: 80%;
         height: fit-content;
-        margin-top: 3vh;
         font-size: .8em;
         max-width: 420px;
+        padding-bottom: 0px;
     }
 
     .asideIdentitySectionDiv h3 {
@@ -379,18 +431,78 @@
         flex-wrap: wrap;
         justify-content: center;
         margin: 0px;
+        margin-bottom: 4vh;
+        margin-top: 0vh;
         max-width: 975px;
+        margin: auto;
     }
 
     .dashSection {
-        width: 200px;
+        width: 150px;
+        margin: 5px;
     }  
+
+    .dashSectionInfoContainer img {
+        height: 50px;
+        width: 50px;
+    }
+
+    .dashSection h2 {
+        margin-bottom: 0px;
+    }
+
+    .dashSectionInfoContainer {
+        font-size: 1em;
+    }
+
+    .dashSectionInfoContainer div {
+        margin-left: 1vw;
+        margin-top: 4px;
+    }
+
+    #treesImg {
+        display: block;
+        width: 95vw;
+        
+    }
+
+    #collapsibleTree {
+        max-width:600px;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 13px;
+        margin: auto;
+    }
+
+    #yourTooltipID {
+        word-wrap: break-word;
+        max-width: 260px;
+    
+    }
 }
 
-@media screen and (min-width: 790px) {
+@media screen and (min-width: 608px) {
+    #treesImg {
+        /* top: 52vh; */
+    }
+
+    .walletDashBoxesContainer {
+        max-width: 400px;
+    }
+}
+
+@media screen and (min-width: 740px) {
     .dashMain {
         max-width: 700px
     }
+
+    #treesImg {
+        max-width: 800px;
+    }
+
 }
 
 /* @media screen and (min-width: 440px) {

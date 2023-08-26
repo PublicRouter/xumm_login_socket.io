@@ -6,7 +6,8 @@
     border: none;
     /* background-color: rgb(244, 241, 202, .8); */
     /* background-color: rgba(217, 218, 218, 0.5); */
-    background-color: #242a49d9;
+    background-color: rgb(21, 59, 86);
+    opacity: .96;
     backdrop-filter: blur(3px);
     display: flex;
     flex-direction: column;
@@ -20,9 +21,9 @@
 }
 
 #publisherName {
-    color:#242A49 ;
-    background-color: rgb(211,214,233) ;
-    border: 2px solid #242A49 ;
+    color:#0B1F32 ;
+    background-color: rgb(255, 255, 255) ;
+    border: 2px solid #0B1F32 ;
     border-radius: 20px;
     padding-inline: 1rem;
     padding-block: .1em;
@@ -41,31 +42,36 @@
 
 #footerSocials {
     display: flex;
-    height: 42vh;
-    width: 90%;
+    width: 85%;
     border-radius: 25px;
     margin: .5rem;
     font-size: 1.4rem;
-    background-color: #242A49;
-    color: #242a49;
+    color: #663D18;
 }
 
 #footerSocials ul {
-    font-size: .6em;
+    display: grid;
+    height:fit-content;
+    max-height: 40vh;
+    font-size: 11px;
     text-align: start;
     width: 100%;
     overflow: auto;
-    min-width: 240px;
-    padding-block: 1rem;
+    min-width: 220px;
+    padding: .6rem;
     margin: .3rem;
     border-radius: 20px;
     /* background-color: white; */
-    background-color: rgb(211,214,233) ;
+    background-color: rgba(251, 209, 84, 0.846);
 }
 
 #footerSocials ul li {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    max-width: 220px;
+    border-radius: 10px;
+
 }
 
 #footerSocials ul li div {
@@ -79,11 +85,12 @@
     border-radius: 10px;
     padding: 5px;
     margin: 1px;
+    background-color: #f6f0c5eb;
 }
 
 .footerProfileCard img {
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     margin-right: 6px;
     border-radius: 5px;
 
@@ -100,6 +107,7 @@
 
 .footerProfileCard div p {
     margin: 0px;
+    font-weight: 600;
 }
 
 .border-white{
@@ -124,22 +132,10 @@
 
 
 @media screen and (min-width: 620px) {
-    #footerDiv {
+    /* #footerDiv {
         width: 300px;
         border-radius: 20px 0px 0px 0px;
-    }
-
-    #footerSocials {
-        width: 85%;
-    }
-
-    #footerSocials ul {
-        margin: 0px;
-        padding: 0px;
-        padding-top: 10px;
-        padding-left: 5px;
-        border-radius: 5px;
-    }
+    } */
 
     .footerProfileCard {
         width: 175px;
