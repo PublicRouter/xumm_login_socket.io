@@ -57,7 +57,7 @@ export default function Footer({ socket }) {
 
   return (
     <button id='footerDiv' onClick={handleClick}>
-      <em id='publisherName'>Online Users</em>
+      <em id='publisherName' className='secondButtonPop'>Online Users</em>
       <em style={{ color: "white", fontSize: "12px", marginTop: "0px" }}>{isShown ? "(click to minimize)" : "(click to enlarge)"}</em>
       <div id='footerSocials' style={{ display: isShown ? 'flex' : 'none' }}>
         <ul>

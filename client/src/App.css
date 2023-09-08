@@ -2,5 +2,57 @@
 
 .App {
   text-align: center;
-  background-color: rgb(211,214,233);
+  background-image: linear-gradient(to bottom right, rgb(49,78,98),rgb(76,125,141), rgb(14,40,59));
 }
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.buttonPop {
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+  7px 7px 20px 0px rgba(0, 0, 0, .1),
+  4px 4px 5px 0px rgba(0, 0, 0, .1);
+}
+
+.buttonPop:hover {
+  box-shadow: inset 2px 2px 2px 1px rgba(59, 59, 59, 0.5),
+  7px 7px 20px 0px rgba(0, 0, 0, .1),
+  4px 4px 5px 0px rgba(0, 0, 0, .1);
+}
+
+/* SECOND BUTTON*/
+.secondButtonPop {
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+  7px 7px 20px 0px rgba(0, 0, 0, .1),
+  4px 4px 5px 0px rgba(0, 0, 0, .1);
+}
+
+.secondButtonPop:hover {
+  box-shadow: inset 1px 1px 2px 1px rgba(59, 59, 59, 0.5),
+  7px 7px 20px 0px rgba(0, 0, 0, .1),
+  4px 4px 5px 0px rgba(0, 0, 0, .1);
+
+}
+
+/* NAV BUTTON */
+.navButtonPop {
+  box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.764),
+  7px 7px 20px 0px rgba(0, 0, 0, .1),
+  4px 4px 5px 0px rgba(0, 0, 0, .1);
+}
+
+.navButtonPop:hover {
+  box-shadow: inset 0px 2px 2px 1px rgba(59, 59, 59, 0.5),
+  7px 7px 20px 0px rgba(0, 0, 0, .1),
+  4px 4px 5px 0px rgba(0, 0, 0, .1);
+}
+

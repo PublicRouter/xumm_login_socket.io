@@ -31,7 +31,7 @@ const checkNftsListForNftsWithNftTypeOriginators = async (nfts) => {
             const jsonMetaData = await nftMetaData.json();
             console.log("metadata in json: ", jsonMetaData);
 
-            if (jsonMetaData.nftType === "Originators.v0") {
+            if (jsonMetaData.collection.name === "Identity NFT" && jsonMetaData.collection.family === "Originators") {
                 console.log("matching nftType found.... pushing");
                 identityNftList.push({...jsonMetaData, thisNftIpfsUrl: nft.ipfsUrl});
                 console.log("after nft pushed");

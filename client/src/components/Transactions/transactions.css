@@ -1,9 +1,9 @@
-#nftPageContainer {
+#transactionsPageContainer {
     min-height: 100vh;
     display: flex;
 }
 
-#nftPageContainer div {
+#transactionsPageContainer div {
     height: fit-content;
     margin-inline: auto;
     margin-block: 0px;
@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-#nftPageTitle {
+#transactionsPageTitle {
     /* position: absolute; */
     margin-top: 10vh;
     color: white;

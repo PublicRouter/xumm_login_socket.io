@@ -3,10 +3,10 @@
 
 
 /* ENTIRE PROFILE PAGE CONTAINER */
-.profileMain {
+.profileWrapper {
     min-height: 100vh;
     display: flex;
-    background-image: linear-gradient(to bottom right, rgb(49,78,98),rgb(76,125,141), rgb(14,40,59));
+    background-image: linear-gradient(to bottom right, rgb(49, 78, 98), rgb(76, 125, 141), rgb(14, 40, 59));
 
 }
 
@@ -21,52 +21,121 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-} 
-
-#welcomeTitle {
-    width: 100%;  
-    max-width: 430px;
-    color:#CFA14E;
-    font-size: 1.1em;
-    text-align: start;
-    margin-left: 50px;
 }
 
-#welcomeTitle em{
-    color: #FBF4BB ;
-    font-size: 1.2em;
+#dashBoard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px;
 }
 
 /* PROFILE NFT INFO SECTION */
 .dashMain {
-    width: 100%;
+    display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     color: #CFA14E;
     font-size: 16px;
-    margin: 30px;
+    margin: 5px;
     margin-bottom: 20px;
-    /* background-color: rgba(255, 255, 255, 0.815); */
-    border: 2px solid #242A49;
-    box-shadow: 2px 6px 2px #242A49;
-    border-radius: 20px 20px 20px 20px;
-    padding: 20px;
+    border-radius: 15px;
+    padding-block: 6px;
     z-index: 1;
-} 
+}
 
-#identitySectionDiv {
+.dashAside {
+    min-height: 180px;
+    width: 85%;
+    max-width: 600px;
+    height: 400px;
+    margin-top: 1vh;
+    margin-bottom: 0px;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
+    border: none;
+    border-radius: 15px;
+    box-shadow: none;
+    gap: 14px;
+}
+
+#asideRankBox {
+    width: 100%;
+    height: 50%;
+    background-color: rgba(49, 78, 98, 0.556);
+    padding: 15px;
+    border-radius: 20px;
+}
+
+#rankBox {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+}
+
+#asideUsersList {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: space-around;
+    background-color: rgba(49, 78, 98, 0.556);
+    padding: 15px;
+    border-radius: 20px;
+}
+
+#userBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: space-around;
+}
+
+#userBox div {
+    height: 40px;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+}
+
+#identitySectionDiv {
+    display: flex;
+    flex-direction: column;
     color: white;
     font-size: 16px;
-    border: 2px solid black;
+    border: 2px solid transparent;
     border-radius: 20px 20px 20px 20px;
-    padding: 20px;
+    padding: 0px;
+    width: 100%;
+    max-width: 340px;
+    border: none;
+    margin-bottom: 4vh;
+}
+
+#identitySectionTop {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: rgba(49, 78, 98, 0.956);
 }
 
 #identitySectionDiv img {
-    width: 60%;
-    max-width: 160px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-top: 3vh;
+    margin-bottom: 1vh;
 }
 
 .identitySectionDivInfo {
@@ -74,110 +143,83 @@
     text-align: start;
     padding-block: 10px;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background-color: white;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
-.identitySectionDivInfo p {
-    margin-top: 0px;
-    margin-bottom: 0px;
+#welcomeTitle {
+    width: 100%;
+    max-width: 430px;
     color: white;
-    font-weight: 600;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 6px;
+}
+
+#welcomeTitleName {
+    color: #CFA14E;
+    font-size: 1.2em;
+    margin-left: 1px;
+}
+
+#newIdentityNftButton {
+    margin: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding-block: 5px;
+    padding-inline: 15px;
+    border: 1px solid white;
+    font-size: .8em;
+    background-color: rgb(51, 82, 103);
+}
+
+#newIdentityNftButton:hover {
+    background-color: #f0532892;
+}
+
+.identityPropertiesDiv {
+    padding-block: 10px;
+    padding-inline: 15px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    background-color: #eeeeee;
     font-size: .8em;
 }
 
-.identitySectionDivInfo p em {
-    color: #FBF4BB ;
+.traitTitle {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: #707070;
+    font-weight: 600;
+    font-size: .9em;
 }
 
-.asideIdentitySectionDiv {
-    width: 100%;
-    text-align: start;
-    padding: 10px;
-}
-
-.asideIdentitySectionDiv button {
-    width: 120px;
-    height: 30px;
-    border-radius: 10px;
+.traitValue {
+    color: #ba7901;
+    margin-bottom: 0px;
 }
 
 #treesImg {
     z-index: 0;
     opacity: .85;
     display: none;
+    overflow: hidden;
 }
 
-/* TESTING TESTING */
-
-/* .profileDash {  
-    margin-block: 0px;
-    margin-bottom: 100px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.dashMain {
-    height: fit-content;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    border-radius: 100%; 
-    width: 100%;
-}
-
-#identitySectionDiv {
-    width: 100%;
-    flex-direction: column;
-    justify-content: space-around;
-    color: #242A49;
-    font-size: 16px;
-    margin-bottom: 20px;
-    background-color: rgba(8, 27, 40, 0.815);
-    box-shadow: 2px 6px 2px #242A49;
-    border-radius: 0px 0px 50px 50px;
-    padding: 20px;
-    padding-top: 16vh;
-}
-
-#identitySectionDiv img {
-    width: 60%;
-}
-
-.identitySectionDivInfo {
-    width: fit-content;
-    text-align: start;
-    padding-block: 10px;
-    margin: auto;
-}
-
-.identitySectionDivInfo h3 em{
-    color: #4D5373 ;
-
-}
-
-.identitySectionDivInfo p {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    color: #242A49;
-    font-weight: 600;
-    font-size: .75em;
-}
-
-.identitySectionDivInfo p em {
-    color: #6d759e ;
-
-} */
-
-/* TESTING TESTING */
 .createIdentitySection {
-    background-color: #1e283be4 ;
+    background-color: #1e283be4;
     padding: 20px;
     border-radius: 20px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;    height: 150px;
+    align-items: center;
+    height: 150px;
     width: 150px;
     box-shadow: 0px 10px 18px 0px #242a49cb;
 }
@@ -206,55 +248,70 @@
 
 /* DASHBOARD AREA ABOUT WALLET */
 .walletDashSection {
+    width: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 4px;  
+    gap: 4px;
     border-radius: 20px;
-    padding: 20px;
     z-index: 1;
 }
 
 .walletDashSection h2 {
-    width: 100%;
+    /* width: 100%; */
     color: white;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.walletDashBoxesContainer {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    margin: auto;  
-}
-
 .dashSection {
-    box-shadow: 2px 1px 2px #1e283be4 ;
+    box-shadow: 2px 1px 2px #1e283be4;
     border-radius: 20px;
     margin: 10px;
-    font-size: .58em;
+    font-size: .7em;
     text-align: start;
-    width: 100%;
-    /* background-image: linear-gradient(to bottom right, transparent, #4d6592e4  ); */
-    background-color: #CFA14E;
+    background-color: rgba(49, 78, 98, 0.556);
     padding: 15px;
+}
+
+.dashSectionHeader {
+    display: flex;
+    align-items: space-around;
+    justify-content: center;
+    gap: 10px;
+    /* padding-inline: 60px; */
 }
 
 .dashSection h2 {
     color: white;
     font-family: 'Rajdhani', sans-serif;
-    margin:0px;
+    margin: 0px;
     margin-bottom: 5px;
+    text-decoration: underline;
+}
+
+.dashSectionHeader a {
+    height: 18px;
+    width: 18px;
+}
+
+.dashSectionHeader a svg {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.dashSectionHeader a svg:hover {
+    padding-top: 1px;
 }
 
 /* DASH SECTION INFO CONTAINER */
-
 .dashSectionInfoContainer {
     text-align: start;
     display: flex;
-    justify-content: start;
+    justify-content: center;
+    align-items: center;
     margin: auto;
     font-size: 1.5;
 }
@@ -269,13 +326,13 @@
     flex-direction: column;
     justify-content: center;
     height: 50%;
-    margin-top: 1vh;
+    /* margin-top: 1vh; */
 }
 
 .dashSectionInfoContainer div p {
     margin-top: 0px;
-    margin-bottom: 2px;
-    color: #1f293de4;
+    margin-bottom: 0px;
+    color: #e8bd6c;
     border-radius: 10px;
 }
 
@@ -300,7 +357,6 @@
 
 
 /* NEW NFT MINTING QR SECTION */
-
 .mintNftQrDiv {
     display: flex;
     flex-direction: row;
@@ -335,7 +391,6 @@
 #collapsibleTree {
     width: 80%;
     color: #CFA14E;
-
 }
 
 #collapsibleTree h4 {
@@ -346,71 +401,186 @@
     word-wrap: break-word;
     width: fit-content;
     max-width: 180px;
+}
 
+#bottomBox {
+   color: white;
+   max-width: 250px;
+   text-align: start;
+   margin: auto;
+}
+
+#bottomBox p {
+    font-size: .7em;
+    padding: 20px;
 }
 
 /* RESPONSIVE SIZING */
+@media screen and (min-width: 380px) {
+    #dashBoard {
+        margin: 50px;
+    }
+
+    .walletDashSection {
+        max-width: 340px;
+    }
+
+    .walletDashBoxesContainer {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin: 0px;
+        margin-bottom: 4vh;
+        margin-top: 0vh;
+    }
+
+    .dashSection {
+        width: 100%;
+        height: 100px;
+        margin: 0px;
+        border-radius: 10px;
+        font-size: .58em;
+        padding-inline: 15px;
+
+    }
+
+    .dashSectionHeader {
+        justify-content: space-between;
+        align-items: start;
+        gap: 0px;
+    }
+
+    .dashSection h2 {
+        margin-bottom: 0px;
+    }
+
+    .dashSectionInfoContainer {
+        font-size: 1em;
+        justify-content: start;
+    }
+
+    .dashSectionInfoContainer img {
+        height: 50px;
+        width: 50px;
+        display: none;
+    }
+}
 
 @media screen and (min-width: 540px) {
-
     .profileDash {
         margin-top: 8vh;
     }
 
-    #welcomeTitle {
-        margin-bottom: 0px;
-        margin-top: 6vh;
-    }
-    
-    #welcomeTitle em{
-        font-size: 1.4em;
+    #dashBoard {
+        margin: 20px;
     }
 
     .dashMain {
-        margin: 20px;
-        margin-bottom: 0px;
-        margin-top: 0px;
-        max-width: 650px;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        background-color: transparent;
-        border: none;
+        height: 430px;
+        margin-bottom: 3vh;
+        margin-top: 3vh;
+        margin-inline: 0px;
+        max-width: 600px;
+        flex-direction: row;
+        background-color: rgba(49, 78, 98, 0.556);
         box-shadow: none;
-        padding: 50px;
-        padding-top: 30px;
-        padding-bottom: 0px;
+        padding: 20px;
+    }
+
+    .dashAside {
+        margin: 0px;
+        flex-direction: row;
+        width: 100%;
+        height: 180px;
+        justify-content: space-between;
+    }
+
+    #asideRankBox {
+        width: 50%;
+        height: 100%;
+    }
+
+    #asideUsersList {
+        flex: 1;
+        height: 100%;
     }
 
     #identitySectionDiv {
-        width: 90%;
-        margin: 0px;
+        min-width: 215px;
+        max-width: 40%;
+        margin: 10px;
+        margin-block: 0px;
+        margin-left: 0px;
         border: none;
         padding: 10px;
+        padding-block: 15px;
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        max-width: 360px;
+        justify-content: center;
+        align-items: center;
+        font-size: .8em;
+        background-color: rgba(49, 78, 98, 0.556);
+    }
+
+    #identitySectionTop {
+        background-color: rgba(49, 78, 98, 0.556);
+    }
+
+    #identitySectionDiv img {
+        margin-top: 0px;
+        width: 100px;
+        height: 100px;
     }
 
     .identitySectionDivInfo {
-        margin:0px;
-        margin-left: 2vw;
+        max-width: 315px;
+        margin: 0px;
+        margin-left: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
     }
 
-    .identitySectionDivInfo h3{
+    #welcomeTitle {
+        margin-bottom: 0px;
+        color: white;
+    }
+
+    #welcomeTitleName {
+        color: #CFA14E;
+    }
+
+    #newIdentityNftButton {
+        margin-top: 6px;
+        margin-bottom: 8px;
+        font-size: 9px;
+        padding-block: 3.5px;
+    }
+
+    .identityPropertiesDiv {
+        margin-inline: 10px;
+        padding-block: 5px;
+        border-radius: 5px;
+        font-size: .9em;
+        padding-inline: 8px;
+    }
+
+    .identitySectionDivInfo {
+        padding-inline: 10px;
+        background-color: rgba(49, 78, 98, 0.556);
+        padding: 2px;
+    }
+
+    .identitySectionDivInfo h3 {
         margin-top: 3px;
-        margin-bottom: 6px;
+        margin-bottom: 12px;
         font-size: .9em;
     }
 
     .identitySectionDivInfo p {
         font-size: .75em;
-    }
-
-    #identitySectionDiv img {
-        width: 100%;
-        max-width: 140px;
     }
 
     .asideIdentitySectionDiv {
@@ -425,49 +595,51 @@
         margin-top: 0px;
     }
 
+    .walletDashSection {
+        flex: 1;
+        padding-block: 0px;
+        padding-inline: 0px;
+        height: 100%;
+    }
+
     .walletDashBoxesContainer {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin: 0px;
-        margin-bottom: 4vh;
-        margin-top: 0vh;
-        max-width: 975px;
-        margin: auto;
+        margin-bottom: 1vh;
     }
 
     .dashSection {
-        width: 150px;
-        margin: 5px;
-    }  
-
-    .dashSectionInfoContainer img {
-        height: 50px;
-        width: 50px;
+        min-width: 120px;
+        font-size: .6em;
     }
 
     .dashSection h2 {
-        margin-bottom: 0px;
-    }
-
-    .dashSectionInfoContainer {
-        font-size: 1em;
+        font-size: 1.3em;
     }
 
     .dashSectionInfoContainer div {
-        margin-left: 1vw;
+        margin-left: 0px;
         margin-top: 4px;
+    }
+
+    .dashSectionInfoContainer img {
+        display: none;
+    }
+
+    #bottomBox {
+        max-width: 100%;
+        flex: 1;
+        background-color: rgba(49, 78, 98, 0.556);
+        border-radius: 20px;
     }
 
     #treesImg {
         display: block;
         width: 95vw;
-        
+        margin: auto;
+        opacity: .9;
     }
 
     #collapsibleTree {
-        max-width:600px;
+        max-width: 600px;
         height: fit-content;
         display: flex;
         flex-direction: column;
@@ -480,13 +652,18 @@
     #yourTooltipID {
         word-wrap: break-word;
         max-width: 260px;
-    
     }
 }
 
-@media screen and (min-width: 608px) {
+@media screen and (min-width: 640px) {
     #treesImg {
         /* top: 52vh; */
+    }
+
+    .dashSectionInfoContainer img {
+        height: 50px;
+        width: 50px;
+        display: block;
     }
 
     .walletDashBoxesContainer {
@@ -496,45 +673,58 @@
 
 @media screen and (min-width: 740px) {
     .dashMain {
-        max-width: 700px
+        margin-inline: 5px;
+    }
+
+    .dashAside {
+        margin-inline: 5px;
     }
 
     #treesImg {
         max-width: 800px;
     }
-
 }
 
-/* @media screen and (min-width: 440px) {
-    .profileDash {
-        align-items: start;
+@media screen and (min-width: 1015px) {
+    .dashMain {
+        margin-bottom: 0vh;
     }
 
-    .walletDashSection {
-        flex-direction: row ;
-    }
-} */
-
-/* @media screen and (min-width: 440px) {
-
-    .dashSection {
-        margin: 5px;
-        width: 165px;
-        box-shadow: 2px 0px 2px rgb(219, 218, 218);
-        border-radius: 20px 20px 20px 20px;
+    .dashAside {
+        display: flex;
+        flex-direction: column;
+        width: 260px;
+        height: 430px;
+        margin-top: 3vh;
+        padding: 0px;
+        margin-bottom: 0vh;
+        margin-left: 1vw;
+        gap: 10px;
     }
 
-    .dashSection h2 {
-        font-size: 20px;
+    #asideRankBox {
+        width: 100%;
+        height: 50%;
     }
-} */
 
-/* @media screen and (min-width: 472px) {
+    #asideUsersList {
+        width: 100%;
+        height: 50%;
+    }
 
-} */
+    .dashSectionInfoContainer img {
+        height: 40px;
+        width: 40px;
+        display: block;
+    }
+}
 
-/* @media screen and (min-width: 712px) {
-    #identitySectionDiv {
-        width: 70%;
+/* @media screen and (min-width: 1150px) {
+    .dashMain {
+        max-width: 660px;
+    }
+
+    .dashAside {
+        width: 300px;
     }
 } */

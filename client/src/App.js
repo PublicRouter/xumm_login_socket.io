@@ -8,6 +8,7 @@ import AccountInfoTab from './components/AccountInfoTab/AccountInfoTab';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
+import Transactions from './components/Transactions/Transactions';
 import NftPage from './components/NftPage.js/NftPage';
 import Footer from './components/Footer/Footer'
 
@@ -77,7 +78,7 @@ function App() {
               <Route path="/enter" element={<Login socket={socket} />} />
               <Route path="/profile" element={<Profile socket={socket} />} />
               <Route path="/nfts" element={<NftPage socket={socket} />} />
-
+              <Route path="/transactions" element={<Transactions socket={socket} />} />
             </Routes>
             :
             <Routes>

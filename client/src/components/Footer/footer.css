@@ -6,7 +6,7 @@
     border: none;
     /* background-color: rgb(244, 241, 202, .8); */
     /* background-color: rgba(217, 218, 218, 0.5); */
-    background-color: rgb(21, 59, 86);
+    background-image: linear-gradient(to bottom left, rgb(49,78,98),rgb(76,125,141), rgb(14,40,59));
     opacity: .96;
     backdrop-filter: blur(3px);
     display: flex;
@@ -18,26 +18,29 @@
     bottom: 0px;
     padding: .5rem 0rem .5rem 0rem;
     z-index: 2;
+    border-top: 1px solid white;
 }
 
 #publisherName {
-    color:#0B1F32 ;
-    background-color: rgb(255, 255, 255) ;
-    border: 2px solid #0B1F32 ;
+    color:white ;
+    background-color: #CFA14E;
+    border: 2px solid white ;
     border-radius: 20px;
     padding-inline: 1rem;
     padding-block: .1em;
     margin-block: .2rem;
     font-size: 1rem;
-    /* font-style: italic; */
-    font-weight: 300;
+    font-weight: 600;
     font-family: 'Rajdhani', sans-serif;
     font-style: normal;
-
 }
 
 #publisherName:hover {
-    padding-inline: .8em;
+    color: rgb(76,125,141);
+    background-color: #f7e6c6;
+    /* font-size: 1.1rem; */
+    /* border: white solid .5px; */
+    /* box-shadow: inset 0px 0px 1px 3px rgb(15, 54, 59); */
 }
 
 #footerSocials {
@@ -52,6 +55,7 @@
 #footerSocials ul {
     display: grid;
     height:fit-content;
+    min-height: 8vh;
     max-height: 40vh;
     font-size: 11px;
     text-align: start;
@@ -61,8 +65,7 @@
     padding: .6rem;
     margin: .3rem;
     border-radius: 20px;
-    /* background-color: white; */
-    background-color: rgba(251, 209, 84, 0.846);
+    background-color: #1e283be4;
 }
 
 #footerSocials ul li {
@@ -79,13 +82,13 @@
 }
 
 .footerProfileCard {
-    /* display:flex;
-    flex-direction: row; */
     width: 200px;
     border-radius: 10px;
     padding: 5px;
     margin: 1px;
-    background-color: #f6f0c5eb;
+    background-color: white;  
+    display: flex;
+    align-items: center;
 }
 
 .footerProfileCard img {
@@ -111,32 +114,27 @@
 }
 
 .border-white{
-    border: 2px solid white;
+    border: 3.5px solid rgb(224, 223, 223);
 }
 
 .border-green {
-    border: 2px solid green;
+    border: 3.5px solid rgb(104, 169, 57);
 }
 
 .border-blue {
-    border: 2px solid blue;
+    border: 3.5px solid rgb(75, 96, 232);
 }
 
 .border-purple {
-    border: 2px solid purple;
+    border: 3.5px solid purple;
 }
 
 .border-orange {
-    border: 2px solid orange;
+    border: 3.5px solid orange;
 }
 
 
 @media screen and (min-width: 620px) {
-    /* #footerDiv {
-        width: 300px;
-        border-radius: 20px 0px 0px 0px;
-    } */
-
     .footerProfileCard {
         width: 175px;
     }

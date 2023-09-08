@@ -20,12 +20,13 @@
     backdrop-filter: blur(0px);
     min-height: 40vh;
     width: 78vw;
+    max-width: 340px;
     display: flex;
     position: absolute;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #242a49e0;
+    background-color: #3F3D58;
     padding: 1rem;
     border-radius: 25px;
     margin-top: 18vh;
@@ -36,7 +37,7 @@
 }
 
 .loginComponent h1 {
-    color: rgb(211, 214, 233);
+    color: #CFA14E;
     -webkit-text-stroke: 1px white;
     margin-bottom: 0px;
     font-family: 'Rajdhani', sans-serif;
@@ -44,27 +45,29 @@
 }
 
 .loginComponent button {
-    border: white solid 2px;
-    background-color: rgb(211, 214, 233);
+    border: solid 2px #3F3D58;
+    background: #CFA14E;
     text-decoration: underline;
     /* -webkit-text-stroke: 1px white; */
     /* backdrop-filter: blur(20px); */
-    color: #242A49;
+    color: white;
     padding: 6px;
     border-radius: 10px;
     font-size: 1.2rem;
     font-family: 'Rajdhani', sans-serif;
     margin-bottom: 4vh;
     font-weight: 600;
+
     -webkit-box-shadow: 0px 1px 1px rgb(211, 214, 233);
     -moz-box-shadow: 0px 5px 5px rgb(211, 214, 233);
     box-shadow: 1px 0px 7px 3px rgb(211, 214, 233);
+  
 }
 
 .loginComponent button:hover {
-    border: solid 2px grey;
-    background: #242A49;
-    color: white;
+    color: rgb(76,125,141);
+    background-color: #f7e6c6;
+    border: white solid 2px;
 }
 
 .payloadDiv {
@@ -77,8 +80,8 @@
 
 .payloadDiv img {
     margin-top: 3vh;
-    height: 180px;
-    width: 180px;
+    height: 130px;
+    width: 130px;
 }
 
 .payloadDiv a {
@@ -89,11 +92,11 @@
 }
 
 #signInMsg {
-    color: #242A49;
+    color: #3F3D58;
     text-align: start;
     /* background-color: rgb(194, 142, 37); */
     background-color: white;
-    border: solid #242A49 2px;
+    border: solid white 2px;
     /* background-color: rgb(244, 162, 10); */
     padding-inline: 7px;
     padding-block: 3px;
@@ -131,7 +134,7 @@
 
 @media screen and (min-width: 440px) {
     .loginComponent {
-        max-width: 400px;
+        max-width: 300px;
     }
 
     #fingerprintLoginSvg {

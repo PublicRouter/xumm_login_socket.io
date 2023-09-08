@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { AccountContext } from '../../App';
 import { Link } from 'react-router-dom'
-import '../Navigation/navigation.css'
+import "./navigation.css"
 
 export default function Navigation() {
     const [accountObject, setAccountObject] = useContext(AccountContext);
@@ -19,10 +19,10 @@ export default function Navigation() {
                             {accountObject.loggedIn === false &&
                                 <ul className='mainNav'>
                                     <li>
-                                        <Link to="/" className='link'>Home</Link>
+                                        <Link to="/" className='navLink navButtonPop'>Home</Link>
                                     </li>
                                     <li>
-                                        <Link to="/enter" className='link'>Login</Link>
+                                        <Link to="/enter" className='navLink navButtonPop'>Login</Link>
                                     </li>
                                 </ul>
                             }
@@ -30,13 +30,10 @@ export default function Navigation() {
                             {accountObject.loggedIn === true &&
                                 <ul className='mainNav'>
                                     <li>
-                                        <Link to="/" className='link'>Home</Link>
+                                        <Link to="/" className='navLink navButtonPop'>Home</Link>
                                     </li>
                                     <li>
-                                        <Link to="/profile" className='link'>Profile</Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/nfts" className='link'>Nfts</Link>
+                                        <Link to="/profile" className='navLink navButtonPop'>Profile</Link>
                                     </li>
                                 </ul>
                             }

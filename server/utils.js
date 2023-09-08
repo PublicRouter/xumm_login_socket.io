@@ -85,7 +85,7 @@ const handleSubscribeToSignIn = async (socket, currentAccount, serverState, call
     };
 
     const allAccountNftsArray = await currentAccount.returnArrayOfAccountNfts();
-    // console.log("nft array on server", allAccountNftsArray);
+    console.log("nft array on server", allAccountNftsArray);
 
     const identityNftList = await checkNftsListForNftsWithNftTypeOriginators(allAccountNftsArray);
 
@@ -113,7 +113,7 @@ const handleNftMetaCreation = async (currentAccount, createNftFormData, callback
 
     try {
         await new Promise((resolve, reject) => {
-            writeFile(`serverHelpers/tempNftImage/${profileImageFileName}`, profileImageFile, (err) => {
+            writeFile(`./serverHelpers/tempNftImage/${profileImageFileName}`, profileImageFile, (err) => {
                 if (err) {
                     console.log("file write failure!");
                     console.log("error msg: ", err);
@@ -126,9 +126,8 @@ const handleNftMetaCreation = async (currentAccount, createNftFormData, callback
             });
         });
 
-        const ipfsUrl = await storeMetaToIpfs(profileUsername, profileCountry, profileBio, profileProfession, profileExperience, `/Users/jamesg/Desktop/publicRouterClones/xumm_login_socket.io/serverHelpers/tempNftImage/${profileImageFileName}`);
+        const ipfsUrl = await storeMetaToIpfs(profileUsername, profileCountry, profileBio, profileProfession, profileExperience, `/Users/jamesg/Desktop/publicRouterClones/xumm_login_socket.io/server/serverHelpers/tempNftImage/${profileImageFileName}`);
 
-        // ... (rest of your code)
         const mintPayload = await mintNfToken(currentAccount.wallet, ipfsUrl, profileUsername);
         console.log("mintPayload-----------: ", mintPayload);
 

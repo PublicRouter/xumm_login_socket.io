@@ -6,7 +6,7 @@ import { AccountContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
 import loginCardsImage from '../../images/banking-basics-2-2x.webp';
-import fingerprintLogin from '../../images/fingerprint_login.svg';
+import fingerprintLogin from '../../images/fingerprint_login2.svg';
 
 export default function Login({ socket }) {
   const [accountObject, setAccountObject] = useContext(AccountContext);
