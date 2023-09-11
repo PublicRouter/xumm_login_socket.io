@@ -5,7 +5,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: linear-gradient(to bottom right, rgb(49, 78, 98), rgb(76, 125, 141), rgb(14, 40, 59));
+    /* background-image: linear-gradient(to bottom right, rgb(49, 78, 98), rgb(76, 125, 141), rgb(14, 40, 59)); */
+    background-image: linear-gradient(orange, rgb(76, 125, 141), rgb(14, 40, 59));
+
 }
 
 #moneyTransferSvg {
@@ -30,7 +32,7 @@
     bottom: 28vh;
     padding: 10px;
     font-family: 'Changa', sans-serif;
-    
+
 }
 
 #homeTitle {
@@ -41,6 +43,12 @@
     line-height: 26px;
     margin-bottom: 1vh;
     text-transform: uppercase;
+}
+
+#homeTitle span {
+    background-image: linear-gradient(to bottom right, rgb(255, 179, 0), rgb(252, 252, 252));
+    background-clip: text;
+    color: transparent;
 }
 
 #landingPageMainDiv p {
@@ -55,10 +63,10 @@
 .homeEnterLink {
     height: 40px;
     border-radius: 12px;
-    border: 2.5px solid white;
-    background-color: rgb(151, 121, 29);
+    /* border: 2.5px solid white; */
+    background-color: rgb(252, 224, 140);
     /* box-shadow: inset 0px 0px 1px 4px rgb(205, 204, 204); */
-    color: white;
+    color: rgb(76, 125, 141);
     min-width: 75px;
     width: 130px;
     font-size: .9rem;
@@ -75,8 +83,8 @@
     border: .3px solid white;
     background-color: #f7e6c6;
     /* box-shadow: inset 0px 0px 1px 3px rgb(15, 54, 59); */
-    color: rgb(76,125,141);
-    font-size: .86rem;
+    color: rgb(76, 125, 141);
+    /* font-size: .86rem; */
 }
 
 /* ANIMATION OBJECTS */
@@ -100,31 +108,31 @@
 #object1 {
     width: 12px;
     height: 12px;
-    background: #e7a62e;
+    background: radial-gradient(rgb(14, 40, 59), rgb(255, 183, 0));
     border-radius: 50%;
     position: absolute;
-
     overflow: hidden;
     margin: auto;
-    animation: circle 10s linear infinite;
+    animation: circle 8s infinite;
+
 }
 
 #object2 {
     width: 16px;
     height: 16px;
-    background: #e7a62e;
+    background: radial-gradient(rgb(255, 183, 0), rgb(14, 40, 59));
+    padding: 1px;
     border-radius: 50%;
     position: absolute;
     overflow: hidden;
     margin: auto;
-    animation: circle 9s linear reverse infinite;
+    animation: circle 7s infinite;
     margin: 10px;
 }
 
 @keyframes circle {
     0% {
         transform: rotate(0deg) translate(-110px) rotate(0deg);
-
     }
 
     100% {
@@ -141,6 +149,46 @@
         transform: rotate(360deg) translate(-160px) rotate(-360deg);
     }
 }
+
+/* @keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+} */
+/* 
+@keyframes combined {
+    0% {
+        transform: scale(1) rotate(0deg) translate(-160px) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1.05) rotate(90deg) translate(-160px) rotate(-90deg);
+        opacity: 0.85;
+    }
+    50% {
+        transform: scale(1.1) rotate(180deg) translate(-160px) rotate(-180deg);
+        opacity: 0.7;
+    }
+    75% {
+        transform: scale(1.05) rotate(270deg) translate(-160px) rotate(-270deg);
+        opacity: 0.85;
+    }
+    100% {
+        transform: scale(1) rotate(360deg) translate(-160px) rotate(-360deg);
+        opacity: 1;
+    }
+} */
 
 @media screen and (min-width: 400px) {
     #landingPageMainDiv {
@@ -243,8 +291,8 @@
     }
 
     .homeEnterLink:hover {
-        font-size: .9em;
-        padding-block: 10px;
+        /* font-size: .9em; */
+        /* padding-block: 10px; */
     }
 
     #moneyTransferSvg {
@@ -294,7 +342,7 @@
     }
 
     #homeEnterButton a:hover {
-        font-size: 1em;
+        /* font-size: 1em; */
     }
 }
 

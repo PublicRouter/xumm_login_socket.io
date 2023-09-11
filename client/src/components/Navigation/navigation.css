@@ -140,14 +140,14 @@
 }
 
 .navLink {
-    width: 130px;
+    min-width: 125px;
     text-decoration: none;
     transition: white 0.4s ease;
     margin-left: 0;
-    background-color: rgb(143, 110, 10);
+    background-color: rgb(232, 176, 7);
     border: none;
-    padding: 10px;
-    padding-left: 32px;
+    padding-block: 15px;
+    padding-left: 42px;
     list-style: none;
     color: white;
     font-size: .9rem;
@@ -158,10 +158,10 @@
 
 .navLink:hover {
     /* padding-inline-start: 2rem; */
-    width: 135px;
+    /* width: 125px; */
     /* font-size: .95rem; */
     color: white;
-    background-color: rgb(143, 110, 10);
+    background-color: rgba(232, 176, 7, 0.772); 
     /* border: white solid .5px; */
     border-left: none;
     /* box-shadow: inset -1px 0px 0px 1px rgb(153, 158, 160); */

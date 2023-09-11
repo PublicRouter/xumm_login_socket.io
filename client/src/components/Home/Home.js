@@ -15,7 +15,7 @@ export default function Home({ socket }) {
       </div>      
 
       <div id="landingPageMainDiv">
-        <h2 id="homeTitle">XRPL Account Interface.</h2>
+        <h2 id="homeTitle">XRPL <span>Account</span> Interface.</h2>
         {/* <p>Display, view, and interact with other online XRPL accounts.</p> */}
         <p>Visualize, interact, and control your wallet.</p>
         <button id="homeEnterButton">

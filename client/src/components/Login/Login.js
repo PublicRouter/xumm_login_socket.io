@@ -93,12 +93,13 @@ export default function Login({ socket }) {
               null
               :
               <div className='payloadDiv'>
-                <img src={payloadCreate.payload.qrImage} />
-                <a href={payloadCreate.payload.qrLink} target="_blank">{payloadCreate.payload.qrLink}</a>
+                <a href={payloadCreate.payload.qrLink} target="_blank">
+                  <img src={payloadCreate.payload.qrImage} />
+                </a>
               </div>
           }
           <p id="signInMsg">{payloadMessage}</p>
-          <button onClick={authenticateXumm}>Generate QR</button>
+          <button className="buttonPop" onClick={authenticateXumm}>Generate QR</button>
         </div>
       }
     </div>
