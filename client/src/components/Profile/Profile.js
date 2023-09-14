@@ -186,11 +186,13 @@ export default function Profile({ socket }) {
                 }
                 {
                   mintNftPayload.payload ?
-                    <div className='mintNftQrDiv'>
-                      <p>Scan QR code with Xumm App to sign NfTokenMint Payload</p>
-                      <a href={mintNftPayload.qrLink} >
-                        <img src={mintNftPayload.qrImage} alt="qr to mint a nft" />
-                      </a>
+                    <div id="qrPopupDiv">
+                      <div className='mintNftQrDiv'>
+                        <p>Scan / click QR code to open via XUMM App.</p>
+                        <a href={mintNftPayload.qrLink} >
+                          <img src={mintNftPayload.qrImage} alt="qr to mint a nft" />
+                        </a>
+                      </div>
                     </div>
                     : null
                 }

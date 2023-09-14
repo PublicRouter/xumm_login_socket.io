@@ -360,37 +360,55 @@
 }
 
 /* NEW NFT MINTING QR SECTION */
-.mintNftQrDiv {
+#qrPopupDiv {
+    position: fixed;
+    top: 9vh;
+    left: 0vw;
+    height: 82vh;
+    min-width: 100vw;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(32, 72, 101, 0.928);
+    z-index: 20;
+}
+
+.mintNftQrDiv {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items:center;
     text-align: start;
-    width: 55vw;
-    max-width: 300px;
-    background-color: #264c7a;
+    width: 70vw;
+    max-width: 260px;
+    background-color: #9e402ef4;
     color: white;
     padding: 26px;
     border-radius: 20px;
-    position: absolute;
-    top: 50%;
-    left: 53%;
-    transform: translate(-54%, -50%);
+    /* position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-54%, -50%); */
     z-index: 10;
-    min-width: 300px;
+}
+
+.mintNftQrDiv a {
+    /* max-width: 50%; */
 }
 
 .mintNftQrDiv img {
-    height: 130px;
-    width: 130px;
+    height: 120px;
+    width: 100%;
     border-radius: 0px;
 }
 
 .mintNftQrDiv p {
     font-weight: 700;
-    font-size: 12px;
-    max-width: 50%;
-    padding: 6px;   
+    font-size: 11px;
+    padding: 6px;  
+    align-self: start; 
+    color: rgb(255, 221, 0);
 }
 
 /* TX TREE VISUAL */
