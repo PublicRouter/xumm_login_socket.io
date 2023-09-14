@@ -75,9 +75,6 @@ const handleSubscribeToSignIn = async (socket, currentAccount, serverState, call
         //check account for identity nft and update currentAccount with info if it finds one
         await currentAccount.checkForAccountIdentityNft();
 
-        let currentAccountProps = currentAccount.showCurrentUserInfo();
-        console.log("current account properties in handleSubscribeToSignIn util scope: ", currentAccountProps);
-
         callback(currentAccount);
     } catch (err) {
         console.log("Error in handleSubscribeToSignIn util: ", err);

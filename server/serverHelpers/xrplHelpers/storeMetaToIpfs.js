@@ -12,7 +12,6 @@ const fs = require('fs')
 // The 'path' module provides helpers for manipulating filesystem paths
 const path = require('path')
 
-
 async function main(data) {
     const metadata = await client.store(data);
     return metadata.url

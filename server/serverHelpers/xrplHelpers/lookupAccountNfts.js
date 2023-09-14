@@ -23,9 +23,7 @@ const lookupAccountNfts = async (wallet) => {
                 nft: nft, 
                 ipfsUrl: xrpl.convertHexToString(nft.URI)
             });
-        }
-
-        
+        }    
     });
     
     client.disconnect();

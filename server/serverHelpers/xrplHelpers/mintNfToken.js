@@ -29,23 +29,18 @@ const mintNfToken = async (mintingWallet, ipfsHash, memoUsername) => {
                 }
             ]
         });
-    
-        console.log("TOKENMINTCREATE RESPONSE: ", tokenMintCreate)
-    
+        
         const response = {
             payload: true,
             uuid: tokenMintCreate.uuid,
             qrLink: tokenMintCreate.next.always,
             qrImage: tokenMintCreate.refs.qr_png
         };
-    
-        console.log("mint nft built response object: ", response)
-    
+        
         return response ; 
     } catch(err) {
         console.log("error in mint NFT helper try catch: ", err);
-    }
-    
+    }   
 };
 
 module.exports = mintNfToken
