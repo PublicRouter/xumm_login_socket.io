@@ -19,12 +19,10 @@ import truncateToTwoDecimalPlaces from '../../clientUtils/truncateToTwoDecimalPl
 export default function Profile({ socket }) {
   const navigate = useNavigate();
 
+  // STATES
   const [accountObject, setAccountObject] = useContext(AccountContext);
-  // const [burnPayload, setBurnPayload] = useState({ initiated: false });
   const [mintNftPayload, setMintNftPayload] = useState({ payload: false });
   const [burnNftPayload, setBurnNftPayload] = useState({ payload: false });
-
-  // const [hasIdentityNft, setIdentityNft] = useState(false);
   const [formOpened, setFormOpened] = useState(false);
   const [xrpscanFetchedAccountInfo, updateXrpscanFetchedAccountInfo] = useState({
     accountData: {},
@@ -32,6 +30,7 @@ export default function Profile({ socket }) {
     fetchedNftMetaDataArrayFromRawAccountNftsTokenUri: [],
   });
 
+  //transaction type filter helper function
   function checkTransactionCountByType(transactionType, transactionArray) {
     if (transactionArray) {
       console.log(typeof transactionArray)
@@ -40,6 +39,12 @@ export default function Profile({ socket }) {
     }
   };
 
+  //url parsing helper function
+  function parseUrl(url) {
+    return url.split('//')[1];
+  };
+
+  //logout option currently unused
   function logoutAccount() {
     socket.emit('signOut', async (callback) => {
       const signOutResponse = await callback;
@@ -50,7 +55,20 @@ export default function Profile({ socket }) {
     navigate("/");
   };
 
+  //toggle open/close form for creating new nft
+  function toggleCreateNftForm() {
+    setFormOpened(!formOpened)
+  };
 
+  //delete nft trigger
+  const deleteNft = () => {
+    console.log("delete nft fired");
+    socket.emit('deleteNft', async (callback) => {
+      const nftBurnPayload = await callback;
+      socket.emit("subscribeToNftBurnPayload");
+      setBurnNftPayload({ ...nftBurnPayload, payload: true });
+    });
+  };
 
   useEffect(() => {
     const fetchAccountInfo = async () => {
@@ -66,15 +84,8 @@ export default function Profile({ socket }) {
       //FETCH XRPL ACCOUNT NFTS FROM XRPSCAN API
       const rawAccountNftsTokenDataArray = await fetch(`https://api.xrpscan.com/api/v1/account/${accountObject.wallet}/nfts`);
       const rawAccountNftsTokenDataArrayJson = await rawAccountNftsTokenDataArray.json();
-
       const fetchedNftMetaDataArrayFromRawAccountNftsTokenUri = await verifyXrpScanApiFetchedNftsInCorrectFormat(rawAccountNftsTokenDataArrayJson);
 
-
-      // updateXrpscanFetchedAccountInfo({...xrpscanFetchedAccountInfo, nftObjectsMetaData: nftsMetaDataObjects})
-
-      // updatexrpscanFetchedAccountInfo(jsonInfo);
-      //changes paymentFlowData to a object from a array
-      // updatePaymentFlowData(returnedPaymentFlowDataJson[0]);
       console.log("Profile rawAccountNftsTokenDataArrayJson: ", rawAccountNftsTokenDataArrayJson);
       console.log("Profile fetchedNftMetaDataArrayFromRawAccountNftsTokenUri: ", fetchedNftMetaDataArrayFromRawAccountNftsTokenUri);
       console.log("Profile returnedTransactionDataJson: ", returnedTransactionDataJson);
@@ -92,43 +103,9 @@ export default function Profile({ socket }) {
       console.log("User not logged in.");
     };
 
-    // if (accountObject.userIdentityNft) {
-    //   setIdentityNft(true);
-    // }    
   }, [accountObject.loggedIn, accountObject.wallet]);
 
-  function toggleCreateNftForm() {
-    setFormOpened(!formOpened)
-  };
-  // let keyValuePairs;
-  // let xrpscanFetchedAccountInfo = null;
-
-
-  // function parseDate(date) {
-  //   return date.split('//')[1];
-  // };
-
-  // function capitalizeFirstLetter(string) {
-  //   return string.charAt(0).toUpperCase() + string.slice(1);
-  // };
-
-
-
-  // console.log("KEYPAIRS: ", keyValuePairs)
-
-
-
-  const deleteNft = () => {
-    console.log("delete nft fired");
-    //needs current identityNFT tokenID
-    socket.emit('deleteNft', async (callback) => {
-      const nftBurnPayload = await callback;
-      socket.emit("subscribeToNftBurnPayload");
-      setBurnNftPayload({ ...nftBurnPayload, payload: true });
-    });
-  };
-
-  //NFT BURN
+  //SOCKET EVENT FOR WHEN NFTokenBurn PAYLOAD HAS BEEN SIGNED/REJECTED
   socket.on("NFTokenBurnPayloadResolved", arg => {
     console.log("NFTokenBurnPayload response: ", arg);
     //if nftokenburn is signed
@@ -137,14 +114,14 @@ export default function Profile({ socket }) {
       const sessionStorageAccount = JSON.parse(sessionStorageAccountJson);
       sessionStorageAccount.userIdentityNft = null;
       const sessionStorageAccountBackToJson = JSON.stringify(sessionStorageAccount);
-      sessionStorage.setItem('accountObject', sessionStorageAccountBackToJson );
+      sessionStorage.setItem('accountObject', sessionStorageAccountBackToJson);
     };
     //reset payload state to false
     setBurnNftPayload({ payload: false });
     window.location.reload();
   });
 
-  //NFT MINT
+  //SOCKET EVENT FOR WHEN NFTokenMint PAYLOAD HAS BEEN SIGNED/REJECTED
   socket.on("NFTokenMintPayloadResolved", arg => {
     console.log("NFTokenMint payload result: ", arg);
     if (arg.signed) {
@@ -152,23 +129,19 @@ export default function Profile({ socket }) {
       const sessionStorageAccount = JSON.parse(sessionStorageAccountJson);
       sessionStorageAccount.userIdentityNft = arg.currentUserIdentityObject;
       const sessionStorageAccountBackToJson = JSON.stringify(sessionStorageAccount);
-      sessionStorage.setItem('accountObject', sessionStorageAccountBackToJson );
+      sessionStorage.setItem('accountObject', sessionStorageAccountBackToJson);
     };
     //reset payload state to false
     setMintNftPayload({ payload: false });
     window.location.reload();
   });
 
-
-  function parseUrl(url) {
-    return url.split('//')[1];
-  };
-
   return (
     <div className='profileWrapper'>
       <div className='profileDash'>
 
         <div id="dashBoard">
+
           <div className='dashMain'>
             {accountObject.userIdentityNft ?
               <div id="identitySectionDiv">
@@ -187,9 +160,8 @@ export default function Profile({ socket }) {
                       : null
                   }
                 </div>
+
                 <div className='identitySectionDivInfo'>
-
-
                   {
                     accountObject.userIdentityNft?.attributes?.map((attribute) => (
                       <div className='identityPropertiesDiv'>
@@ -229,6 +201,7 @@ export default function Profile({ socket }) {
 
               <div className='walletDashBoxesContainer'>
                 <div className='dashSection'>
+
                   <div className='dashSectionHeader'>
                     <h2>Wallet</h2>
                     <a href="/">
@@ -237,6 +210,7 @@ export default function Profile({ socket }) {
                       </svg>
                     </a>
                   </div>
+
                   <div className='dashSectionInfoContainer'>
                     <img src={piggyBankSvg} alt="piggybank aside" />
                     <div>
@@ -244,11 +218,12 @@ export default function Profile({ socket }) {
                       <p>Owners: <em>{xrpscanFetchedAccountInfo.accountData?.OwnerCount}</em></p>
                       <p className="parentAddress">Parent: <em>{xrpscanFetchedAccountInfo?.parent}</em></p>
                     </div>
-
                   </div>
+
                 </div>
 
                 <div className='dashSection'>
+
                   <div className='dashSectionHeader'>
                     <h2>NFTs</h2>
                     <a href="/nfts">
@@ -257,6 +232,7 @@ export default function Profile({ socket }) {
                       </svg>
                     </a>
                   </div>
+
                   <div className='dashSectionInfoContainer'>
                     <img src={piggyBankSvg} alt="piggybank aside" />
                     <div>
@@ -265,9 +241,11 @@ export default function Profile({ socket }) {
                       <p>Burned NFTs: <em>{xrpscanFetchedAccountInfo.accountData?.BurnedNFTokens ? xrpscanFetchedAccountInfo.accountData?.BurnedNFTokens : 0}</em></p>
                     </div>
                   </div>
+
                 </div>
 
                 <div className='dashSection'>
+
                   <div className='dashSectionHeader'>
                     <h2>Transactions</h2>
                     <a href="/transactions">
@@ -276,6 +254,7 @@ export default function Profile({ socket }) {
                       </svg>
                     </a>
                   </div>
+
                   <div className='dashSectionInfoContainer'>
                     <img src={piggyBankSvg} alt="piggybank aside" />
                     <div>
@@ -283,8 +262,10 @@ export default function Profile({ socket }) {
                       <p>Payments: <em>{checkTransactionCountByType("Payment", xrpscanFetchedAccountInfo.transactionData?.transactions)}</em></p>
                     </div>
                   </div>
+
                 </div>
                 <div className='dashSection'>
+
                   <div className='dashSectionHeader'>
                     <h2>Misc</h2>
                     <a href="/nfts">
@@ -293,6 +274,7 @@ export default function Profile({ socket }) {
                       </svg>
                     </a>
                   </div>
+
                   <div className='dashSectionInfoContainer'>
                     <img src={piggyBankSvg} alt="piggybank aside" />
                     <div>
@@ -300,16 +282,19 @@ export default function Profile({ socket }) {
                       <p>Payments: <em>{xrpscanFetchedAccountInfo.paymentFlowData?.payments}</em></p>
                     </div>
                   </div>
+
                 </div>
+
               </div>
               <div id="bottomBox">
-                {/* <h4>Click for more info.</h4> */}
                 <div>
                   <p>lorem ipsum dor foe ippsyfi dorgarh di f forgin ha. lorem ipsum dor foe ippsyfi dorgarh di f forgin ha. lorem ipsum dor foe ippsyfi dorgarh di f forgin ha.</p>
                 </div>
               </div>
+
             </div>
           </div>
+
           <div className="dashAside">
             <div id="asideRankBox">
               <div id="rankBox">
@@ -324,6 +309,7 @@ export default function Profile({ socket }) {
               </div>
             </div>
           </div>
+
         </div>
 
         <img id="treesImg" src={treex} />
@@ -337,64 +323,8 @@ export default function Profile({ socket }) {
               </div> : null
           }
         </div>
+
       </div>
-
     </div>
-  )
+  );
 };
-
-
-
-/* <p>Inception: {`${xrpscanFetchedAccountInfo.inception.split("-")[1]}/${xrpscanFetchedAccountInfo.inception.split("-")[0]}`}</p> */
-/* <p>Todays Total Payments: {paymentFlowData.payments}</p>
-   <p>Todays Payment Vol: {paymentFlowData.volume}</p> */
-
-
-/* {
-      accountObject.identityNft !== null && accountObject.loggedIn ?
-        <div className='profileBody'>
-          <div id='profileCard'>
-            <img src={`https://ipfs.io/ipfs/${parseUrl(loggedIn.nftMetaData.image)}`} alt={imageIpfsUrl} id='characterImage' />
-            <div id='profileStats'>
-              <h4>Username: <em>{accountObject.nftMetaData.name}</em></h4>
-              <p className='loggedInRAddress'>Wallet: <em>{loggedIn.rAddress}</em></p>
-              <p>{capitalizeFirstLetter(accountObject.nftMetaData.attributes[0].trait_type)}: <em>{loggedIn.nftMetaData.attributes[0].value}</em></p>
-              <p>{capitalizeFirstLetter(accountObject.nftMetaData.attributes[1].trait_type)}: <em>{loggedIn.nftMetaData.attributes[1].value}</em></p>
-            </div>
-          </div>
-          <div className='deleteDiv'>
-            <h2>Delete Current NFT?</h2>
-            <button onClick={deleteNft}>Delete</button>
-            {burnPayload.initiated ?
-              <img src={burnPayload.payload.refs.qr_png} />
-              : null
-            }
-          </div>
-          <div id='profileBodyMain'>
-
-
-          </div>
-        </div>
-        :
-        <div className='profileMain'>
-          <h3 id="noNftText">Account currently does not own a Identity NFT.</h3>
-
-          <div className='profileFormDiv'>
-            <form onSubmit={handleSubmit} className="profileForm" style={display ? null : { display: "none" }}>
-              <input type="text" name="username" placeholder="Username" />
-              <input type="text" name="profession" placeholder="Profession" />
-              <input type="text" name="years" placeholder="Experience(yrs)" />
-              <input type="file" name="nftImage" placeholder="NFT Image file(jpeg, png)" />
-              <button type="submit">Create NFT</button>
-            </form>
-            {mintNftPayload.payload ?
-              <div className='mintNftQrDiv'>
-                <img src={mintNftPayload.qrImage} />
-                <a href={mintNftPayload.qrLink} />
-              </div>
-              : null
-            }
-
-          </div>
-        </div>
-    } */
