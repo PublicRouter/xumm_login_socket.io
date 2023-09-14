@@ -4,9 +4,11 @@ const {
     handleSignIn,
     handleSignOut,
     handleSubscribeToSignIn,
-    handleNftMetaCreation,
+    createIPFSHashThenUseHashToCreateNFTokenMintPayload,
     handleSubToNftMint,
-    handleUpdateServerAccountState
+    handleUpdateServerAccountState,
+    handleNftBurn,
+    handleSubscribeToNftBurn
 } = require('./utils');
 
 const Account = require('./accountClass');
@@ -15,6 +17,8 @@ const initializeSocketEvents = (io, serverState) => {
     console.log("INITIALIZING SOCKEREVENTS")
     io.on('connection', (socket) => {
         let currentAccount = new Account();
+        let currentAccountProps = currentAccount.showCurrentUserInfo();
+        console.log("current account properties in main io connection scope: ", currentAccountProps);
 
         console.log(`${socket.id} has joined the server.`);
         serverState.connectedUsers.push(socket.id);
@@ -42,15 +46,26 @@ const initializeSocketEvents = (io, serverState) => {
         });
         //createNftFormData, callback (WRITEFILE)
         socket.on("sendDataForNftIpfsMetaCreationThenReturnQrCodeForNfTokenMintTransaction", (createNftFormData, callback) => {
-            handleNftMetaCreation(currentAccount, createNftFormData, callback);
+            createIPFSHashThenUseHashToCreateNFTokenMintPayload(currentAccount, createNftFormData, callback);
         });
         //arg, callback
-        socket.on("subToNftMint", (arg, callback) => {
-            handleSubToNftMint(arg, callback);
+        socket.on("subToNftMint", async () => {
+            //returns either {signed: true} or {signed: false}
+            const signedResult = await handleSubToNftMint(currentAccount);
+            socket.emit("NFTokenMintPayloadResolved", signedResult);
         });
 
         socket.on("checkConnectedList", (callback) => {
             callback(serverState.connectedUsers)
+        })
+
+        socket.on("deleteNft", (callback) => {
+            handleNftBurn(currentAccount, callback);
+        })
+
+        socket.on("subscribeToNftBurnPayload", async () => {
+            const signed = await handleSubscribeToNftBurn(currentAccount);
+            socket.emit("NFTokenBurnPayloadResolved", signed)
         })
 
         // ... other socket events

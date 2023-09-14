@@ -27,25 +27,22 @@ const checkNftsListForNftsWithNftTypeOriginators = async (nfts) => {
             console.log(rawUrl)
             const nftUrl = `https://${rawUrl}`;
             const nftMetaData = await fetch(nftUrl);
-            // console.log(nftMetaData)
             const jsonMetaData = await nftMetaData.json();
+
             console.log("metadata in json: ", jsonMetaData);
 
             if (jsonMetaData.collection.name === "Identity NFT" && jsonMetaData.collection.family === "Originators") {
                 console.log("matching nftType found.... pushing");
-                identityNftList.push({...jsonMetaData, thisNftIpfsUrl: nft.ipfsUrl});
-                console.log("after nft pushed");
-                console.log(identityNftList);
-            } else {
-                console.log("Account has no minted identityNft, identityNft property remains null.");
+                identityNftList.push({ ...jsonMetaData, thisNftIpfsUrl: nft.ipfsUrl, tokenID: nft.nft.NFTokenID });
             };
-        }));       
+        }));
     } catch (error) {
         console.error('An error occurred:', error);
     };
 
     console.log("Final nft list: ", identityNftList);
-    return identityNftList;
+
+    return identityNftList
 };
 
 module.exports = checkNftsListForNftsWithNftTypeOriginators;

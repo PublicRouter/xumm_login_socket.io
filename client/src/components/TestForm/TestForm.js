@@ -85,20 +85,23 @@ export default function TestForm({ setFormOpened, setMintNftPayload, socket }) {
         if (Object.keys(newErrors).length === 0) {
             console.log('Form data:', formData);
             socket.emit('sendDataForNftIpfsMetaCreationThenReturnQrCodeForNfTokenMintTransaction', formData, async (callback) => {
-                console.log("Fired inside handleSubmit socket emit")
+                console.log("Fired inside handleSubmit socket emit");
+           
+                //returns {payload, uuid, qrLink, qrImage}
                 const nfTokenMintPayload = await callback;
                 console.log("createIPFS response: ", nfTokenMintPayload);
+
                 setMintNftPayload(nfTokenMintPayload);
                 setFormOpened(false);
+                socket.emit("subToNftMint");
             });
-
         };
     };
 
     return (
         <form onSubmit={handleSubmit} className='testForm'>
             <div id="closeButtonContainer">
-                <button onClick={closeForm} id="closeButton">X</button>
+                <button onClick={closeForm} id="closeButton" >🆇</button>
 
             </div>
             <h2>Account NFT Info:</h2>
@@ -174,7 +177,7 @@ export default function TestForm({ setFormOpened, setMintNftPayload, socket }) {
                     onChange={handleInputChange}
                 />
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" id="testFormSubmitButton" className='buttonPop'>Submit</button>
         </form>
     );
 };

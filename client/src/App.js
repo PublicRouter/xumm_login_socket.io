@@ -9,7 +9,7 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import Transactions from './components/Transactions/Transactions';
-import NftPage from './components/NftPage.js/NftPage';
+import NftPage from './components/NftPage/NftPage';
 import Footer from './components/Footer/Footer'
 
 
@@ -52,6 +52,7 @@ function App() {
   };
   //not logged in, and sessionStorage is populated
   if (!accountObject.loggedIn && sessionStorageAccount !== null) {
+    console.log("executing updateServerAccountState emit.")
     const currentAccount = JSON.parse(sessionStorageAccount);
     socket.emit('updateServerAccountState', currentAccount, async (callback) => {
       const receivedFrontEndResponseForUpdateServerAccountStateEmit = await callback;
@@ -60,6 +61,8 @@ function App() {
     setAccountObject(currentAccount);
 
   };
+
+  //if logged in, and session storage is populated
 
   console.log('App component: Current connected users account: ', accountObject)
 

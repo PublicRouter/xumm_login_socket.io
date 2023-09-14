@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const Sdk = new XummSdk(process.env.XUMM_API_KEY, process.env.XUMM_API_SECRET);
 
-const burnNft = async (targetAccount, tokenId) => {
+const createNFTokenBurnPayload = async (targetAccount, tokenId) => {
     const txjson = {
         // "user_token": userToken,
         "txjson": {
@@ -19,10 +19,10 @@ const burnNft = async (targetAccount, tokenId) => {
     const txjsonStringified = JSON.stringify(txjson)
     console.log(txjsonStringified)
 
-    const tokenMintCreate = await Sdk.payload.create(txjsonStringified);
-    console.log("tokenMintCreate payload: ", tokenMintCreate)
+    const NFTokenBurnPayload = await Sdk.payload.create(txjsonStringified);
+    console.log("tokenMintCreate payload: ", NFTokenBurnPayload )
 
-    return tokenMintCreate
+    return NFTokenBurnPayload 
 };
 
-module.exports = burnNft
+module.exports = createNFTokenBurnPayload;

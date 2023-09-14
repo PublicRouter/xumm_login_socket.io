@@ -1,23 +1,10 @@
-//GLOBAL SERVER SCOPE:
-// server (http server instance using express.js)
-// io (socket io instance, wrapping express server)
-// serverState:{ connectedUsers: [], loggedInUsers: [] }
-
-
-//OUTTER SCOPE:
-// socket
-// currentAccount = new Class Account()
-//
-
 const { writeFile, unlink } = require('fs');
 
 const createSignin = require('./serverHelpers/xrplHelpers/createXummSignin');
 const subscribeToPayloadUuid = require('./serverHelpers/xrplHelpers/subscribeToPayloadUuid');
-const lookupAccountNfts = require("./serverHelpers/xrplHelpers/lookupAccountNfts");
-// const burnNft = require("./serverHelpers/xrplHelpers/burnNft");
+const createNFTokenBurnPayload = require("./serverHelpers/xrplHelpers/createNFTokenBurnPayload");
 const storeMetaToIpfs = require("./serverHelpers/xrplHelpers/storeMetaToIpfs");
 const mintNfToken = require("./serverHelpers/xrplHelpers/mintNfToken");
-const checkNftsListForNftsWithNftTypeOriginators = require('./serverHelpers/xrplHelpers/checkNftsListForNftsWithNftTypeOriginators');
 
 const handleJoinServer = (socket, serverState) => {
     console.log(`${socket.id} has joined the server.`);
@@ -69,38 +56,35 @@ const handleSignOut = (currentAccount, serverState, callback) => {
     }
 };
 
+//wait for sign-in payload resolve, if signed -> push user to server loggedInUsersList and send back updated account object
 const handleSubscribeToSignIn = async (socket, currentAccount, serverState, callback) => {
     console.log("Awaiting 'sign-in' payload resolution...");
-    const subbedPayloadResponseData = await subscribeToPayloadUuid(currentAccount.latestPayload.payloadUuid);
+    try {
+        const subbedPayloadResponseData = await subscribeToPayloadUuid(currentAccount.latestPayload.payloadUuid);
 
-    currentAccount.loggedIn = subbedPayloadResponseData.meta.signed;
-    currentAccount.wallet = subbedPayloadResponseData.response.signer;
-    currentAccount.xummToken = subbedPayloadResponseData.response.user;
+        currentAccount.loggedIn = subbedPayloadResponseData.meta.signed;
+        currentAccount.wallet = subbedPayloadResponseData.response.signer;
+        currentAccount.xummToken = subbedPayloadResponseData.response.user;
 
-    if (currentAccount.loggedIn) {
-        serverState.loggedInUsers.push({
-            socket: socket.id,
-            wallet: currentAccount.wallet,
-        });
+        if (currentAccount.loggedIn) {
+            serverState.loggedInUsers.push({
+                socket: socket.id,
+                wallet: currentAccount.wallet,
+            });
+        };
+        //check account for identity nft and update currentAccount with info if it finds one
+        await currentAccount.checkForAccountIdentityNft();
+
+        let currentAccountProps = currentAccount.showCurrentUserInfo();
+        console.log("current account properties in handleSubscribeToSignIn util scope: ", currentAccountProps);
+
+        callback(currentAccount);
+    } catch (err) {
+        console.log("Error in handleSubscribeToSignIn util: ", err);
     };
-
-    const allAccountNftsArray = await currentAccount.returnArrayOfAccountNfts();
-    console.log("nft array on server", allAccountNftsArray);
-
-    const identityNftList = await checkNftsListForNftsWithNftTypeOriginators(allAccountNftsArray);
-
-    if (identityNftList.length === 0) {
-        console.log("User has no identity NFT yet.");
-    } else if (identityNftList.length === 1) {
-        currentAccount.setIdentityNft(identityNftList[0]);
-        console.log("identityNftList appropriately has only one identityNFT in wallet. NFT data: ", currentAccount.userIdentityNft)
-    } else {
-        console.log("Your account has more than 1 identify NFT!! Oops")
-    }
-    callback(currentAccount)
 };
 
-const handleNftMetaCreation = async (currentAccount, createNftFormData, callback) => {
+const createIPFSHashThenUseHashToCreateNFTokenMintPayload = async (currentAccount, createNftFormData, callback) => {
     console.log("server recieved createNftMeta data: ", createNftFormData);
 
     const profileImageFileName = createNftFormData.profilePictureName;
@@ -128,11 +112,16 @@ const handleNftMetaCreation = async (currentAccount, createNftFormData, callback
 
         const ipfsUrl = await storeMetaToIpfs(profileUsername, profileCountry, profileBio, profileProfession, profileExperience, `/Users/jamesg/Desktop/publicRouterClones/xumm_login_socket.io/server/serverHelpers/tempNftImage/${profileImageFileName}`);
 
+        //returns {payload, uuid, qrLink, qrImage}
         const mintPayload = await mintNfToken(currentAccount.wallet, ipfsUrl, profileUsername);
-        console.log("mintPayload-----------: ", mintPayload);
+
+        //update account latestPayload to NFTokenMint tx
+        currentAccount.latestPayload = {
+            payloadType: 'NFTokenMint',
+            payloadUuid: mintPayload.uuid,
+        };
 
         // if all above successfull, sends back { payload: true, uuid: tokenMintCreate.uuid, qrLink: tokenMintCreate.next.always, qrImage: tokenMintCreate.refs.qr_png}
-        // callback(mintPayload);
         callback(mintPayload);
 
     } catch (error) {
@@ -142,61 +131,76 @@ const handleNftMetaCreation = async (currentAccount, createNftFormData, callback
     }
 };
 
-const handleSubToNftMint = async (arg, callback) => {
+const handleSubToNftMint = async (currentAccount) => {
     console.log("Awaiting 'NFTokenMint' payload resolution...");
-    const resolvedSubPayload = await subscribeToPayloadUuid(arg);
-    const signed = resolvedSubPayload.meta.signed;
-    //
-    // need handling in case tx format errors even if payload is signed
-    // subbedPayloadResponseData.response.dispatched_result === 'invalidTransaction',
-    // 
-    if (signed) {
-        userWallet = resolvedSubPayload.response.signer;
-        userToken = resolvedSubPayload.response.user;
-        const arrayOfIssuedNft = await lookupAccountNfts(userWallet);
 
-        const composedPayload = {
-            signed: true,
-            // wallet: userWallet,
-            // arrayOfIssuedNft: arrayOfIssuedNft
+    let signed;
+
+    try {
+        const resolvedSubPayload = await subscribeToPayloadUuid(currentAccount.latestPayload.payloadUuid);
+        signed = resolvedSubPayload.meta.signed;
+
+        if (signed) {
+            const userIdentityNft = await currentAccount.checkForAccountIdentityNft();
+            return { signed: true, currentUserIdentityObject: userIdentityNft };
+        } else {
+            return { signed: false };
         }
-        callback(composedPayload)
-    } else {
-        callback({ signed: false })
-    }
+    } catch (err) {
+        console.log(err);
+    };
 };
 
 const handleUpdateServerAccountState = async (socket, io, sessionedAccountData, serverState, currentAccount, callback) => {
     console.log("Received updateServerAccountState sessionedAccountData: ", sessionedAccountData);
-        console.log("CURRENTACCOUNTDATA___________: ", currentAccount)
-        if (currentAccount.loggedIn == null) {
-            currentAccount.update(sessionedAccountData);
+    console.log("CURRENTACCOUNTDATA___________: ", currentAccount);
 
-            let hasWallet = false;
+    if (currentAccount.loggedIn == null) {
+        currentAccount.update(sessionedAccountData);
+        const balance = await currentAccount.checkAccountXrpBalance();
+        console.log("CHECKING CHECKING CLASS METHOD BALANCE: ", balance);
+        let hasWallet = false;
 
-            for (let i = 0; i < serverState.loggedInUsers.length; i++) {
-                if (serverState.loggedInUsers[i].wallet === currentAccount.wallet) {
-                    hasWallet = true;
-                    break;
-                };
-            };
-
-            if (!hasWallet) {
-                currentAccount.checkAccountXrpBalance().then(xrpBalance => {
-                    serverState.loggedInUsers.push({
-                        socket: socket.id,
-                        wallet: currentAccount.wallet,
-                        identityNft: currentAccount.userIdentityNft,
-                        xrpBalance: xrpBalance,
-                    });
-    
-                    // send list of servers logged in users to the front end
-                    io.emit("currentLoggedInUsersList", serverState.loggedInUsers);
-                });
+        for (let i = 0; i < serverState.loggedInUsers.length; i++) {
+            if (serverState.loggedInUsers[i].wallet === currentAccount.wallet) {
+                hasWallet = true;
+                break;
             };
         };
-        callback("Recieved session account data, and updated server currentAccount state.")
+
+        if (!hasWallet) {
+            currentAccount.checkAccountXrpBalance().then(xrpBalance => {
+                serverState.loggedInUsers.push({
+                    socket: socket.id,
+                    wallet: currentAccount.wallet,
+                    identityNft: currentAccount.userIdentityNft,
+                    xrpBalance: xrpBalance,
+                });
+
+                // send list of servers logged in users to the front end
+                io.emit("currentLoggedInUsersList", serverState.loggedInUsers);
+            });
+        };
+    };
+    callback("Recieved session account data, and updated server currentAccount state.")
 };
+
+const handleNftBurn = async (currentAccount, callback) => {
+    console.log("attempting to burn identity NFT");
+    const createNFTokenBurnPayloadResponse = await createNFTokenBurnPayload(currentAccount.wallet, currentAccount.userIdentityNft.tokenID);
+
+    currentAccount.latestPayload = {
+        payloadType: 'NFTokenBurn',
+        payloadUuid: createNFTokenBurnPayloadResponse.uuid,
+    };
+    callback(createNFTokenBurnPayloadResponse)
+}
+
+const handleSubscribeToNftBurn = async (currentAccount) => {
+    const subbedPayloadResponseData = await subscribeToPayloadUuid(currentAccount.latestPayload.payloadUuid);
+    const signed = subbedPayloadResponseData.meta.signed;
+    return signed
+}
 
 module.exports = {
     handleJoinServer,
@@ -205,6 +209,8 @@ module.exports = {
     handleSignIn,
     handleSignOut,
     handleSubscribeToSignIn,
-    handleNftMetaCreation,
-    handleSubToNftMint
+    createIPFSHashThenUseHashToCreateNFTokenMintPayload,
+    handleSubToNftMint,
+    handleNftBurn,
+    handleSubscribeToNftBurn
 };

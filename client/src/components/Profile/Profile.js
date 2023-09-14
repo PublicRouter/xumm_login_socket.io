@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import '../Profile/profile.css'
+import { useNavigate } from 'react-router-dom';
 
 // import NewIdentityNftForm from '../NewIdentityNftForm/NewIdentityNftForm';
 import { AccountContext } from '../../App';
@@ -16,9 +17,13 @@ import verifyXrpScanApiFetchedNftsInCorrectFormat from "../../clientUtils/verify
 import truncateToTwoDecimalPlaces from '../../clientUtils/truncateToTwoDecimalPlaces';
 
 export default function Profile({ socket }) {
+  const navigate = useNavigate();
+
   const [accountObject, setAccountObject] = useContext(AccountContext);
   // const [burnPayload, setBurnPayload] = useState({ initiated: false });
   const [mintNftPayload, setMintNftPayload] = useState({ payload: false });
+  const [burnNftPayload, setBurnNftPayload] = useState({ payload: false });
+
   // const [hasIdentityNft, setIdentityNft] = useState(false);
   const [formOpened, setFormOpened] = useState(false);
   const [xrpscanFetchedAccountInfo, updateXrpscanFetchedAccountInfo] = useState({
@@ -33,8 +38,18 @@ export default function Profile({ socket }) {
       const paymentTransactionsCount = transactionArray.filter(transaction => transaction.TransactionType === transactionType).length;
       return paymentTransactionsCount;
     }
+  };
 
-  }
+  function logoutAccount() {
+    socket.emit('signOut', async (callback) => {
+      const signOutResponse = await callback;
+      console.log("signout emit rersponse: ", signOutResponse)
+    });
+    setAccountObject({ loggedIn: false });
+    window.sessionStorage.clear();
+    navigate("/");
+  };
+
 
 
   useEffect(() => {
@@ -103,62 +118,47 @@ export default function Profile({ socket }) {
 
 
 
-  // const deleteNft = () => {
-  //   socket.emit("deleteNft", async (callback) => {
-  //     const nftBurnPayload = await callback;
-  //     setBurnPayload({ initiated: true, ...nftBurnPayload });
-  //     console.log("new burnPayload state: ", burnPayload)
-  //     socket.emit("subscribeToNftDelete", async (callback2) => {
-  //       const subResolveData = await callback2
-  //       console.log("Identity NFT array after deleteNft function ran: ", subResolveData);
-  //       // setaccountObject({...accountObject, nftMetaData: callback2.});
-  //       if (subResolveData.userIdentityNft == null) {
-  //         setLoggedIn({ ...accountObject, nftMetaData: subResolveData.userIdentityNft })
-  //       }
-  //     })
-  //   })
-  // }
+  const deleteNft = () => {
+    console.log("delete nft fired");
+    //needs current identityNFT tokenID
+    socket.emit('deleteNft', async (callback) => {
+      const nftBurnPayload = await callback;
+      socket.emit("subscribeToNftBurnPayload");
+      setBurnNftPayload({ ...nftBurnPayload, payload: true });
+    });
+  };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log("my event: ", event)
+  //NFT BURN
+  socket.on("NFTokenBurnPayloadResolved", arg => {
+    console.log("NFTokenBurnPayload response: ", arg);
+    //if nftokenburn is signed
+    if (arg === true) {
+      const sessionStorageAccountJson = window.sessionStorage.getItem('accountObject');
+      const sessionStorageAccount = JSON.parse(sessionStorageAccountJson);
+      sessionStorageAccount.userIdentityNft = null;
+      const sessionStorageAccountBackToJson = JSON.stringify(sessionStorageAccount);
+      sessionStorage.setItem('accountObject', sessionStorageAccountBackToJson );
+    };
+    //reset payload state to false
+    setBurnNftPayload({ payload: false });
+    window.location.reload();
+  });
 
-  //   const elements = event.currentTarget.elements;
+  //NFT MINT
+  socket.on("NFTokenMintPayloadResolved", arg => {
+    console.log("NFTokenMint payload result: ", arg);
+    if (arg.signed) {
+      const sessionStorageAccountJson = window.sessionStorage.getItem('accountObject');
+      const sessionStorageAccount = JSON.parse(sessionStorageAccountJson);
+      sessionStorageAccount.userIdentityNft = arg.currentUserIdentityObject;
+      const sessionStorageAccountBackToJson = JSON.stringify(sessionStorageAccount);
+      sessionStorage.setItem('accountObject', sessionStorageAccountBackToJson );
+    };
+    //reset payload state to false
+    setMintNftPayload({ payload: false });
+    window.location.reload();
+  });
 
-  //   const transmissionObject = {
-  //     userName: elements[0].value,
-  //     profession: elements[1].value,
-  //     years: elements[2].value,
-  //     imageFile: elements[3].files[0],
-  //     imageName: elements[3].files[0].name
-  //   };
-  //   console.log("transmissionObject: ", transmissionObject)
-
-  //   socket.emit('createIpfs', transmissionObject, async (callback) => {
-  //     console.log("Fired inside handleSubmit socket emit")
-  //     const nfTokenMintPayload = await callback;
-  //     console.log(nfTokenMintPayload);
-
-  //     if (nfTokenMintPayload.message !== "failure") {
-  //       setDisplay(false);
-  //     };
-
-  //     setMintNftPayload(nfTokenMintPayload);
-
-  //     socket.emit('subToNftMint', nfTokenMintPayload.uuid, async (callback) => {
-  //       const nfTokenMintTxData = await callback;
-  //       console.log("subToNftMint resolved payload: ", nfTokenMintTxData);
-  //       if (nfTokenMintTxData.signed) {
-  //         const rawUrl = parseUrl(nfTokenMintPayload.arrayOfIssuedNft[0].ipfsUrl);
-  //         const nftUrl = `https://ipfs.io/ipfs/${rawUrl}`;
-  //         const fetchedMetaData = await fetch(nftUrl);
-  //         const newMetaData = await fetchedMetaData.json();
-  //         console.log("NFTokenMint TX Signed!")
-  //         setaccountObject({ ...accountObject, nftMetaData: newMetaData })
-  //       }
-  //     })
-  //   });
-  // };
 
   function parseUrl(url) {
     return url.split('//')[1];
@@ -173,9 +173,19 @@ export default function Profile({ socket }) {
             {accountObject.userIdentityNft ?
               <div id="identitySectionDiv">
                 <div id="identitySectionTop">
-                  <img src={accountObject.userIdentityNft ? `https://ipfs.io/ipfs/${parseUrl(accountObject.userIdentityNft?.image)}` : null} alt="identity NFT" />
+                  <img id="identityImage" src={accountObject.userIdentityNft ? `https://ipfs.io/ipfs/${parseUrl(accountObject.userIdentityNft?.image)}` : null} alt="identity NFT" />
                   <h3 id="welcomeTitle">Welcome, <span id="welcomeTitleName">{accountObject.userIdentityNft?.name}</span>.</h3>
-                  <button id="newIdentityNftButton" className='buttonPop'>Destroy NFT</button>
+                  <button id="newIdentityNftButton" className='buttonPop' onClick={deleteNft}>Destroy NFT</button>
+                  {
+                    burnNftPayload.payload ?
+                      <div className='mintNftQrDiv'>
+                        <p>"Scan QR code with Xumm App to sign NfTokenBurn Payload"</p>
+                        <a href={burnNftPayload.next.always} >
+                          <img src={burnNftPayload.refs.qr_png} alt="qr to burn a nft" />
+                        </a>
+                      </div>
+                      : null
+                  }
                 </div>
                 <div className='identitySectionDivInfo'>
 
@@ -194,8 +204,8 @@ export default function Profile({ socket }) {
               :
               <div className='createIdentitySection'>
                 <h3>Attention!</h3>
-                <p>You do not have an identity NFT yet. Please click teh button below to create one!</p>
-                <button onClick={toggleCreateNftForm} >Create Identity NFT</button>
+                <p>You do not have an identity NFT yet. Please click the button below to create one!</p>
+                <button onClick={toggleCreateNftForm} className='buttonPop' id="createIdentityButton">Create Identity NFT</button>
                 {
                   formOpened ?
                     // <CreateNftForm setFormOpened={setFormOpened} socket={socket} />

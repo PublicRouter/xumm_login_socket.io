@@ -38,23 +38,7 @@ export default function Login({ socket }) {
       //SECOND EMIT ( receive {signed: bool, wallet: '', arrayOfIssedNfts: []})
       socket.emit('subscribeToSignIn', async (callback) => {
         const finalSignInPayloadReturnObject = await callback;
-        console.log("did class send?:", finalSignInPayloadReturnObject)
-
-        // if (finalTxData.signed && finalTxData.arrayOfIssuedNft.length > 0 && finalTxData.arrayOfIssuedNft.length < 2) {
-        //   const rawUrl = await parseUrl(finalTxData.arrayOfIssuedNft[0].ipfsUrl);
-        //   const nftUrl = `https://ipfs.io/ipfs/${rawUrl}`;
-        //   const fetchedMetaData = await fetch(nftUrl);
-        //   metaData = await fetchedMetaData.json();
-        // };
-
-        // if (finalTxData.signed) {
-        //   console.log('sign in success')
-        //   setLoggedInContext({ ...loggedInContext, loggedIn: finalTxData.signed, rAddress: finalTxData.wallet, nftMetaData: metaData });
-        //   setPayloadMessage("Congratulations! You are now logged in.")
-        // } else {
-        //   console.log("sign in rejected")
-        //   setPayloadMessage("Account 'sign-in' QR was rejected. Please reload web-page or click 'Genereate QR' again. Cannot proceed to 'Profile' without signing from XUMM wallet. ")
-        // }
+        console.log("returned updated server account object: ", finalSignInPayloadReturnObject)
 
         if (finalSignInPayloadReturnObject.loggedIn) {
           console.log("user successfully signed in.");  
