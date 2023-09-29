@@ -22,6 +22,7 @@ const subscribeToPayloadUuid = async (uuid) => {
             Signed By: ${payload.response.account},
             Signed User Token: ${payload.response.user}
         `);
+
         return payload
     };
     

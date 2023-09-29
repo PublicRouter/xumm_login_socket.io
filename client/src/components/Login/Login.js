@@ -19,21 +19,17 @@ export default function Login({ socket }) {
     };
   },[]);
 
-  // function parseUrl(url) {
-  //   return url.split('//')[1];
-  // };
-
   const authenticateXumm = () => {
 
     //FIRST EMIT ( receive 'sign-in' payload object)
     socket.emit('signIn', async (callback) => {
       const receivedObj = await callback;
       setPayloadCreate(receivedObj);
-      //SECOND EMIT ( receive {signed: bool, wallet: '', arrayOfIssedNfts: []})
+      //SECOND EMIT ( receive server { currentAccount } after instance updated with credentials from xumm sign-in, and nft lookup)
       socket.emit('subscribeToSignIn', async (callback) => {
         const finalSignInPayloadReturnObject = await callback;
         console.log("returned updated server account object: ", finalSignInPayloadReturnObject);
-        
+
         if (finalSignInPayloadReturnObject.loggedIn) {
           console.log("user successfully signed in.");  
           setAccountObject({...accountObject, ...finalSignInPayloadReturnObject});
@@ -51,16 +47,6 @@ export default function Login({ socket }) {
   return (
     <div className='loginMain'>
         <img id="fingerprintLoginSvg" src={fingerprintLogin} />
-
-      {"mintPayload" in payloadCreate ?
-        <div className='loginComponent'>
-          <h1>Sign Account Info NFT Mint: </h1>
-          <div className='payloadDiv'>
-            <img src={payloadCreate.qrImage} />
-            <a href={payloadCreate.qrLink} target="_blank">{payloadCreate.qrLink}</a>
-          </div>
-        </div>
-        :
         <div className='loginComponent'>
           <h1>Connect</h1>
           {
@@ -76,7 +62,6 @@ export default function Login({ socket }) {
           <p id="signInMsg">{payloadMessage}</p>
           <button className="buttonPop" onClick={authenticateXumm}>Generate QR</button>
         </div>
-      }
     </div>
   )
 }

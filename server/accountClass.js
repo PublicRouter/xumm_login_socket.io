@@ -13,12 +13,12 @@ const client = new xrpl.Client('wss://s1.ripple.com/');
 
 class Account {
   constructor() {
-    this.loggedIn = null;
+    this.loggedIn = false;
     this.wallet = null;
     this.xrpBalance = null;
     this.xummToken = null;
     this.latestPayload = null;
-    this.userIdentityNft = null;
+    this.userIdentityNft = false;
   }
 
   //update account properties

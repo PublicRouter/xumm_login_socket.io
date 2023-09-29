@@ -58,6 +58,7 @@ function App() {
 
   useEffect(() => {
     if (accountObject.loggedIn && socket) {
+      //if account logged in, emit update server to socket
       socket.emit('updateServerAccountState', accountObject, async (callback) => {
         const response = await callback;
         console.log("Response from server: ", response);
