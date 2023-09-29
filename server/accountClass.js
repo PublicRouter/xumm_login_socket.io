@@ -1,19 +1,16 @@
 const xrpl = require('xrpl');
 require('dotenv').config();
 
-const createSignin = require('./serverHelpers/xrplHelpers/createXummSignin');
-const subscribeToPayloadUuid = require('./serverHelpers/xrplHelpers/subscribeToPayloadUuid');
+// const createSignin = require('./serverHelpers/xrplHelpers/createXummSignin');
+// const subscribeToPayloadUuid = require('./serverHelpers/xrplHelpers/subscribeToPayloadUuid');
+// const createNFTokenBurnPayload = require("./serverHelpers/xrplHelpers/createNFTokenBurnPayload");
+// const storeMetaToIpfs = require("./serverHelpers/xrplHelpers/storeMetaToIpfs");
+// const mintNfToken = require("./serverHelpers/xrplHelpers/mintNfToken");
 const lookupAccountNfts = require("./serverHelpers/xrplHelpers/lookupAccountNfts");
-const createNFTokenBurnPayload = require("./serverHelpers/xrplHelpers/createNFTokenBurnPayload");
-const storeMetaToIpfs = require("./serverHelpers/xrplHelpers/storeMetaToIpfs");
-const mintNfToken = require("./serverHelpers/xrplHelpers/mintNfToken");
 const checkNftsListForNftsWithNftTypeOriginators = require('./serverHelpers/xrplHelpers/checkNftsListForNftsWithNftTypeOriginators');
-
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const client = new xrpl.Client('wss://s1.ripple.com/');
 
-//@Params- Object{ xumm payload.get response object }
 class Account {
   constructor() {
     this.loggedIn = null;
@@ -34,8 +31,8 @@ class Account {
   };
 
   updateIdentityNft = (jsonMetaDataObject) => {
-    console.log("identity nft set.")
-    this.userIdentityNft = jsonMetaDataObject
+    console.log("identity nft set.");
+    this.userIdentityNft = jsonMetaDataObject;
   };
 
   //return user props
@@ -46,7 +43,7 @@ class Account {
       xrpBalance: this.xrpBalance,
       latestPayload: this.latestPayload,
       identityNft: this.userIdentityNft
-    }
+    };
   };
 
   //returns: [{nft, ipfsUrl}]
@@ -74,16 +71,18 @@ class Account {
       this.updateIdentityNft(null);
       return 0;
     }
-  }
+  };
 
   checkAccountXrpBalance = async () => {
-    await client.connect()
+    await client.connect();
+
     const response = await client.request({
       "command": "account_info",
       "account": this.wallet,
       "ledger_index": "validated"
-    })
-    await client.disconnect()
+    });
+
+    await client.disconnect();
 
     function roundDown(number, decimals) {
       const factor = Math.pow(10, decimals);
@@ -91,6 +90,7 @@ class Account {
     }
 
     let xrpBalance = Number(xrpl.dropsToXrp(Number(response.result.account_data.Balance)));
+
     xrpBalance = roundDown(xrpBalance, 2);
     console.log("Account class checkAccountXrpBalance amount: ", xrpBalance.toFixed(2));
 
@@ -106,36 +106,6 @@ class Account {
   // createBurnCurrentAppNfTokenPayload() {
 
   // };
-
-  // refreshBalanceAndIdentityNft = async () => {
-  //   let currentWalletBalance = await this.checkAccountXrpBalance();
-  //   this.xrpBalance = currentWalletBalance;
-  // };
-
 };
 
 module.exports = Account;
-
-
-
-
-// private key signature to return owned wallet rAddress --> @rAddress
-
-// DATABASE LAYER: use @rAddress to run database query for that address to return mapped tempRAddress for in-app usage
-// IF - NO tempRAddress mapped, create new wallet and connect to sign-in wallet in database (10xrp reserve fee)
-
-// LOAD TEMP PROFILE: use @tempRAddress to create Account Class --> @acccount class object
-
-// account class functionality:
-// - display rAddress
-// - display xrp balance
-// - display nfts
-// - 
-
-
-
-
-
-// ACCOUNT FUNCTIONALITY
-  //1.  @Params: wallet
-  //    check 

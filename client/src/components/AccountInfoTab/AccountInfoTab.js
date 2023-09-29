@@ -29,18 +29,12 @@ export default function AccountInfoTab({socket}) {
     function logoutAccount() {
         socket.emit('signOut',  async (callback) => {
             const signOutResponse = await callback;
-            console.log(signOutResponse)
+            console.log(signOutResponse);
         });
         setAccountObject({ loggedIn: false });
         window.sessionStorage.clear();
         navigate("/");
     };
-
-    // const identityImg = async () => {
-    //     const rawUrl = await parseUrl(accountObject.userIdentityNft.image)
-    //     const image = await fetch(`https://ipfs.io/ipfs/${rawUrl}`)
-    //     return image
-    // }
 
   return (
     <div id='accountInfoDiv'>
@@ -60,4 +54,4 @@ export default function AccountInfoTab({socket}) {
         }
     </div>
   )
-}
+};

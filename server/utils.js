@@ -53,7 +53,7 @@ const handleSignOut = (currentAccount, serverState, callback) => {
     if (loggedInIndex !== -1) {
         serverState.loggedInUsers.splice(loggedInIndex, 1);
         callback("logged in user has been signed out.");
-    }
+    };
 };
 
 //wait for sign-in payload resolve, if signed -> push user to server loggedInUsersList and send back updated account object

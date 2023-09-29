@@ -11,7 +11,7 @@ function mongooseConnect() {
         const uri = process.env.MONGODB_URI;
         console.log("mongoose connection created.");
         return mongoose.connect(uri);
-    }
-}
+    };
+};
 
 module.exports = mongooseConnect;

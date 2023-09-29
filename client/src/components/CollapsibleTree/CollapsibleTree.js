@@ -25,14 +25,12 @@ function CollapsibleTree({ data }) {
     const conditionalAssign = (obj, key, value) => {
       if (value !== undefined) {
         obj[key] = value;
-      }
-    }
-
-
+      };
+    };
 
     Object.keys(data).forEach(key => {
       const children = data[key].map(item => {
-        console.log(item)
+        console.log(item);
         const child = {
           name: item.date.split("T")[0],
           children: []
@@ -45,10 +43,8 @@ function CollapsibleTree({ data }) {
         conditionalAssign(child, 'date', item.date.split("T")[0]);
         conditionalAssign(child, 'hash', item.hash);
 
-
         return child;
       });
-
       rootNode.children.push({ name: key, children });
     });
 
@@ -70,7 +66,6 @@ function CollapsibleTree({ data }) {
 
   let tooltipTimeout;
 
-
   useEffect(() => {
     const tooltip = d3.select("body")
       .append("div")
@@ -91,7 +86,6 @@ function CollapsibleTree({ data }) {
     tooltip.on("mouseout", () => {
       tooltip.style("display", "none");
     });
-
 
     const hierarchicalData = toHierarchy(txTypeSortObj);
     const svg = d3.select(svgRef.current);
@@ -129,7 +123,6 @@ function CollapsibleTree({ data }) {
 
 
     function update(event, source) {
-      //... (rest of your update function)
       const duration = event?.altKey ? 2500 : 250; // hold the alt key to slow down the transition
       const nodes = root.descendants().reverse();
       const links = root.links();
@@ -185,14 +178,12 @@ function CollapsibleTree({ data }) {
           }, 1000); // 500 ms delay before hiding the tooltip
         });
 
-
-
       nodeEnter.append("circle")
         .attr("r", 4)
         .attr("fill", d => d._children ? "#bc7f0d" : "#CFA14E")
         .attr("stroke-width", 10);
 
-        nodeEnter.append("text")
+      nodeEnter.append("text")
         .attr("dy", "0.31em")
         .attr("x", d => d._children ? -6 : 6)
         .attr("text-anchor", d => d._children ? "end" : "start")
@@ -202,7 +193,7 @@ function CollapsibleTree({ data }) {
         .attr("stroke-linejoin", "round")
         .attr("stroke-width", 1)
         .attr("stroke", "#bc7f0d");
-    
+
 
       // Transition nodes to their new position.
       const nodeUpdate = node.merge(nodeEnter).transition(transition)
@@ -264,8 +255,6 @@ function CollapsibleTree({ data }) {
   }, [data]);
 
   return <svg ref={svgRef} />
-
 }
-
 export default CollapsibleTree;
 

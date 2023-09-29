@@ -70,7 +70,7 @@ export default function TestForm({ setFormOpened, setMintNftPayload, socket }) {
             const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
             if (!allowedTypes.includes(formData.profilePicture.type)) {
                 newErrors.profilePicture = 'Invalid file type. Please use PNG, JPEG, or JPG.';
-            }
+            };
         }
 
         // Validate bio (optional, max 120 characters)
