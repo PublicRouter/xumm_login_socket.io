@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react'
 import "../Login/login.css"
-// import { redirect } from 'react-router-dom'
 import { useContext, useState } from 'react';
 import { AccountContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
-
-import loginCardsImage from '../../images/banking-basics-2-2x.webp';
 import fingerprintLogin from '../../images/fingerprint_login2.svg';
 
 export default function Login({ socket }) {
@@ -22,31 +19,27 @@ export default function Login({ socket }) {
     };
   },[]);
 
-  let metaData = undefined;
-
-  function parseUrl(url) {
-    return url.split('//')[1];
-  };
+  // function parseUrl(url) {
+  //   return url.split('//')[1];
+  // };
 
   const authenticateXumm = () => {
 
     //FIRST EMIT ( receive 'sign-in' payload object)
     socket.emit('signIn', async (callback) => {
       const receivedObj = await callback;
-      //updates UI state when payloadCreate state object updated
       setPayloadCreate(receivedObj);
       //SECOND EMIT ( receive {signed: bool, wallet: '', arrayOfIssedNfts: []})
       socket.emit('subscribeToSignIn', async (callback) => {
         const finalSignInPayloadReturnObject = await callback;
-        console.log("returned updated server account object: ", finalSignInPayloadReturnObject)
-
+        console.log("returned updated server account object: ", finalSignInPayloadReturnObject);
+        
         if (finalSignInPayloadReturnObject.loggedIn) {
           console.log("user successfully signed in.");  
           setAccountObject({...accountObject, ...finalSignInPayloadReturnObject});
           setPayloadMessage("Congratulations! You are now logged in.");
           setPayloadCreate({});
           navigate('/profile');
-
         } else {
           console.log("User Failed to sign in.");
           setPayloadMessage("Account 'sign-in' QR was rejected. Please reload web-page or click 'Genereate QR' again. Cannot proceed to 'Profile' without signing from XUMM wallet.");
@@ -57,9 +50,7 @@ export default function Login({ socket }) {
 
   return (
     <div className='loginMain'>
-        {/* <img id="loginCardsImage" src={loginCardsImage} /> */}
         <img id="fingerprintLoginSvg" src={fingerprintLogin} />
-
 
       {"mintPayload" in payloadCreate ?
         <div className='loginComponent'>
@@ -71,7 +62,7 @@ export default function Login({ socket }) {
         </div>
         :
         <div className='loginComponent'>
-          <h1>Login</h1>
+          <h1>Connect</h1>
           {
             Object.keys(payloadCreate).length === 0 ?
               null

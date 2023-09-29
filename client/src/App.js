@@ -12,87 +12,81 @@ import Transactions from './components/Transactions/Transactions';
 import NftPage from './components/NftPage/NftPage';
 import Footer from './components/Footer/Footer'
 
-
-// import useSocket from './clientUtils/useSocket';
-// import useSessionStorage from './clientUtils/useSessionStorage';
-
 export const AccountContext = createContext();
 
-const clientUrl = 'http://localhost:3001';
-const socket = io(clientUrl);
-
-function App() {
-  // const socket = useSocket('http://localhost:3001');
-  const [accountObject, setAccountObject] = useState({ loggedIn: false });
-  // const [accountObject, setAccountObject] = useSessionStorage('accountObject', { loggedIn: false });
-
-  // useEffect(() => {
-  //   console.log("useme pls")
-  //   if (accountObject.loggedIn && accountObject !== { loggedIn: false }) {
-  //     socket.emit('updateServerAccountState', accountObject, async (callback) => {
-  //       const response = await callback;
-  //       console.log("Response from server: ", response);
-  //     });
-  //   }
-  // }, [accountObject, socket]);
-
-  //returns null if accountObject item does not exist in session storage
-  const sessionStorageAccount = window.sessionStorage.getItem('accountObject');
-
-  console.log("session storage account item: ", sessionStorageAccount);
+function useSocket(url) {
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    //if you put sessionstorage logic in effect, will not store account data to sessionstorage after logging in
-    console.log("THis is my useEffect firing...")
-  }, []);
+    const socketIo = io(url);
+    setSocket(socketIo);
 
-  //logged in & sessionStorage is empty
-  if (accountObject.loggedIn && sessionStorageAccount == null) {
-    window.sessionStorage.setItem('accountObject', JSON.stringify(accountObject));
+    return () => {
+      socketIo.disconnect();
+    };
+  }, [url]);
+
+  return socket;
+}
+
+function useSessionStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.sessionStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(error);
+      return initialValue;
+    }
+  });
+
+  const setValue = (value) => {
+    try {
+      window.sessionStorage.setItem(key, JSON.stringify(value));
+      setStoredValue(value);
+    } catch (error) {
+      console.error(error);
+    }
   };
-  //not logged in, and sessionStorage is populated
-  if (!accountObject.loggedIn && sessionStorageAccount !== null) {
-    console.log("executing updateServerAccountState emit.")
-    const currentAccount = JSON.parse(sessionStorageAccount);
-    socket.emit('updateServerAccountState', currentAccount, async (callback) => {
-      const receivedFrontEndResponseForUpdateServerAccountStateEmit = await callback;
-      console.log("receivedFrontEndResponseForUpdateServerAccountStateEmit: ", receivedFrontEndResponseForUpdateServerAccountStateEmit);
-    });
-    setAccountObject(currentAccount);
 
-  };
+  return [storedValue, setValue];
+};
 
-  //if logged in, and session storage is populated
+function App() {
+  const socket = useSocket('http://localhost:3001');
+  const [accountObject, setAccountObject] = useSessionStorage('accountObject', { loggedIn: false });
 
-  console.log('App component: Current connected users account: ', accountObject)
+  useEffect(() => {
+    if (accountObject.loggedIn && socket) {
+      socket.emit('updateServerAccountState', accountObject, async (callback) => {
+        const response = await callback;
+        console.log("Response from server: ", response);
+      });
+    }
+  }, [accountObject, socket]);
+
+  if (!socket) return null; // or return a loading spinner or some placeholder content
 
   return (
-    <AccountContext.Provider value={[accountObject, setAccountObject]} >
+    <AccountContext.Provider value={[accountObject, setAccountObject]}>
       <div className="App">
         <Navigation />
-        {/* <h1 id="appMainHead">Originators</h1> */}
-        {
-          accountObject.loggedIn ? <AccountInfoTab socket={socket} /> : null
-        }
-        {
-          accountObject.loggedIn ?
-            <Routes>
-              <Route path="/" element={<Home socket={socket} />} />
-              <Route path="/enter" element={<Login socket={socket} />} />
+        {accountObject.loggedIn && <AccountInfoTab socket={socket} />}
+        <Routes>
+          <Route path="/" element={<Home socket={socket} />} />
+          <Route path="/enter" element={<Login socket={socket} />} />
+          {accountObject.loggedIn && (
+            <>
               <Route path="/profile" element={<Profile socket={socket} />} />
               <Route path="/nfts" element={<NftPage socket={socket} />} />
               <Route path="/transactions" element={<Transactions socket={socket} />} />
-            </Routes>
-            :
-            <Routes>
-              <Route path="/" element={<Home socket={socket} />} />
-              <Route path="/enter" element={<Login socket={socket} />} />
-            </Routes>
-        }
+            </>
+          )}
+        </Routes>
         <Footer socket={socket} />
       </div>
     </AccountContext.Provider>
   );
-}
+};
 
 export default App;

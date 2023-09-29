@@ -107,7 +107,19 @@ const createIPFSHashThenUseHashToCreateNFTokenMintPayload = async (currentAccoun
             });
         });
 
-        const ipfsUrl = await storeMetaToIpfs(profileUsername, profileCountry, profileBio, profileProfession, profileExperience, `/Users/jamesg/Desktop/publicRouterClones/xumm_login_socket.io/server/serverHelpers/tempNftImage/${profileImageFileName}`);
+        const fullFileImagePath = `/Users/jamesg/Desktop/publicRouterClones/xumm_login_socket.io/server/serverHelpers/tempNftImage/${profileImageFileName}`;
+
+        const ipfsUrl = await storeMetaToIpfs(profileUsername, profileCountry, profileBio, profileProfession, profileExperience, fullFileImagePath);
+
+        //delete file
+        (async () => {
+            try {
+                await fs.unlink(fullFileImagePath);
+                console.log('File deleted successfully!');
+            } catch (err) {
+                console.error(`Error deleting the file: ${err.message}`);
+            }
+        })();
 
         //returns {payload, uuid, qrLink, qrImage}
         const mintPayload = await mintNfToken(currentAccount.wallet, ipfsUrl, profileUsername);
@@ -147,20 +159,22 @@ const handleSubToNftMint = async (currentAccount) => {
         console.log(err);
     };
 };
-
+//if (App.js accountObject.loggedIn && socket){ run below function }
 const handleUpdateServerAccountState = async (socket, io, sessionedAccountData, serverState, currentAccount, callback) => {
     console.log("Received updateServerAccountState sessionedAccountData: ", sessionedAccountData);
     console.log("CURRENTACCOUNTDATA___________: ", currentAccount);
-
+    //if connected users has bare bones currentAccount instance && front end accountObject is logged in
     if (currentAccount.loggedIn == null) {
         currentAccount.update(sessionedAccountData);
         const balance = await currentAccount.checkAccountXrpBalance();
         console.log("CHECKING CHECKING CLASS METHOD BALANCE: ", balance);
         let hasWallet = false;
 
+        //iterate over list of logged in users, check if each users wallet is the same as the currentAccounts wallet, if so switch hasWallet to true
         for (let i = 0; i < serverState.loggedInUsers.length; i++) {
             if (serverState.loggedInUsers[i].wallet === currentAccount.wallet) {
                 hasWallet = true;
+                //if matching wallet found, exit loop
                 break;
             };
         };

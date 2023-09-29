@@ -1,25 +1,21 @@
-import React, { useContext, useState, useEffect } from 'react'
-import '../Profile/profile.css'
+import React, { useContext, useState, useEffect } from 'react';
+import '../Profile/profile.css';
 import { useNavigate } from 'react-router-dom';
 
-// import NewIdentityNftForm from '../NewIdentityNftForm/NewIdentityNftForm';
 import { AccountContext } from '../../App';
-// import CreateNftForm from '../CreateNftForm/CreateNftForm';
 import TestForm from '../TestForm/TestForm';
-// import stockPricesSvg from '../../images/stock_prices.svg';
 import piggyBankSvg from '../../images/piggyBank.svg';
-// import revenueSvg from '../../images/revenue.svg';
 
 import CollapsibleTree from '../CollapsibleTree/CollapsibleTree';
 import treex from "../../images/treex1.png";
 
+//utils
 import verifyXrpScanApiFetchedNftsInCorrectFormat from "../../clientUtils/verifyXrpScanApiFetchedNftsInCorrectFormat";
 import truncateToTwoDecimalPlaces from '../../clientUtils/truncateToTwoDecimalPlaces';
 
 export default function Profile({ socket }) {
   const navigate = useNavigate();
 
-  // STATES
   const [accountObject, setAccountObject] = useContext(AccountContext);
   const [mintNftPayload, setMintNftPayload] = useState({ payload: false });
   const [burnNftPayload, setBurnNftPayload] = useState({ payload: false });
@@ -33,7 +29,7 @@ export default function Profile({ socket }) {
   //transaction type filter helper function
   function checkTransactionCountByType(transactionType, transactionArray) {
     if (transactionArray) {
-      console.log(typeof transactionArray)
+      console.log(typeof transactionArray);
       const paymentTransactionsCount = transactionArray.filter(transaction => transaction.TransactionType === transactionType).length;
       return paymentTransactionsCount;
     }
@@ -48,7 +44,7 @@ export default function Profile({ socket }) {
   function logoutAccount() {
     socket.emit('signOut', async (callback) => {
       const signOutResponse = await callback;
-      console.log("signout emit rersponse: ", signOutResponse)
+      console.log("signout emit rersponse: ", signOutResponse);
     });
     setAccountObject({ loggedIn: false });
     window.sessionStorage.clear();
@@ -57,7 +53,7 @@ export default function Profile({ socket }) {
 
   //toggle open/close form for creating new nft
   function toggleCreateNftForm() {
-    setFormOpened(!formOpened)
+    setFormOpened(!formOpened);
   };
 
   //delete nft trigger
@@ -164,9 +160,9 @@ export default function Profile({ socket }) {
                 <div className='identitySectionDivInfo'>
                   {
                     accountObject.userIdentityNft?.attributes?.map((attribute) => (
-                      <div className='identityPropertiesDiv'>
-                        <p class="traitTitle">{attribute.trait_type}</p>
-                        <p class="traitValue">{attribute.value}</p>
+                      <div key={attribute.trait_type} className='identityPropertiesDiv'>
+                        <p className="traitTitle">{attribute.trait_type}</p>
+                        <p className="traitValue">{attribute.value}</p>
                       </div>
                     ))
                   }
@@ -316,7 +312,7 @@ export default function Profile({ socket }) {
 
         <img id="treesImg" src={treex} />
 
-        <div>
+        {/* <div>
           {
             xrpscanFetchedAccountInfo.transactionData ?
               <div id="collapsibleTree">
@@ -324,7 +320,7 @@ export default function Profile({ socket }) {
                 <CollapsibleTree data={xrpscanFetchedAccountInfo.transactionData} />
               </div> : null
           }
-        </div>
+        </div> */}
 
       </div>
     </div>

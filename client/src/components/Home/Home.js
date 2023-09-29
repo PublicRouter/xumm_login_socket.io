@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import "../Home/home.css";
 import { Link } from 'react-router-dom'
-
 import oybg from "../../images/oybg.png"
 
-export default function Home({ socket }) {
+export default function Home() {
   return (
     <div className='homeDiv'>
       <img id="moneyTransferSvg" src={oybg} />
@@ -20,12 +19,10 @@ export default function Home({ socket }) {
         <p>Visualize, interact, and control your wallet.</p>
         <button id="homeEnterButton">
           <Link to="/enter" className='homeEnterLink secondButtonPop'>
-            Get Started
+            Connect
           </Link>
         </button>
       </div>
     </div>
   )
-
-
 }

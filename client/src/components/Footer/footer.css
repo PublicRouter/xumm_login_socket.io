@@ -4,8 +4,6 @@
 #footerDiv {
     width: 100%;
     border: none;
-    /* background-color: rgb(244, 241, 202, .8); */
-    /* background-color: rgba(217, 218, 218, 0.5); */
     background-image: linear-gradient(to bottom left, rgb(49,78,98),rgb(76,125,141), rgb(14,40,59));
     opacity: .96;
     backdrop-filter: blur(3px);
@@ -23,8 +21,7 @@
 
 #publisherName {
     color:white ;
-    background-color: #CFA14E;
-    border: 2px solid white ;
+    background-color: rgba(243, 184, 21, 0.809);
     border-radius: 20px;
     padding-inline: 1rem;
     padding-block: .1em;
@@ -33,14 +30,6 @@
     font-weight: 600;
     font-family: 'Rajdhani', sans-serif;
     font-style: normal;
-}
-
-#publisherName:hover {
-    color: rgb(76,125,141);
-    background-color: #f7e6c6;
-    /* font-size: 1.1rem; */
-    /* border: white solid .5px; */
-    /* box-shadow: inset 0px 0px 1px 3px rgb(15, 54, 59); */
 }
 
 #footerSocials {
@@ -74,7 +63,6 @@
     justify-content: center;
     max-width: 220px;
     border-radius: 10px;
-
 }
 
 #footerSocials ul li div {
@@ -96,7 +84,6 @@
     width: 35px;
     margin-right: 6px;
     border-radius: 5px;
-
 }
 
 .footerProfileCard div {

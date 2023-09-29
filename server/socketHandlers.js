@@ -16,12 +16,14 @@ const Account = require('./accountClass');
 const initializeSocketEvents = (io, serverState) => {
     console.log("INITIALIZING SOCKEREVENTS")
     io.on('connection', (socket) => {
+        //when client connects to scoket server, initialize a bare bones currentAccount instance
         let currentAccount = new Account();
 
         console.log(`${socket.id} has joined the server.`);
         serverState.connectedUsers.push(socket.id);
         console.log("Connected user list: ", serverState.connectedUsers);
-
+        //if front end accountObject.loggedIn == true
+        //updates currentAccount instance with account data from sessionStorage
         socket.on("updateServerAccountState", (sessionedAccountData, callback) => {
             handleUpdateServerAccountState(socket, io, sessionedAccountData, serverState, currentAccount, callback);
         });

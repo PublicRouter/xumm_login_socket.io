@@ -22,7 +22,7 @@ export default function Navigation() {
                                         <Link to="/" className='navLink navButtonPop'>Home</Link>
                                     </li>
                                     <li>
-                                        <Link to="/enter" className='navLink navButtonPop'>Login</Link>
+                                        <Link to="/enter" className='navLink navButtonPop'>Connect</Link>
                                     </li>
                                 </ul>
                             }

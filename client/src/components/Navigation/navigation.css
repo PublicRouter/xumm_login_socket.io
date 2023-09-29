@@ -113,7 +113,6 @@
     display: flex;
     flex: none;
     transform: scale(0);
-    /* transition: all 0.4s ease; */
 }
 
 .mobile-menu .menu>div>div {
@@ -140,14 +139,14 @@
 }
 
 .navLink {
-    min-width: 125px;
+    min-width: 140px;
     text-decoration: none;
     transition: white 0.4s ease;
     margin-left: 0;
-    background-color: rgb(232, 176, 7);
+    background-color: rgba(243, 184, 21, 0.809);
     border: none;
     padding-block: 15px;
-    padding-left: 42px;
+    padding-left: 35px;
     list-style: none;
     color: white;
     font-size: .9rem;
@@ -157,14 +156,7 @@
 }
 
 .navLink:hover {
-    /* padding-inline-start: 2rem; */
-    /* width: 125px; */
-    /* font-size: .95rem; */
-    color: white;
-    background-color: rgba(232, 176, 7, 0.772); 
-    /* border: white solid .5px; */
     border-left: none;
-    /* box-shadow: inset -1px 0px 0px 1px rgb(153, 158, 160); */
 }
 
 #navigation {

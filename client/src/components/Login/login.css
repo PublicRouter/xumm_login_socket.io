@@ -18,8 +18,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(to bottom left,rgb(255, 179, 0),#3F3D58, #3F3D58);
-    /* background-color: #3F3D58; */
+    background-image: linear-gradient(to bottom left, rgba(247, 198, 82, 0.575) 10%, #3f3d586d);
     padding: 1rem;
     border-radius: 25px;
     margin-top: 18vh;
@@ -27,7 +26,7 @@
 }
 
 .loginComponent h1 {
-    color: #CFA14E;
+    color: #f4ad28;
     -webkit-text-stroke: 1px white;
     margin-bottom: 0px;
     font-family: 'Rajdhani', sans-serif;
@@ -35,29 +34,16 @@
 }
 
 .loginComponent button {
-    border: solid 2px #3F3D58;
-    background: #CFA14E;
+    border: solid 1px #3F3D58;
+    background: white;
     text-decoration: underline;
-    /* -webkit-text-stroke: 1px white; */
-    /* backdrop-filter: blur(20px); */
-    color: white;
+    color: #3F3D58;
     padding: 6px;
     border-radius: 10px;
     font-size: 1rem;
     font-family: 'Rajdhani', sans-serif;
     margin-bottom: 4vh;
     font-weight: 600;
-
-    /* -webkit-box-shadow: 0px 1px 1px rgb(211, 214, 233);
-    -moz-box-shadow: 0px 5px 5px rgb(211, 214, 233);
-    box-shadow: 1px 0px 7px 3px rgb(211, 214, 233); */
-  
-}
-
-.loginComponent button:hover {
-    color: rgb(76,125,141);
-    background-color: #f7e6c6;
-    border: white solid 2px;
 }
 
 .payloadDiv {
@@ -95,6 +81,9 @@
     margin-block-start: 0px;
     margin-block-end: 20px;
     font-weight: bold;
+    box-shadow: inset 1px 1px 1px 0px rgba(73, 73, 73, 0.5),
+        7px 7px 20px 0px rgba(0, 0, 0, .1),
+        4px 4px 5px 0px rgba(0, 0, 0, .1);
 }
 
 #successP {
@@ -109,7 +98,6 @@
 }
 
 #fingerprintLoginSvg {
-
     height: 25vh;
     width: 100%;
     position: absolute;
