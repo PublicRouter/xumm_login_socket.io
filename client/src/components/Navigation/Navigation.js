@@ -17,17 +17,34 @@ export default function Navigation() {
                     <div>
                         <div>
                             <ul className='mainNav'>
-                                <li>
-                                    <Link to="/" className='navLink navButtonPop'>Home</Link>
-                                </li>
+
                                 {accountObject.loggedIn ? (
-                                    <li>
-                                        <Link to="/profile" className='navLink navButtonPop'>Profile</Link>
-                                    </li>
+                                    <>
+                                        <li>
+                                            <Link to="/profile" className='navLink navButtonPop'>Profile</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/transactions" className='navLink navButtonPop'>Transaction</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/nfts" className='navLink navButtonPop'>NFTs</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/profile" className='navLink navButtonPop'>Misc</Link>
+                                        </li>
+                                    </>
+
+
                                 ) : (
-                                    <li>
-                                        <Link to="/enter" className='navLink navButtonPop'>Connect</Link>
-                                    </li>
+                                    <>
+                                        <li>
+                                            <Link to="/" className='navLink navButtonPop'>Home</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/enter" className='navLink navButtonPop'>Connect</Link>
+                                        </li>
+                                    </>
+
                                 )}
                             </ul>
                         </div>

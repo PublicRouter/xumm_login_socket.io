@@ -238,7 +238,7 @@ const handleSubscribeToSignIn = async (io, socket, currentAccount, serverState, 
         currentAccount.wallet = subbedPayloadResponseData.response.signer;
         currentAccount.xummToken = subbedPayloadResponseData.response.user;
 
-        console.log("Full sign-in payload response from get: ", subbedPayloadResponseData);
+        // console.log("Full sign-in payload response from get: ", subbedPayloadResponseData);
 
         if (currentAccount.loggedIn) {
             await currentAccount.checkForAccountIdentityNft();
